@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/jdbc
+			http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx.xsd
+	">
+
+	<description>
+		Dieses ist die zentrale Konfiguration für die Datenbank.
+	</description>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="org.h2.Driver" />
+		<property name="jdbcUrl" value="jdbc:h2:mem:securemessage" />
+
+		<property name="user" value="securemessage" />
+		<property name="password" value="skh2odkhb2iuoiuou2hjfo92aa" />
+
+		<property name="maxPoolSize" value="10" />
+		<property name="maxStatements" value="0" />
+		<property name="minPoolSize" value="5" />
+
+
+	</bean>
+
+	<!-- Starte die H2-Datenbank im Memory -->
+	<!-- <jdbc:embedded-database id="dataSource" type="H2"> <jdbc:script location="classpath:/META-INF/spring/init.sql" 
+		/> </jdbc:embedded-database> -->
+
+	<!-- Erzeuge die Persitence-Unit -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		p:dataSource-ref="dataSource" p:persistenceUnitName="persistence-spring-securemessage">
+		
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="org.hibernate.dialect.H2Dialect" />
+				<property name="showSql" value="false" />
+				<property name="generateDdl" value="true" />
+			</bean>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
+				</prop>  
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Einen Transaktionmanager erzeugen -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory" />
+
+	<!-- Das Verwenden von Annotationen für die Transaktionen ermöglichen -->
+	<tx:annotation-driven proxy-target-class="true" />
+
+</beans>
