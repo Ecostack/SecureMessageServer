@@ -9,7 +9,21 @@
 
 	<artifactId>SecureMessageWebservice</artifactId>
 
+	<dependencies>
 
+		<dependency>
+			<groupId>de.bio-hazard</groupId>
+			<artifactId>SecureMessageService</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.bio-hazard</groupId>
+			<artifactId>SecureMessageFacade</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>

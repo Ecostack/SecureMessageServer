@@ -45,6 +45,12 @@ public class DefaultMessageService implements MessageService {
 		return getMessageDao().findAll();
 	}
 
+	public void listMessagesAndData() {
+		for (Message lcMSG : getMessages()) {
+			System.err.println("Listing: " + lcMSG.getMessageText());
+		}
+	}
+
 	public DefaultMessageDao getMessageDao() {
 		return messageDao;
 	}

@@ -26,6 +26,8 @@
 
 	<!-- Die projektspezifischen Konfigurationen laden -->
 	<import resource="serviceAppContext.xml" />
+	
+	<import resource="webserviceContext.xml"/>
 
 
 </beans>

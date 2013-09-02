@@ -64,6 +64,14 @@ public class Global {
 		lcUser.setRole(lcRoleAdmin);
 		lcUser.setLetzterLoginAm(new Date());
 		getUserService().addUser(lcUser);
+		
+		lcUser = new User();
+		lcUser.setEmail("test");
+		lcUser.setName("test");
+		lcUser.setPassword(BCrypt.hashpw("test", BCrypt.gensalt(11)));
+		lcUser.setRole(lcRoleAdmin);
+		lcUser.setLetzterLoginAm(new Date());
+		getUserService().addUser(lcUser);
 
 		// #################################################################################################################################
 		
