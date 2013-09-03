@@ -25,6 +25,8 @@ public class MessageWebservice {
 	public void addMessage(MessageWebserviceDTO pMessageDTO) {
 		messageService.addMessage(MessageFacade
 				.transferMessageWebserviceDTOtoMessage(pMessageDTO));
+		
+		messageService.listMessagesAndData();
 	}
 
 }

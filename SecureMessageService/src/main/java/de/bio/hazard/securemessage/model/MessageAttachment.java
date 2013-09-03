@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 public class MessageAttachment {
 
@@ -17,6 +18,7 @@ public class MessageAttachment {
 	private long id;
 	
 	@Column
+	@OneToMany
 	private Message message;
 	
 	@Column

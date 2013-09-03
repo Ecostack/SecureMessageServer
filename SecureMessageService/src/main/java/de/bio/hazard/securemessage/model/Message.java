@@ -1,15 +1,20 @@
 package de.bio.hazard.securemessage.model;
 
+import java.util.List;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,9 +33,15 @@ public class Message {
 	@Basic(optional = false)
 	private long id;
 	
+	@Column
 	private String subject;
 	
+	@Column
 	private String messageText;
+	
+	@Column
+	@ManyToOne(fetch=FetchType.LAZY)
+	private List<MessageAttachment> attachments;
 
 	public long getId() {
 		return id;
