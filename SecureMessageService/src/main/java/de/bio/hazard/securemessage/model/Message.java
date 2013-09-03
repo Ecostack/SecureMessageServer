@@ -20,11 +20,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "MESSAGE")
 @Access(AccessType.FIELD)
-@NamedQueries({
-	@NamedQuery(name = Message.FIND_ALL, query = "from Message m")
- })
+@NamedQueries({ @NamedQuery(name = Message.FIND_ALL, query = "from Message m") })
 public class Message {
-	
+
 	public static final String FIND_ALL = "Message.FIND_ALL";
 
 	@Id
@@ -32,16 +30,15 @@ public class Message {
 	@Column(name = "ID", unique = true, nullable = false)
 	@Basic(optional = false)
 	private long id;
-	
+
 	@Column
 	private String subject;
-	
+
 	@Column
 	private String messageText;
-	
-	@Column
-	@ManyToOne(fetch=FetchType.LAZY)
-	private List<MessageAttachment> attachments;
+
+	// TODO Binding
+//	private List<MessageAttachment> attachments;
 
 	public long getId() {
 		return id;
@@ -66,6 +63,5 @@ public class Message {
 	public void setMessageText(String messageText) {
 		this.messageText = messageText;
 	}
-	
-	
+
 }

@@ -16,14 +16,13 @@ public class MessageAttachment {
 	@Column(name = "ID", unique = true, nullable = false)
 	@Basic(optional = false)
 	private long id;
-	
-	@Column
-	@OneToMany
+
+	// TODO Binding
 	private Message message;
-	
+
 	@Column
 	private Blob data;
-	
+
 	@Column
 	private String dataHash;
 }
