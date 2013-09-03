@@ -1,1 +1,0 @@
-wsimport -s src/main/java http://localhost:8080/messageWebservice?wsdl
