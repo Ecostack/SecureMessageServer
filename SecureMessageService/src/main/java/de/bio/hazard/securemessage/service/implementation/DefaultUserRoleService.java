@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import de.bio.hazard.securemessage.dao.implementation.DefaultUserRoleDao;
 import de.bio.hazard.securemessage.model.User;
 import de.bio.hazard.securemessage.model.UserRole;
+import de.bio.hazard.securemessage.model.helper.UserRoleType;
 import de.bio.hazard.securemessage.service.UserRoleService;
 
 @SuppressWarnings("serial")
@@ -63,7 +64,7 @@ public class DefaultUserRoleService implements UserRoleService, Serializable {
 	@Override
 	public Boolean isAdministrator(User pUser) {
 		if (pUser != null) {
-			return pUser.getRole().getTargetType().compareTo(new Integer(UserRole.ROLE_ADMINISTRATOR)) == 0;
+			return pUser.getRole().getType().compareTo(UserRoleType.Admin) == 0;
 		} 
 		return false;
 	}

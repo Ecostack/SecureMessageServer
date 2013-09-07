@@ -17,18 +17,21 @@ public class DefaultMessageService implements MessageService {
 	@Autowired
 	private DefaultMessageDao messageDao;
 
+	@Transactional(readOnly = false)
 	@Override
 	public void addMessage(Message pMessage) {
 		getMessageDao().create(pMessage);
 
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void updateMessage(Message pMessage) {
 		getMessageDao().save(pMessage);
 
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void deleteMessage(Message pMessage) {
 		getMessageDao().remove(pMessage);
@@ -46,9 +49,9 @@ public class DefaultMessageService implements MessageService {
 	}
 
 	public void listMessagesAndData() {
-		for (Message lcMSG : getMessages()) {
-			System.err.println("Listing: " + lcMSG.getMessageText());
-		}
+//		for (Message lcMSG : getMessages()) {
+//			System.err.println("Listing: " + lcMSG.getMessageText());
+//		}
 	}
 
 	public DefaultMessageDao getMessageDao() {

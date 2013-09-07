@@ -12,8 +12,6 @@ public class MessageFacade {
 		}
 		
 		Message lcResult = new Message();
-		lcResult.setMessageText(pDTO.getMessageText());
-		lcResult.setSubject(pDTO.getSubject());
 		return lcResult;
 	}
 }

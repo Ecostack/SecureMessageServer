@@ -1,32 +1,37 @@
 package de.bio.hazard.securemessage.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER")
 @Access(AccessType.FIELD)
 @NamedQueries({
-	@NamedQuery(name = User.FIND_ALL, query = "from User u"),
-	@NamedQuery(name = User.FIND_BY_USERNAME, query = "from User u where name = ?") ,
-	@NamedQuery(name = User.FIND_BY_EMAIL, query = "from User u where email = ?") })
+		@NamedQuery(name = User.FIND_ALL, query = "from User u"),
+		@NamedQuery(name = User.FIND_BY_USERNAME, query = "from User u where name = ?"),
+		@NamedQuery(name = User.FIND_BY_EMAIL, query = "from User u where email = ?") })
 public class User {
 
 	public static final String FIND_ALL = "User.FIND_ALL";
 	public static final String FIND_BY_USERNAME = "User.FIND_BY_USERNAME";
 	public static final String FIND_BY_EMAIL = "User.FIND_BY_EMAIL";
+	// -devices: List<Device>
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,25 +39,47 @@ public class User {
 	@Basic(optional = false)
 	private long id;
 
+	@Column(unique = true, nullable = false)
+	private String username;
+
 	@Column(unique = false, nullable = false)
-	private String name;
+	private String password;
 
-	@Column(unique = false, nullable = true)
-	private String vorname;
+	@Column(unique = false, nullable = false)
+	private String name = "";
 
-	@Column(unique = false, nullable = true)
+	@Column(unique = false, nullable = false)
+	private String prename = "";
+
+	@Column(unique = true, nullable = false)
 	private String email;
 
-	@Column(unique = false, nullable = true)
-	private String password;
-	
+	@Column(unique = false, nullable = false)
+	private String phonenumber = "";
+
+	@Column(unique = false, nullable = false)
+	private byte[] publicAsyncKey;
+
 	@Column(unique = false, nullable = true)
 	private Date letzterLoginAm;
 
 	@ManyToOne
 	private UserRole role;
+
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<Message> messages;
+
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<Device> devices;
 	
-	
+
+	public List<Device> getDevices() {
+		return devices;
+	}
+
+	public void setDevices(List<Device> devices) {
+		this.devices = devices;
+	}
 
 	public Long getId() {
 		return id;
@@ -78,12 +105,36 @@ public class User {
 		this.name = name;
 	}
 
-	public String getVorname() {
-		return vorname;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setVorname(String vorname) {
-		this.vorname = vorname;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPrename() {
+		return prename;
+	}
+
+	public void setPrename(String prename) {
+		this.prename = prename;
+	}
+
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
 	}
 
 	public String getPassword() {
@@ -102,6 +153,18 @@ public class User {
 		this.letzterLoginAm = letzterLoginAm;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public byte[] getPublicAsyncKey() {
+		return publicAsyncKey;
+	}
+
+	public void setPublicAsyncKey(byte[] publicAsyncKey) {
+		this.publicAsyncKey = publicAsyncKey;
+	}
+
 	public UserRole getRole() {
 		return role;
 	}
@@ -109,10 +172,5 @@ public class User {
 	public void setRole(UserRole role) {
 		this.role = role;
 	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 
 }

@@ -1,5 +1,6 @@
 package de.bio.hazard.securemessage.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Access;
@@ -11,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,14 +33,17 @@ public class Message {
 	@Basic(optional = false)
 	private long id;
 
-	@Column
-	private String subject;
+	@ManyToOne(fetch=FetchType.LAZY)
+	private User sender;
 
-	@Column
-	private String messageText;
+	@ManyToOne(fetch=FetchType.LAZY)
+	private User receiver;
 
-	// TODO Binding
-//	private List<MessageAttachment> attachments;
+	@ManyToMany(fetch = FetchType.LAZY,mappedBy="messages")
+	private List<MessageContent> contents = new ArrayList<MessageContent>();
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	private List<MessageReceiver> messageReceivers = new ArrayList<MessageReceiver>();
 
 	public long getId() {
 		return id;
@@ -48,20 +53,36 @@ public class Message {
 		this.id = id;
 	}
 
-	public String getSubject() {
-		return subject;
+	public User getSender() {
+		return sender;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setSender(User sender) {
+		this.sender = sender;
 	}
 
-	public String getMessageText() {
-		return messageText;
+	public User getReceiver() {
+		return receiver;
 	}
 
-	public void setMessageText(String messageText) {
-		this.messageText = messageText;
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
+	}
+
+	public List<MessageContent> getContents() {
+		return contents;
+	}
+
+	public void setContents(List<MessageContent> contents) {
+		this.contents = contents;
+	}
+
+	public List<MessageReceiver> getMessageReceivers() {
+		return messageReceivers;
+	}
+
+	public void setMessageReceivers(List<MessageReceiver> messageReceivers) {
+		this.messageReceivers = messageReceivers;
 	}
 
 }

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.1">
+  <zoom_level>8</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>544</x>
+      <y>472</y>
+      <w>232</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Message&gt;&gt;
+--
+-id: Long
+-sender: User
+-receiver: User
+-contents: List&lt;MessageContent&gt;
+-sent: Date
+-received: Date</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>56</x>
+      <y>472</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;UserRole&gt;&gt;
+--
+-id
+-user: User
+-type: UserRoleType</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>312</x>
+      <y>472</y>
+      <w>168</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;User&gt;&gt;
+--
+-id
+-username
+-password
+-name: 
+-prename: String
+-email: String
+-phonenumber: String
+-userroles:List&lt;UserRole&gt;
+-messages: List&lt;Message&gt;
+-publicAsyncKey: byte[]
+-devices: List&lt;Device&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>200</x>
+      <y>528</y>
+      <w>128</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1
+</panel_attributes>
+    <additional_attributes>112;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>528</y>
+      <w>104</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+</panel_attributes>
+    <additional_attributes>88;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>56</x>
+      <y>192</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ENUM&gt;&gt;
+&lt;&lt;UserRoleType&gt;&gt;
+--
+-- Admin
+-- Paying
+-- Registered
+-- Unregistered
+-- Deactivated</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>120</x>
+      <y>320</y>
+      <w>40</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1</panel_attributes>
+    <additional_attributes>24;24;24;152</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>528</x>
+      <y>192</y>
+      <w>232</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;MessageContent&gt;&gt;
+--
+-id: Long
+-messages: List&lt;Message&gt;
+-data: byte[]
+-type: MessageContentType
+-synchEncryptionKey: byte[]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>616</x>
+      <y>320</y>
+      <w>56</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=2..n
+</panel_attributes>
+    <additional_attributes>40;152;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>904</x>
+      <y>192</y>
+      <w>232</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;MessageContentAttachment&gt;&gt;
+--
+-runningNumber: Long
+-filename: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>272</x>
+      <y>192</y>
+      <w>232</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;MessageReceiver&gt;&gt;
+--
+-id: Long
+-message: Message
+-type: MessageReceiverType</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>528</x>
+      <y>0</y>
+      <w>232</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ENUM
+&lt;&lt;MessageContentType&gt;&gt;
+--
+-- Attachment
+-- Subject
+-- Message</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>272</x>
+      <y>0</y>
+      <w>232</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ENUM
+&lt;&lt;MessageReceiverType&gt;&gt;
+--
+-- To
+-- CC
+-- BCC</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>128</y>
+      <w>40</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;64</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>616</x>
+      <y>128</y>
+      <w>40</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;64</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>368</x>
+      <y>320</y>
+      <w>224</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=1..n
+</panel_attributes>
+    <additional_attributes>208;152;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>736</x>
+      <y>240</y>
+      <w>184</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;168;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>312</x>
+      <y>704</y>
+      <w>168</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Device&gt;&gt;
+--
+-id: Long
+-user: User
+-publicAsyncKey: byte[]
+-deactivated: boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>376</x>
+      <y>624</y>
+      <w>40</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=1
+</panel_attributes>
+    <additional_attributes>24;80;24;24</additional_attributes>
+  </element>
+</diagram>
