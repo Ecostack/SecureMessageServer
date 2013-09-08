@@ -3,23 +3,23 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.bio-hazard</groupId>
-		<artifactId>SecureMessageMavenMain</artifactId>
+		<artifactId>SecureMessageServerMavenMain</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>SecureMessageWebservice</artifactId>
+	<artifactId>SecureMessageServerWebservice</artifactId>
 
 	<dependencies>
 
 		<dependency>
 			<groupId>de.bio-hazard</groupId>
-			<artifactId>SecureMessageService</artifactId>
+			<artifactId>SecureMessageServerService</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>de.bio-hazard</groupId>
-			<artifactId>SecureMessageFacade</artifactId>
+			<artifactId>SecureMessageServerFacade</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

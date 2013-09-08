@@ -19,10 +19,10 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="org.h2.Driver" />
-		<property name="jdbcUrl" value="jdbc:h2:mem:securemessage" />
+		<property name="jdbcUrl" value="jdbc:h2:tcp://localhost/~/db/securemessage" />
 
 		<property name="user" value="securemessage" />
-		<property name="password" value="skh2odkhb2iuoiuou2hjfo92aa" />
+		<property name="password" value="dad2dasd21dad21dqcd2qfqrfqf31ffsdf13qf" />
 
 		<property name="maxPoolSize" value="10" />
 		<property name="maxStatements" value="0" />
