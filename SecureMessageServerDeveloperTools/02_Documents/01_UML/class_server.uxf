@@ -4,9 +4,9 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>544</x>
-      <y>472</y>
-      <w>232</w>
+      <x>496</x>
+      <y>480</y>
+      <w>264</w>
       <h>152</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Message&gt;&gt;
@@ -16,14 +16,15 @@
 -receiver: User
 -contents: List&lt;MessageContent&gt;
 -sent: Date
--received: Date</panel_attributes>
+-received: Date
+-messageContentKeys: List&lt;messageContetKey&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>56</x>
-      <y>472</y>
+      <x>8</x>
+      <y>480</y>
       <w>168</w>
       <h>152</h>
     </coordinates>
@@ -37,8 +38,8 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>312</x>
-      <y>472</y>
+      <x>264</x>
+      <y>480</y>
       <w>168</w>
       <h>176</h>
     </coordinates>
@@ -50,7 +51,7 @@
 -name: 
 -prename: String
 -email: String
--phonenumber: String
+-mobilenumber: String
 -userroles:List&lt;UserRole&gt;
 -messages: List&lt;Message&gt;
 -publicAsyncKey: byte[]
@@ -60,8 +61,8 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>200</x>
-      <y>528</y>
+      <x>152</x>
+      <y>536</y>
       <w>128</w>
       <h>40</h>
     </coordinates>
@@ -74,8 +75,8 @@ m2=1
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>456</x>
-      <y>528</y>
+      <x>408</x>
+      <y>536</y>
       <w>104</w>
       <h>40</h>
     </coordinates>
@@ -88,8 +89,8 @@ m2=0..n
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>56</x>
-      <y>192</y>
+      <x>8</x>
+      <y>200</y>
       <w>168</w>
       <h>152</h>
     </coordinates>
@@ -106,8 +107,8 @@ m2=0..n
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>120</x>
-      <y>320</y>
+      <x>72</x>
+      <y>328</y>
       <w>40</w>
       <h>168</h>
     </coordinates>
@@ -119,9 +120,9 @@ m2=1</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>528</x>
-      <y>192</y>
-      <w>232</w>
+      <x>736</x>
+      <y>200</y>
+      <w>288</w>
       <h>152</h>
     </coordinates>
     <panel_attributes>&lt;&lt;MessageContent&gt;&gt;
@@ -130,42 +131,29 @@ m2=1</panel_attributes>
 -messages: List&lt;Message&gt;
 -data: byte[]
 -type: MessageContentType
--synchEncryptionKey: byte[]</panel_attributes>
+-messageContentKeys: List&lt;messageContetKey&gt;
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>616</x>
-      <y>320</y>
-      <w>56</w>
+      <x>584</x>
+      <y>328</y>
+      <w>280</w>
       <h>168</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1..n
 m2=2..n
 </panel_attributes>
-    <additional_attributes>40;152;24;24</additional_attributes>
+    <additional_attributes>24;152;264;24</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>904</x>
-      <y>192</y>
-      <w>232</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;MessageContentAttachment&gt;&gt;
---
--runningNumber: Long
--filename: String</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>272</x>
-      <y>192</y>
+      <x>432</x>
+      <y>200</y>
       <w>232</w>
       <h>152</h>
     </coordinates>
@@ -179,7 +167,7 @@ m2=2..n
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>528</x>
+      <x>736</x>
       <y>0</y>
       <w>232</w>
       <h>152</h>
@@ -195,8 +183,8 @@ m2=2..n
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>272</x>
-      <y>0</y>
+      <x>432</x>
+      <y>8</y>
       <w>232</w>
       <h>152</h>
     </coordinates>
@@ -211,8 +199,8 @@ m2=2..n
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>360</x>
-      <y>128</y>
+      <x>520</x>
+      <y>136</y>
       <w>40</w>
       <h>80</h>
     </coordinates>
@@ -222,44 +210,33 @@ m2=2..n
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>616</x>
+      <x>824</x>
       <y>128</y>
       <w>40</w>
-      <h>80</h>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>24;24;24;64</additional_attributes>
+    <additional_attributes>24;24;24;72</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>368</x>
-      <y>320</y>
-      <w>224</w>
+      <x>504</x>
+      <y>328</y>
+      <w>64</w>
       <h>168</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1..n
 m2=1..n
 </panel_attributes>
-    <additional_attributes>208;152;24;24</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>736</x>
-      <y>240</y>
-      <w>184</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;24;168;24</additional_attributes>
+    <additional_attributes>24;152;48;24</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>312</x>
-      <y>704</y>
+      <x>232</x>
+      <y>200</y>
       <w>168</w>
       <h>160</h>
     </coordinates>
@@ -274,15 +251,59 @@ m2=1..n
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>376</x>
-      <y>624</y>
+      <x>296</x>
+      <y>336</y>
       <w>40</w>
-      <h>96</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1..n
 m2=1
 </panel_attributes>
-    <additional_attributes>24;80;24;24</additional_attributes>
+    <additional_attributes>24;24;24;144</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>816</x>
+      <y>480</y>
+      <w>248</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;MessageContentKey&gt;&gt;
+--
+-id: Long
+-message: Message
+-messageContent: MessageContent
+-synchEncryptionKey: byte[]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>736</x>
+      <y>520</y>
+      <w>96</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+</panel_attributes>
+    <additional_attributes>24;24;80;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>920</x>
+      <y>328</y>
+      <w>40</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+</panel_attributes>
+    <additional_attributes>24;24;24;152</additional_attributes>
   </element>
 </diagram>
