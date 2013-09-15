@@ -12,5 +12,6 @@
 
 	<context:component-scan base-package="de.bio.hazard.securemessage.webservice" />
 	
-
+	<context:component-scan base-package="de.bio.hazard.securemessage.facade" />
+	
 </beans>

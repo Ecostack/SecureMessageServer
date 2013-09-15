@@ -7,6 +7,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import de.bio.hazard.securemessage.webservice.AuthenticationWebservice;
 import de.bio.hazard.securemessage.webservice.MessageWebservice;
 
 @Component()
@@ -22,7 +23,11 @@ public class StartUp {
 		
 		MessageWebservice lcMessageWebservice = applicationContext.getBean(MessageWebservice.class);
 		
+		AuthenticationWebservice lcAuthenticationWebservice = applicationContext.getBean(AuthenticationWebservice.class);
+		
 //		MessageEndpoint lcMessageWebservice = new MessageEndpoint();
-		Endpoint lcEndpointPublished = Endpoint.publish("http://localhost:8080/messageWebservice", lcMessageWebservice);
+		Endpoint.publish("http://localhost:8080/messageWebservice", lcMessageWebservice);
+		Endpoint.publish("http://localhost:8080/authenticationWebservice", lcAuthenticationWebservice);
+		
 	}
 }

@@ -85,7 +85,7 @@ public class User {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -151,10 +151,6 @@ public class User {
 
 	public void setLetzterLoginAm(Date letzterLoginAm) {
 		this.letzterLoginAm = letzterLoginAm;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public byte[] getPublicAsyncKey() {
