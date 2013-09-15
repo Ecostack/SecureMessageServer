@@ -33,17 +33,20 @@ public class Message {
 	@Basic(optional = false)
 	private long id;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User sender;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User receiver;
 
-	@ManyToMany(fetch = FetchType.LAZY,mappedBy="messages")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "messages")
 	private List<MessageContent> contents = new ArrayList<MessageContent>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<MessageReceiver> messageReceivers = new ArrayList<MessageReceiver>();
+
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<MessageContentKey> messageContentKeys = new ArrayList<MessageContentKey>();
 
 	public long getId() {
 		return id;
@@ -83,6 +86,14 @@ public class Message {
 
 	public void setMessageReceivers(List<MessageReceiver> messageReceivers) {
 		this.messageReceivers = messageReceivers;
+	}
+
+	public List<MessageContentKey> getMessageContentKeys() {
+		return messageContentKeys;
+	}
+
+	public void setMessageContentKeys(List<MessageContentKey> messageContentKeys) {
+		this.messageContentKeys = messageContentKeys;
 	}
 
 }

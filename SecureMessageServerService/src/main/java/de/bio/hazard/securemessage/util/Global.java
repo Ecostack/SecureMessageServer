@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 import de.bio.hazard.securemessage.encryption.hashing.BCrypt;
 import de.bio.hazard.securemessage.model.Message;
 import de.bio.hazard.securemessage.model.MessageContent;
+import de.bio.hazard.securemessage.model.MessageContentKey;
 import de.bio.hazard.securemessage.model.User;
 import de.bio.hazard.securemessage.model.UserRole;
 import de.bio.hazard.securemessage.model.helper.MessageContentType;
 import de.bio.hazard.securemessage.model.helper.UserRoleType;
+import de.bio.hazard.securemessage.service.MessageContentKeyService;
 import de.bio.hazard.securemessage.service.MessageContentService;
 import de.bio.hazard.securemessage.service.MessageService;
 import de.bio.hazard.securemessage.service.UserRoleService;
@@ -32,6 +34,7 @@ public class Global {
 
 	private MessageContentService messageContentService;
 
+	private MessageContentKeyService messageContentKeyService;
 	// private OrgUnitService orgUnitService;
 	//
 	// private AutomarkeService automarkenService;
@@ -48,12 +51,13 @@ public class Global {
 	@Autowired
 	public Global(UserRoleService pUserRoleService, UserService pUserService,
 			MessageService pMessageService,
-			MessageContentService pMessageContentService) throws UnsupportedEncodingException {
+			MessageContentService pMessageContentService,MessageContentKeyService pMessageContentKeyService) throws UnsupportedEncodingException {
 
 		userRoleService = pUserRoleService;
 		userService = pUserService;
 		messageService = pMessageService;
 		messageContentService = pMessageContentService;
+		messageContentKeyService = pMessageContentKeyService;
 
 		log.debug("Global init");
 
@@ -116,7 +120,15 @@ public class Global {
 		messageContentService.addMessageContent(lcMessageContent);
 
 		messageContentService.addMessageContent(lcMessageContent2);
-
+		
+		
+		MessageContentKey lcMCK = new MessageContentKey();
+		lcMCK.setMessage(lcMessage);
+		lcMCK.setMessageContent(lcMessageContent);
+		lcMCK.setSynchEncryptionKey(new byte[]{1,2,3});
+		
+		messageContentKeyService.addMessageContentKey(lcMCK);
+		
 		for (Message lcMessageItem : messageService.getMessages()) {
 			System.err.println("Message: " + lcMessageItem.getId());
 			for (MessageContent lcContent : lcMessageItem.getContents()) {
@@ -125,11 +137,20 @@ public class Global {
 						+ lcContent.getMessageContentType());
 			}
 		}
-		
-		
-		List<MessageContent> lcList = messageContentService.getMessagesContentsByMessage(lcMessage);
+
+		List<MessageContent> lcList = messageContentService
+				.getMessagesContentsByMessage(lcMessage);
 		for (MessageContent lcMessageContentItem : lcList) {
-			System.err.println("Messagecontent: " + lcMessageContentItem.getId());
+			System.err.println("Messagecontent: "
+					+ lcMessageContentItem.getId());
+		}
+		
+		
+		
+		List<MessageContentKey> lcMCKList = messageContentKeyService.getMessagesContentKeysByMessage(lcMessage.getId());
+		for (MessageContentKey lcMCKItem : lcMCKList) {
+			System.err.println("MessageContentKey: " + lcMCKItem.getId());
+			System.err.println("MessageContentKey encKey: " + lcMCKItem.getSynchEncryptionKey());
 		}
 	}
 

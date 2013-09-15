@@ -24,13 +24,12 @@ import de.bio.hazard.securemessage.model.helper.MessageContentType;
 @Table(name = "MESSAGECONTENT")
 @Access(AccessType.FIELD)
 @NamedQueries({
-	@NamedQuery(name = MessageContent.FIND_ALL, query = "from MessageContent mc"),
-	@NamedQuery(name = MessageContent.FIND_BY_MESSAGE, query = "select distinct mc from MessageContent mc JOIN mc.messages messages WHERE messages IN ( ?)")})
+		@NamedQuery(name = MessageContent.FIND_ALL, query = "from MessageContent mc"),
+		@NamedQuery(name = MessageContent.FIND_BY_MESSAGE, query = "select distinct mc from MessageContent mc JOIN mc.messages messages WHERE messages IN ( ?)") })
 public class MessageContent {
 
 	public static final String FIND_ALL = "MessageContent.FIND_ALL";
 	public static final String FIND_BY_MESSAGE = "MessageContent.FIND_BY_MESSAGE";
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,6 +48,15 @@ public class MessageContent {
 
 	@Column(unique = false, nullable = false)
 	private byte[] synchEncryptionKey;
+
+	@Column(unique = false, nullable = true)
+	private String filename = "";
+
+	@Column(unique = false, nullable = false)
+	private int runningNumber = 0;
+
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<MessageContentKey> messageContentKeys = new ArrayList<MessageContentKey>();
 
 	public long getId() {
 		return id;
@@ -88,6 +96,30 @@ public class MessageContent {
 
 	public void setSynchEncryptionKey(byte[] synchEncryptionKey) {
 		this.synchEncryptionKey = synchEncryptionKey;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public int getRunningNumber() {
+		return runningNumber;
+	}
+
+	public void setRunningNumber(int runningNumber) {
+		this.runningNumber = runningNumber;
+	}
+
+	public List<MessageContentKey> getMessageContentKeys() {
+		return messageContentKeys;
+	}
+
+	public void setMessageContentKeys(List<MessageContentKey> messageContentKeys) {
+		this.messageContentKeys = messageContentKeys;
 	}
 
 }

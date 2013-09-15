@@ -22,7 +22,7 @@
 		<property name="jdbcUrl" value="jdbc:h2:tcp://localhost/~/db/securemessage" />
 
 		<property name="user" value="securemessage" />
-		<property name="password" value="dad2dasd21dad21dqcd2qfqrfqf31ffsdf13qf" />
+		<property name="password" value="" />
 
 		<property name="maxPoolSize" value="10" />
 		<property name="maxStatements" value="0" />
