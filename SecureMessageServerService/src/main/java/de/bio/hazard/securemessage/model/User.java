@@ -1,5 +1,6 @@
 package de.bio.hazard.securemessage.model;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,7 +31,6 @@ public class User {
 	public static final String FIND_ALL = "User.FIND_ALL";
 	public static final String FIND_BY_USERNAME = "User.FIND_BY_USERNAME";
 	public static final String FIND_BY_EMAIL = "User.FIND_BY_EMAIL";
-	// -devices: List<Device>
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,7 +60,10 @@ public class User {
 	private byte[] publicAsyncKey;
 
 	@Column(unique = false, nullable = true)
-	private Date letzterLoginAm;
+	private Calendar lastLoginAt;
+
+	@Column(unique = false, nullable = true)
+	private Calendar creationDate;
 
 	@ManyToOne
 	private UserRole role;
@@ -71,7 +73,6 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Device> devices;
-	
 
 	public List<Device> getDevices() {
 		return devices;
@@ -145,14 +146,6 @@ public class User {
 		this.password = password;
 	}
 
-	public Date getLetzterLoginAm() {
-		return letzterLoginAm;
-	}
-
-	public void setLetzterLoginAm(Date letzterLoginAm) {
-		this.letzterLoginAm = letzterLoginAm;
-	}
-
 	public byte[] getPublicAsyncKey() {
 		return publicAsyncKey;
 	}
@@ -167,6 +160,22 @@ public class User {
 
 	public void setRole(UserRole role) {
 		this.role = role;
+	}
+
+	public Calendar getLastLoginAt() {
+		return lastLoginAt;
+	}
+
+	public void setLastLoginAt(Calendar lastLoginAt) {
+		this.lastLoginAt = lastLoginAt;
+	}
+
+	public Calendar getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Calendar creationDate) {
+		this.creationDate = creationDate;
 	}
 
 }

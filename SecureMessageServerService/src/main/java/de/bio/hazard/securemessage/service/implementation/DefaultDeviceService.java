@@ -21,6 +21,14 @@ public class DefaultDeviceService implements DeviceService {
 
 	@Transactional(readOnly = false)
 	@Override
+	public String addDeviceAndReturnDeviceId(Device pDevice) {
+		addDevice(pDevice);
+		// TODO SebastianS; Zufallswert
+		return "123";
+	}
+
+	@Transactional(readOnly = false)
+	@Override
 	public void addDevice(Device pDevice) {
 		getDeviceDao().create(pDevice);
 	}

@@ -1,6 +1,8 @@
-package de.bio.hazard.securemessage.dto;
+package de.bio.hazard.securemessage.dto.user;
 
-public class NewUserWebserviceDTO {
+import de.bio.hazard.securemessage.dto.AbstractDTO;
+
+public class NewUserWebserviceDTO extends AbstractDTO{
 	private String username;
 	private String password;
 	private String email;
@@ -8,7 +10,6 @@ public class NewUserWebserviceDTO {
 	private String name;
 	private String prename;
 	private byte[] publicKeyForMessaging;
-	private byte[] symEncryptionKey;
 
 	public String getUsername() {
 		return username;
@@ -64,14 +65,6 @@ public class NewUserWebserviceDTO {
 
 	public void setPublicKeyForMessaging(byte[] publicKeyForMessaging) {
 		this.publicKeyForMessaging = publicKeyForMessaging;
-	}
-
-	public byte[] getSymEncryptionKey() {
-		return symEncryptionKey;
-	}
-
-	public void setSymEncryptionKey(byte[] symEncryptionKey) {
-		this.symEncryptionKey = symEncryptionKey;
 	}
 
 }

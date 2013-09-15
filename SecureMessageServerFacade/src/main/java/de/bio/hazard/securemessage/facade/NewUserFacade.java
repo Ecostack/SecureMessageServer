@@ -3,7 +3,7 @@ package de.bio.hazard.securemessage.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.bio.hazard.securemessage.dto.NewUserWebserviceDTO;
+import de.bio.hazard.securemessage.dto.user.NewUserWebserviceDTO;
 import de.bio.hazard.securemessage.model.User;
 import de.bio.hazard.securemessage.service.UserService;
 

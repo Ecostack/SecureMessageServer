@@ -1,5 +1,7 @@
 package de.bio.hazard.securemessage.service.implementation;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ public class DefaultUserService implements UserService {
 	@Transactional(readOnly = false)
 	@Override
 	public void addUser(User pUser) {
+		pUser.setCreationDate(Calendar.getInstance());
 		getDefaultUserDao().create(pUser);
 	}
 

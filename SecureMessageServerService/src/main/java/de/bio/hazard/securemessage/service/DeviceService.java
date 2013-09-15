@@ -19,4 +19,6 @@ public interface DeviceService {
 	List<Device> getDevices();
 
 	List<Device> getDevicesByUser(User pUser);
+	
+	String addDeviceAndReturnDeviceId(Device pDevice);
 }

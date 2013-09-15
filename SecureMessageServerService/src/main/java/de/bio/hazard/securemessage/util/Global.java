@@ -2,6 +2,7 @@ package de.bio.hazard.securemessage.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class Global {
 		lcUser.setName("Admin");
 		lcUser.setPassword(BCrypt.hashpw("admin", BCrypt.gensalt(11)));
 		lcUser.setRole(lcRoleAdmin);
-		lcUser.setLetzterLoginAm(new Date());
+		lcUser.setLastLoginAt(Calendar.getInstance());
 		lcUser.setPublicAsyncKey(new byte[] { 1 });
 		getUserService().addUser(lcUser);
 
@@ -93,7 +94,7 @@ public class Global {
 		lcUserTest.setUsername("test");
 		lcUserTest.setPassword(BCrypt.hashpw("test", BCrypt.gensalt(11)));
 		lcUserTest.setRole(lcRoleRegistered);
-		lcUserTest.setLetzterLoginAm(new Date());
+		lcUserTest.setLastLoginAt(Calendar.getInstance());
 		lcUserTest.setPublicAsyncKey(new byte[] { 1 });
 		getUserService().addUser(lcUserTest);
 
