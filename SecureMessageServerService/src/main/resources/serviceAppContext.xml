@@ -18,13 +18,20 @@
 
 	<context:component-scan base-package="de.bio.hazard.securemessage.util" />
 
-	<bean id="encryptionObjectModifier" class="de.bio.hazard.securemessage.tecframework.encryption.facade.helper.EncryptionObjectModifier"
+	<bean id="encryptionObjectModifier"
+		class="de.bio.hazard.securemessage.tecframework.encryption.facade.helper.EncryptionObjectModifier"
 		scope="singleton" />
 
+	<bean id="asymmetricKeygen"
+		class="de.bio.hazard.securemessage.tecframework.encryption.asymmetric.AsymmetricKeygen"
+		scope="singleton" />
 
+	<bean id="symmetricKeygen"
+		class="de.bio.hazard.securemessage.tecframework.encryption.symmetric.SymmetricKeygen"
+		scope="singleton" />
 
 	<import resource="db.xml" />
-	
-	
+
+
 
 </beans>

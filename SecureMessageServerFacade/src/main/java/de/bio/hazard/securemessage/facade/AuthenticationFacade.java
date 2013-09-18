@@ -9,7 +9,6 @@ import de.bio.hazard.securemessage.dto.authentication.AuthenticationStepTwoDTO;
 import de.bio.hazard.securemessage.dto.authentication.AuthenticationStepTwoReturnDTO;
 import de.bio.hazard.securemessage.service.DeviceService;
 import de.bio.hazard.securemessage.service.UserService;
-import de.bio.hazard.securemessage.tecframework.encryption.asymmetric.AsymmetricKeygen;
 
 @Component
 public class AuthenticationFacade {
@@ -19,9 +18,6 @@ public class AuthenticationFacade {
 
 	@Autowired
 	private DeviceService deviceService;
-	
-	@Autowired(required=true)
-	private AsymmetricKeygen asyncKeygen;
 
 	public AuthenticationStepOneReturnDTO authenticateStepOne(
 			AuthenticationStepOneDTO pAuthenticationStepOneDTO) {
