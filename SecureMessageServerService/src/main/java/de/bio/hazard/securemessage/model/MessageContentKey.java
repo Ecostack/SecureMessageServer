@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -42,6 +43,7 @@ public class MessageContentKey {
 	private MessageContent messageContent = null;
 
 	@Column(unique = false, nullable = false)
+	@Lob
 	private byte[] synchEncryptionKey;
 
 	public long getId() {

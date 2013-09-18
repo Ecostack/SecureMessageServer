@@ -10,7 +10,7 @@ import de.bio.hazard.securemessage.facade.BasisInfoFacade;
 
 @WebService
 @Component
-public class BasisInfoWS {
+public class BasisInfoWebservice {
 
 	@Autowired
 	private BasisInfoFacade basisInfoFacade;

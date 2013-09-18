@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -15,10 +16,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CONFIG")
 @Access(AccessType.FIELD)
-@NamedQueries({ @NamedQuery(name = Config.FIND_ALL, query = "from Config c") })
+@NamedQueries({ @NamedQuery(name = Config.FIND_ALL, query = "from Config c"),
+		@NamedQuery(name = Config.FIND_BY_RUNNING_NUMBER, query = "from Config c where c.runningNumber = ?") })
 public class Config {
 
 	public static final String FIND_ALL = "Config.FIND_ALL";
+	public static final String FIND_BY_RUNNING_NUMBER = "Config.FIND_BY_RUNNING_NUMBER";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,9 +33,10 @@ public class Config {
 	private String description = "";
 
 	@Column(unique = true, nullable = false)
-	private int runningNumber = 1;
+	private int runningNumber = -1;
 
 	@Column(unique = true, nullable = false)
+	@Lob
 	private byte[] value = null;
 
 	public long getId() {

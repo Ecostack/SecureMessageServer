@@ -19,5 +19,11 @@ public class DefaultConfigDao extends AbstractGenericJpaDAO<Config, Long> {
 		return getEntityManager().createNamedQuery(Config.FIND_ALL,
 				Config.class).getResultList();
 	}
-	
+
+	public Config findConfigByRunningNumber(int pRunningNumber) {
+		return getEntityManager()
+				.createNamedQuery(Config.FIND_BY_RUNNING_NUMBER, Config.class)
+				.setParameter(1, pRunningNumber).getSingleResult();
+	}
+
 }

@@ -7,6 +7,7 @@ import de.bio.hazard.securemessage.dto.authentication.AuthenticationStepOneDTO;
 import de.bio.hazard.securemessage.dto.authentication.AuthenticationStepOneReturnDTO;
 import de.bio.hazard.securemessage.dto.authentication.AuthenticationStepTwoDTO;
 import de.bio.hazard.securemessage.dto.authentication.AuthenticationStepTwoReturnDTO;
+import de.bio.hazard.securemessage.encryption.async.AsyncKeygen;
 import de.bio.hazard.securemessage.service.DeviceService;
 import de.bio.hazard.securemessage.service.UserService;
 
@@ -18,6 +19,9 @@ public class AuthenticationFacade {
 
 	@Autowired
 	private DeviceService deviceService;
+	
+	@Autowired(required=true)
+	private AsyncKeygen asyncKeygen;
 
 	public AuthenticationStepOneReturnDTO authenticateStepOne(
 			AuthenticationStepOneDTO pAuthenticationStepOneDTO) {

@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -41,12 +42,14 @@ public class MessageContent {
 	private List<Message> messages = new ArrayList<Message>();
 
 	@Column(unique = false, nullable = false)
+	@Lob
 	private byte[] data;
 
 	@Column(unique = false, nullable = false)
 	private MessageContentType messageContentType;
 
 	@Column(unique = false, nullable = false)
+	@Lob
 	private byte[] synchEncryptionKey;
 
 	@Column(unique = false, nullable = true)

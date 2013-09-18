@@ -1,16 +1,17 @@
 package de.bio.hazard.securemessage.util;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.bio.hazard.securemessage.encryption.async.AsyncKey;
+import de.bio.hazard.securemessage.encryption.async.AsyncKeygen;
 import de.bio.hazard.securemessage.encryption.hashing.BCrypt;
+import de.bio.hazard.securemessage.model.Config;
 import de.bio.hazard.securemessage.model.Message;
 import de.bio.hazard.securemessage.model.MessageContent;
 import de.bio.hazard.securemessage.model.MessageContentKey;
@@ -18,11 +19,13 @@ import de.bio.hazard.securemessage.model.User;
 import de.bio.hazard.securemessage.model.UserRole;
 import de.bio.hazard.securemessage.model.helper.MessageContentType;
 import de.bio.hazard.securemessage.model.helper.UserRoleType;
+import de.bio.hazard.securemessage.service.ConfigService;
 import de.bio.hazard.securemessage.service.MessageContentKeyService;
 import de.bio.hazard.securemessage.service.MessageContentService;
 import de.bio.hazard.securemessage.service.MessageService;
 import de.bio.hazard.securemessage.service.UserRoleService;
 import de.bio.hazard.securemessage.service.UserService;
+import de.bio.hazard.securemessage.service.helper.ConfigType;
 
 @Service
 public class Global {
@@ -36,6 +39,11 @@ public class Global {
 	private MessageContentService messageContentService;
 
 	private MessageContentKeyService messageContentKeyService;
+
+	private ConfigService configService;
+
+	private AsyncKeygen asyncKeygen;
+
 	// private OrgUnitService orgUnitService;
 	//
 	// private AutomarkeService automarkenService;
@@ -52,13 +60,18 @@ public class Global {
 	@Autowired
 	public Global(UserRoleService pUserRoleService, UserService pUserService,
 			MessageService pMessageService,
-			MessageContentService pMessageContentService,MessageContentKeyService pMessageContentKeyService) throws UnsupportedEncodingException {
+			MessageContentService pMessageContentService,
+			MessageContentKeyService pMessageContentKeyService,
+			ConfigService pConfigService, AsyncKeygen pAsyncKeygen)
+			throws UnsupportedEncodingException {
 
 		userRoleService = pUserRoleService;
 		userService = pUserService;
 		messageService = pMessageService;
 		messageContentService = pMessageContentService;
 		messageContentKeyService = pMessageContentKeyService;
+		configService = pConfigService;
+		asyncKeygen = pAsyncKeygen;
 
 		log.debug("Global init");
 
@@ -121,15 +134,14 @@ public class Global {
 		messageContentService.addMessageContent(lcMessageContent);
 
 		messageContentService.addMessageContent(lcMessageContent2);
-		
-		
+
 		MessageContentKey lcMCK = new MessageContentKey();
 		lcMCK.setMessage(lcMessage);
 		lcMCK.setMessageContent(lcMessageContent);
-		lcMCK.setSynchEncryptionKey(new byte[]{1,2,3});
-		
+		lcMCK.setSynchEncryptionKey(new byte[] { 1, 2, 3 });
+
 		messageContentKeyService.addMessageContentKey(lcMCK);
-		
+
 		for (Message lcMessageItem : messageService.getMessages()) {
 			System.err.println("Message: " + lcMessageItem.getId());
 			for (MessageContent lcContent : lcMessageItem.getContents()) {
@@ -145,13 +157,37 @@ public class Global {
 			System.err.println("Messagecontent: "
 					+ lcMessageContentItem.getId());
 		}
-		
-		
-		
-		List<MessageContentKey> lcMCKList = messageContentKeyService.getMessagesContentKeysByMessage(lcMessage.getId());
+
+		List<MessageContentKey> lcMCKList = messageContentKeyService
+				.getMessagesContentKeysByMessage(lcMessage.getId());
 		for (MessageContentKey lcMCKItem : lcMCKList) {
 			System.err.println("MessageContentKey: " + lcMCKItem.getId());
-			System.err.println("MessageContentKey encKey: " + lcMCKItem.getSynchEncryptionKey());
+			System.err.println("MessageContentKey encKey: "
+					+ lcMCKItem.getSynchEncryptionKey());
+		}
+
+		createConfigValues();
+	}
+
+	private void createConfigValues() {
+		
+		AsyncKey lcKeyPair = asyncKeygen.getAsyncKey(2048);
+		
+		Config lcConfigPublicKey = new Config();
+		lcConfigPublicKey.setRunningNumber(ConfigType.SERVER_PUBLIC_KEY
+				.getRunningNumber());
+		lcConfigPublicKey.setValue(lcKeyPair.getPublicKey());
+		configService.addConfig(lcConfigPublicKey);
+
+		Config lcConfigPrivateKey = new Config();
+		lcConfigPrivateKey.setRunningNumber(ConfigType.SERVER_PRIVATE_KEY
+				.getRunningNumber());
+		lcConfigPrivateKey.setValue(lcKeyPair.getPrivateKey());
+		configService.addConfig(lcConfigPrivateKey);
+
+		for (Config lcConfig : configService.getConfigs()) {
+			System.err.println("Config: " + lcConfig.getRunningNumber());
+
 		}
 	}
 
