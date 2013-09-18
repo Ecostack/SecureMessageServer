@@ -9,7 +9,7 @@ public class NewUserWebserviceDTO extends AbstractDTO{
 	private String mobilenumber;
 	private String name;
 	private String prename;
-	private byte[] publicKeyForMessaging;
+	private String publicKeyForMessaging;
 
 	public String getUsername() {
 		return username;
@@ -59,11 +59,11 @@ public class NewUserWebserviceDTO extends AbstractDTO{
 		this.prename = prename;
 	}
 
-	public byte[] getPublicKeyForMessaging() {
+	public String getPublicKeyForMessaging() {
 		return publicKeyForMessaging;
 	}
 
-	public void setPublicKeyForMessaging(byte[] publicKeyForMessaging) {
+	public void setPublicKeyForMessaging(String publicKeyForMessaging) {
 		this.publicKeyForMessaging = publicKeyForMessaging;
 	}
 

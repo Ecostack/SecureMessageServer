@@ -59,7 +59,7 @@ public class User {
 
 	@Column(unique = false, nullable = false)
 	@Lob
-	private byte[] publicAsyncKey;
+	private byte[] publicAsymmetricKey;
 
 	@Column(unique = false, nullable = true)
 	private Calendar lastLoginAt;
@@ -148,12 +148,12 @@ public class User {
 		this.password = password;
 	}
 
-	public byte[] getPublicAsyncKey() {
-		return publicAsyncKey;
+	public byte[] getPublicAsymmetricKey() {
+		return publicAsymmetricKey;
 	}
 
-	public void setPublicAsyncKey(byte[] publicAsyncKey) {
-		this.publicAsyncKey = publicAsyncKey;
+	public void setPublicAsymmetricKey(byte[] publicAsymmetricKey) {
+		this.publicAsymmetricKey = publicAsymmetricKey;
 	}
 
 	public UserRole getRole() {

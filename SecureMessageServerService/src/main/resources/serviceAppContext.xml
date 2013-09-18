@@ -18,14 +18,9 @@
 
 	<context:component-scan base-package="de.bio.hazard.securemessage.util" />
 
-	<bean id="asyncCrypt" class="de.bio.hazard.securemessage.encryption.async.AsyncCrypt"
+	<bean id="encryptionObjectModifier" class="de.bio.hazard.securemessage.tecframework.encryption.facade.helper.EncryptionObjectModifier"
 		scope="singleton" />
-	<bean id="asyncKeygen"
-	class="de.bio.hazard.securemessage.encryption.async.AsyncKeygen" scope="singleton" />
-	<bean id="syncCrypt" class="de.bio.hazard.securemessage.encryption.sync.SyncCrypt"
-		scope="singleton" />
-	<bean id="syncKeygen" class="de.bio.hazard.securemessage.encryption.sync.SyncKeygen"
-		scope="singleton" />
+
 
 
 	<import resource="db.xml" />

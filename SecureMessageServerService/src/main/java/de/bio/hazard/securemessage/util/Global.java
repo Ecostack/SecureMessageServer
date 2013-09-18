@@ -8,9 +8,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.bio.hazard.securemessage.encryption.async.AsyncKey;
-import de.bio.hazard.securemessage.encryption.async.AsyncKeygen;
-import de.bio.hazard.securemessage.encryption.hashing.BCrypt;
 import de.bio.hazard.securemessage.model.Config;
 import de.bio.hazard.securemessage.model.Message;
 import de.bio.hazard.securemessage.model.MessageContent;
@@ -26,6 +23,9 @@ import de.bio.hazard.securemessage.service.MessageService;
 import de.bio.hazard.securemessage.service.UserRoleService;
 import de.bio.hazard.securemessage.service.UserService;
 import de.bio.hazard.securemessage.service.helper.ConfigType;
+import de.bio.hazard.securemessage.tecframework.encryption.asymmetric.AsymmetricKey;
+import de.bio.hazard.securemessage.tecframework.encryption.asymmetric.AsymmetricKeygen;
+import de.bio.hazard.securemessage.tecframework.encryption.hashing.BCrypt;
 
 @Service
 public class Global {
@@ -42,7 +42,7 @@ public class Global {
 
 	private ConfigService configService;
 
-	private AsyncKeygen asyncKeygen;
+	private AsymmetricKeygen asyncKeygen;
 
 	// private OrgUnitService orgUnitService;
 	//
@@ -62,7 +62,7 @@ public class Global {
 			MessageService pMessageService,
 			MessageContentService pMessageContentService,
 			MessageContentKeyService pMessageContentKeyService,
-			ConfigService pConfigService, AsyncKeygen pAsyncKeygen)
+			ConfigService pConfigService, AsymmetricKeygen pAsyncKeygen)
 			throws UnsupportedEncodingException {
 
 		userRoleService = pUserRoleService;
@@ -98,7 +98,7 @@ public class Global {
 		lcUser.setPassword(BCrypt.hashpw("admin", BCrypt.gensalt(11)));
 		lcUser.setRole(lcRoleAdmin);
 		lcUser.setLastLoginAt(Calendar.getInstance());
-		lcUser.setPublicAsyncKey(new byte[] { 1 });
+		lcUser.setPublicAsymmetricKey(new byte[] { 1 });
 		getUserService().addUser(lcUser);
 
 		User lcUserTest = new User();
@@ -108,7 +108,7 @@ public class Global {
 		lcUserTest.setPassword(BCrypt.hashpw("test", BCrypt.gensalt(11)));
 		lcUserTest.setRole(lcRoleRegistered);
 		lcUserTest.setLastLoginAt(Calendar.getInstance());
-		lcUserTest.setPublicAsyncKey(new byte[] { 1 });
+		lcUserTest.setPublicAsymmetricKey(new byte[] { 1 });
 		getUserService().addUser(lcUserTest);
 
 		// #################################################################################################################################
@@ -171,7 +171,7 @@ public class Global {
 
 	private void createConfigValues() {
 		
-		AsyncKey lcKeyPair = asyncKeygen.getAsyncKey(2048);
+		AsymmetricKey lcKeyPair = asyncKeygen.getAsyncKey(2048);
 		
 		Config lcConfigPublicKey = new Config();
 		lcConfigPublicKey.setRunningNumber(ConfigType.SERVER_PUBLIC_KEY

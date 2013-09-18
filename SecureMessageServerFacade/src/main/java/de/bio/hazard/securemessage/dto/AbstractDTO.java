@@ -2,12 +2,12 @@ package de.bio.hazard.securemessage.dto;
 
 public class AbstractDTO {
 
-	private byte[] symEncryptionKey;
+	private String symEncryptionKey;
 
-	public byte[] getSymEncryptionKey() {
+	public String getSymEncryptionKey() {
 		return symEncryptionKey;
 	}
-	public void setSymEncryptionKey(byte[] symEncryptionKey) {
+	public void setSymEncryptionKey(String symEncryptionKey) {
 		this.symEncryptionKey = symEncryptionKey;
 	}
 	
