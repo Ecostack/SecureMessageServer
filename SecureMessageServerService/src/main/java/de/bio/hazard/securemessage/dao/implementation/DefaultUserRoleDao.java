@@ -33,7 +33,12 @@ public class DefaultUserRoleDao extends AbstractGenericJpaDAO<UserRole, Long> {
 	}
 	
 	public List<UserRole> findAllByType(UserRoleType pTargetType) {
-		return getEntityManager().createNamedQuery(UserRole.FIND_ALL_BY_TYPE,
+		return getEntityManager().createNamedQuery(UserRole.FIND_BY_TYPE,
 				UserRole.class).setParameter(1, pTargetType).getResultList();
+	}
+	
+	public UserRole findByType(UserRoleType pTargetType) {
+		return getEntityManager().createNamedQuery(UserRole.FIND_BY_TYPE,
+				UserRole.class).setParameter(1, pTargetType).getSingleResult();
 	}
 }

@@ -69,5 +69,10 @@ public class DefaultUserRoleService implements UserRoleService, Serializable {
 		return false;
 	}
 
+	@Override
+	public UserRole getUserRoleByType(UserRoleType pUserRoleType) {
+		return getUserRoleDAO().findByType(pUserRoleType);
+	}
+
 	
 }

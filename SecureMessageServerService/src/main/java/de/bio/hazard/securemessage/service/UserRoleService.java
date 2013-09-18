@@ -4,6 +4,7 @@ import java.util.List;
 
 import de.bio.hazard.securemessage.model.User;
 import de.bio.hazard.securemessage.model.UserRole;
+import de.bio.hazard.securemessage.model.helper.UserRoleType;
 
 /**
  * 
@@ -22,6 +23,8 @@ public interface UserRoleService {
 	void deleteUserRole(UserRole pUserRole);
 
 	UserRole getUserRoleById(long pID);
+	
+	UserRole getUserRoleByType(UserRoleType pUserRoleType);
 
 	List<UserRole> getUserRoles();
 	

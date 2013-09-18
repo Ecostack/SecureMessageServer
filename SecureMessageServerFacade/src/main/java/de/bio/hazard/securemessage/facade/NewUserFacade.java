@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import de.bio.hazard.securemessage.dto.user.NewUserWebserviceDTO;
 import de.bio.hazard.securemessage.model.User;
+import de.bio.hazard.securemessage.model.helper.UserRoleType;
+import de.bio.hazard.securemessage.service.UserRoleService;
 import de.bio.hazard.securemessage.service.UserService;
 
 @Component
@@ -12,6 +14,9 @@ public class NewUserFacade {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserRoleService userRoleService;
 
 	public void addNewUser(NewUserWebserviceDTO pNewUserWebserviceDTO) {
 		User lcUser = transformToUser(pNewUserWebserviceDTO);
@@ -20,6 +25,7 @@ public class NewUserFacade {
 	
 	private User transformToUser(NewUserWebserviceDTO pNewUserWebserviceDTO) {
 		User lcUser = new User();
+		lcUser.setRole(userRoleService.getUserRoleByType(UserRoleType.Registered));
 		lcUser.setUsername(pNewUserWebserviceDTO.getUsername());
 		lcUser.setPassword(pNewUserWebserviceDTO.getPassword());
 		lcUser.setEmail(pNewUserWebserviceDTO.getEmail());

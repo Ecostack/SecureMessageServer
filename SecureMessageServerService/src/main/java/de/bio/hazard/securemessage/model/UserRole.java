@@ -26,13 +26,13 @@ import de.bio.hazard.securemessage.model.helper.UserRoleType;
 @NamedQueries({
 		@NamedQuery(name = UserRole.FIND_ALL, query = "from UserRole ur"),
 		@NamedQuery(name = UserRole.FIND_ALL_BY_USER, query = "from UserRole ur where user = ?1"),
-		@NamedQuery(name = UserRole.FIND_ALL_BY_TYPE, query = "from UserRole ur where type = ?1") })
+		@NamedQuery(name = UserRole.FIND_BY_TYPE, query = "from UserRole ur where type = ?1") })
 public class UserRole {
 
 	/** Konstante für die NamedQuery. */
 	public static final String FIND_ALL = "UserRole.findAll";
 	public static final String FIND_ALL_BY_USER = "UserRole.findAllByUser";
-	public static final String FIND_ALL_BY_TYPE = "UserRole.findAllByType";
+	public static final String FIND_BY_TYPE = "UserRole.findByType";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,7 +40,7 @@ public class UserRole {
 	@Basic(optional = false)
 	private Long id;
 
-	@Column(unique = false, nullable = false)
+	@Column(unique = true, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private UserRoleType type;
 

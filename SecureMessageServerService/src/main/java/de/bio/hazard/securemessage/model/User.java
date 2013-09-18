@@ -1,7 +1,6 @@
 package de.bio.hazard.securemessage.model;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Access;
@@ -56,6 +55,9 @@ public class User {
 
 	@Column(unique = false, nullable = false)
 	private String phonenumber = "";
+	
+	@Column(unique = false, nullable = false)
+	private String mobilenumber = "";
 
 	@Column(unique = false, nullable = false)
 	@Lob
@@ -75,6 +77,9 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Device> devices;
+	
+	@Column(unique = false, nullable = false)
+	private boolean deactivated = false;
 
 	public List<Device> getDevices() {
 		return devices;
