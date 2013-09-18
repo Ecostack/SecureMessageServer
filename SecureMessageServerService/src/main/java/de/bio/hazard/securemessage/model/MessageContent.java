@@ -26,7 +26,7 @@ import de.bio.hazard.securemessage.model.helper.MessageContentType;
 @Access(AccessType.FIELD)
 @NamedQueries({
 		@NamedQuery(name = MessageContent.FIND_ALL, query = "from MessageContent mc"),
-		@NamedQuery(name = MessageContent.FIND_BY_MESSAGE, query = "select distinct mc from MessageContent mc JOIN mc.messages messages WHERE messages IN ( ?)") })
+		@NamedQuery(name = MessageContent.FIND_BY_MESSAGE, query = "select distinct mc from MessageContent mc JOIN mc.messages messages WHERE messages IN ( ?1)") })
 public class MessageContent {
 
 	public static final String FIND_ALL = "MessageContent.FIND_ALL";

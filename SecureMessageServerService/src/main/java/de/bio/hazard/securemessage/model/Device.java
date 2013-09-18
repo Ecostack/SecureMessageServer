@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "DEVICE")
 @Access(AccessType.FIELD)
 @NamedQueries({ @NamedQuery(name = Device.FIND_ALL, query = "from Device d"),
-	@NamedQuery(name = Device.FIND_BY_USER, query = "from Device d where user = ?")})
+	@NamedQuery(name = Device.FIND_BY_USER, query = "from Device d where user = ?1")})
 public class Device {
 	
 	public static final String FIND_ALL = "Device.FIND_ALL";
