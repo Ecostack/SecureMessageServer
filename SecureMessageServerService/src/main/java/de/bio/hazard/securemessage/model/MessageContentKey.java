@@ -20,9 +20,9 @@ import javax.persistence.Table;
 @Access(AccessType.FIELD)
 @NamedQueries({
 		@NamedQuery(name = MessageContentKey.FIND_ALL, query = "from MessageContentKey mck"),
-		@NamedQuery(name = MessageContentKey.FIND_BY_MESSAGE, query = "from MessageContentKey mck where mck.message.id = ?"),
-		@NamedQuery(name = MessageContentKey.FIND_BY_MESSAGECONTENT, query = "from MessageContentKey mck where mck.messageContent.id = ?"),
-		@NamedQuery(name = MessageContentKey.FIND_BY_MESSAGE_AND_MESSAGECONTENT, query = "from MessageContentKey mck where mck.message = ? and mck.messageContent.id = ?")})
+		@NamedQuery(name = MessageContentKey.FIND_BY_MESSAGE, query = "from MessageContentKey mck where mck.message.id = ?1"),
+		@NamedQuery(name = MessageContentKey.FIND_BY_MESSAGECONTENT, query = "from MessageContentKey mck where mck.messageContent.id = ?1"),
+		@NamedQuery(name = MessageContentKey.FIND_BY_MESSAGE_AND_MESSAGECONTENT, query = "from MessageContentKey mck where mck.message = ?1 and mck.messageContent.id = ?2")})
 public class MessageContentKey {
 
 	public static final String FIND_ALL = "MessageContentKey.FIND_ALL";

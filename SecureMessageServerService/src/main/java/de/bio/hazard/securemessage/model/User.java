@@ -25,8 +25,8 @@ import javax.persistence.Table;
 @Access(AccessType.FIELD)
 @NamedQueries({
 		@NamedQuery(name = User.FIND_ALL, query = "from User u"),
-		@NamedQuery(name = User.FIND_BY_USERNAME, query = "from User u where name = ?"),
-		@NamedQuery(name = User.FIND_BY_EMAIL, query = "from User u where email = ?") })
+		@NamedQuery(name = User.FIND_BY_USERNAME, query = "from User u where name = ?1"),
+		@NamedQuery(name = User.FIND_BY_EMAIL, query = "from User u where email = ?1") })
 public class User {
 
 	public static final String FIND_ALL = "User.FIND_ALL";

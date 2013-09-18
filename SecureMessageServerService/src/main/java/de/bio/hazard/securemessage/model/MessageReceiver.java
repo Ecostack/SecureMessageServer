@@ -24,7 +24,7 @@ import de.bio.hazard.securemessage.model.helper.MessageReceiverType;
 @Access(AccessType.FIELD)
 @NamedQueries({
 	@NamedQuery(name = MessageReceiver.FIND_ALL, query = "from MessageReceiver mr"),
-	@NamedQuery(name = MessageReceiver.FIND_BY_MESSAGE, query = "select distinct mr from MessageReceiver mr JOIN mr.messages messages WHERE messages IN ( ?)")})
+	@NamedQuery(name = MessageReceiver.FIND_BY_MESSAGE, query = "select distinct mr from MessageReceiver mr JOIN mr.messages messages WHERE messages IN ( ?1)")})
 public class MessageReceiver {
 
 	public static final String FIND_ALL = "FIND_ALL";
