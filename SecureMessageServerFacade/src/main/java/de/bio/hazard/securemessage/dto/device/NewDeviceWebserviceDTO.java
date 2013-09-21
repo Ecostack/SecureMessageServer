@@ -7,7 +7,7 @@ public class NewDeviceWebserviceDTO extends AbstractDTO {
 	private String username;
 	private String password;
 	private String devicename;
-	private byte[] publicKeyForDevice;
+	private String publicKeyForDevice;
 
 	public String getUsername() {
 		return username;
@@ -33,11 +33,11 @@ public class NewDeviceWebserviceDTO extends AbstractDTO {
 		this.devicename = devicename;
 	}
 
-	public byte[] getPublicKeyForDevice() {
+	public String getPublicKeyForDevice() {
 		return publicKeyForDevice;
 	}
 
-	public void setPublicKeyForDevice(byte[] publicKeyForDevice) {
+	public void setPublicKeyForDevice(String publicKeyForDevice) {
 		this.publicKeyForDevice = publicKeyForDevice;
 	}
 

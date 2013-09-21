@@ -37,33 +37,19 @@ public class NewUserFacade {
     private User transformToUser(NewUserWebserviceDTO pNewUserWebserviceDTO) {
 	User lcUser = new User();
 	try {
-	    Config lcServerPrivateKey = configService
-		    .getConfigByEnumType(ConfigType.SERVER_PRIVATE_KEY);
-	    byte[] lcSymmetricKey = encryptionObjectModifier
-		    .asymmetricDecryptToByte(
-			    pNewUserWebserviceDTO.getSymEncryptionKey(),
-			    lcServerPrivateKey.getValue(), true);
-	    lcUser.setRole(userRoleService
-		    .getUserRoleByType(UserRoleType.Registered));
-	    lcUser.setUsername(encryptionObjectModifier.symmetricDecrypt(
-		    pNewUserWebserviceDTO.getUsername(), lcSymmetricKey));
-	    lcUser.setPassword(encryptionObjectModifier.symmetricDecrypt(
-		    pNewUserWebserviceDTO.getPassword(), lcSymmetricKey));
-	    lcUser.setEmail(encryptionObjectModifier.symmetricDecrypt(
-		    pNewUserWebserviceDTO.getEmail(), lcSymmetricKey));
-	    lcUser.setPhonenumber(encryptionObjectModifier.symmetricDecrypt(
-		    pNewUserWebserviceDTO.getMobilenumber(), lcSymmetricKey));
-	    lcUser.setName(encryptionObjectModifier.symmetricDecrypt(
-		    pNewUserWebserviceDTO.getName(), lcSymmetricKey));
-	    lcUser.setPrename(encryptionObjectModifier.symmetricDecrypt(
-		    pNewUserWebserviceDTO.getPrename(), lcSymmetricKey));
-	    lcUser.setPublicAsymmetricKey(encryptionObjectModifier
-		    .symmetricDecryptToByte(
-			    pNewUserWebserviceDTO.getPublicKeyForMessaging(),
-			    lcSymmetricKey));
+	    Config lcServerPrivateKey = configService.getConfigByEnumType(ConfigType.SERVER_PRIVATE_KEY);
+	    byte[] lcSymmetricKey = encryptionObjectModifier.asymmetricDecryptToByte(pNewUserWebserviceDTO.getSymEncryptionKey(),lcServerPrivateKey.getValue(), true);
+	    lcUser.setRole(userRoleService.getUserRoleByType(UserRoleType.Registered));
+	    lcUser.setUsername(encryptionObjectModifier.symmetricDecrypt(pNewUserWebserviceDTO.getUsername(), lcSymmetricKey));
+	    lcUser.setPassword(encryptionObjectModifier.symmetricDecrypt(pNewUserWebserviceDTO.getPassword(), lcSymmetricKey));
+	    lcUser.setEmail(encryptionObjectModifier.symmetricDecrypt(pNewUserWebserviceDTO.getEmail(), lcSymmetricKey));
+	    lcUser.setPhonenumber(encryptionObjectModifier.symmetricDecrypt(pNewUserWebserviceDTO.getMobilenumber(), lcSymmetricKey));
+	    lcUser.setName(encryptionObjectModifier.symmetricDecrypt(pNewUserWebserviceDTO.getName(), lcSymmetricKey));
+	    lcUser.setPrename(encryptionObjectModifier.symmetricDecrypt(pNewUserWebserviceDTO.getPrename(), lcSymmetricKey));
+	    lcUser.setPublicAsymmetricKey(encryptionObjectModifier.symmetricDecryptToByte(pNewUserWebserviceDTO.getPublicKeyForMessaging(),lcSymmetricKey));
 	}
 	catch (Exception e) {
-	    // TODO: handle exception
+	    // TODO handle exception
 	    System.err.println(e.toString());
 	}
 	return lcUser;

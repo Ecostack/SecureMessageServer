@@ -24,6 +24,7 @@ public class DefaultDeviceService implements DeviceService {
 	public String addDeviceAndReturnDeviceId(Device pDevice) {
 		addDevice(pDevice);
 		// TODO SebastianS; Zufallswert
+		// XXX NicoH: Sicher, dass du Zufall nutzen möchtest? Auf dem Server sollte eine neue ID aus den bisherigen erzeugt werden können
 		return "123";
 	}
 
