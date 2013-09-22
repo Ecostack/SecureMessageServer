@@ -25,5 +25,10 @@ public class DefaultDeviceDao extends AbstractGenericJpaDAO<Device, Long> {
 		return getEntityManager().createNamedQuery(Device.FIND_BY_USER,
 				Device.class).setParameter(1, pUser).getResultList();
 	}
-
+	
+	public Device findByDeviceId(String pDeviceId) {
+		return getEntityManager().createNamedQuery(Device.FIND_BY_DEVICE_ID,
+				Device.class).setParameter(1, pDeviceId).getSingleResult();
+	}
+	
 }

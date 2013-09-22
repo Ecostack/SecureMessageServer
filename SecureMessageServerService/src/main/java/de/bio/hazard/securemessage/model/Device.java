@@ -17,13 +17,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "DEVICE")
 @Access(AccessType.FIELD)
-@NamedQueries({ @NamedQuery(name = Device.FIND_ALL, query = "from Device d"),
-	@NamedQuery(name = Device.FIND_BY_USER, query = "from Device d where user = ?1")})
+@NamedQueries({
+		@NamedQuery(name = Device.FIND_ALL, query = "from Device d"),
+		@NamedQuery(name = Device.FIND_BY_USER, query = "from Device d where user = ?1"),
+		@NamedQuery(name = Device.FIND_BY_DEVICE_ID, query = "from Device d where deviceId = ?1") })
 public class Device {
-	
+
 	public static final String FIND_ALL = "Device.FIND_ALL";
 
 	public static final String FIND_BY_USER = "Device.FIND_BY_USER";
+
+	public static final String FIND_BY_DEVICE_ID = "Device.FIND_BY_DEVICE_ID";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,6 +43,9 @@ public class Device {
 
 	@Column(unique = false, nullable = false)
 	private boolean activated = true;
+
+	@Column(unique = true, nullable = false)
+	private String deviceId = "";
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
@@ -81,5 +88,13 @@ public class Device {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 }

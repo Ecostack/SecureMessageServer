@@ -21,4 +21,7 @@ public interface DeviceService {
 	List<Device> getDevicesByUser(User pUser);
 	
 	String addDeviceAndReturnDeviceId(Device pDevice);
+	
+	Device getDeviceByDeviceId(String pDeviceId);
+		
 }

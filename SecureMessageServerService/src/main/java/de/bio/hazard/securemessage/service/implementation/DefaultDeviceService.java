@@ -60,6 +60,12 @@ public class DefaultDeviceService implements DeviceService {
 	public List<Device> getDevicesByUser(User pUser) {
 		return getDeviceDao().findByUser(pUser);
 	}
+	
+	@Override
+	public Device getDeviceByDeviceId(String pDeviceId) {
+		return getDeviceDao().findByDeviceId(pDeviceId);
+	}
+
 
 	public DefaultDeviceDao getDeviceDao() {
 		return deviceDao;
@@ -68,5 +74,6 @@ public class DefaultDeviceService implements DeviceService {
 	public void setDeviceDao(DefaultDeviceDao deviceDao) {
 		this.deviceDao = deviceDao;
 	}
+
 
 }

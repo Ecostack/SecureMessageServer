@@ -1,8 +1,6 @@
-package de.bio.hazard.securemessage.dto.authentication;
+package de.bio.hazard.securemessage.model.facade;
 
-import de.bio.hazard.securemessage.dto.AbstractDTO;
-
-public class AuthenticationStepTwoDTO extends AbstractDTO {
+public class AuthenticationStepTwo {
 
 	private String randomHashedValue;
 	private String handshakeId;
@@ -31,5 +29,4 @@ public class AuthenticationStepTwoDTO extends AbstractDTO {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
 }

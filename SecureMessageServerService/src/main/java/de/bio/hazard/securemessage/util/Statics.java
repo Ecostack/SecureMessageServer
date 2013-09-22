@@ -1,6 +1,7 @@
 package de.bio.hazard.securemessage.util;
 
 public interface Statics {
-	int CONFIG_SERVER_KEY_PRIVATE = 10;
-	int CONFIG_SERVER_KEY_PUBLIC = 20;
+	
+	int TOKEN_VALID_SECONDS = 5*60;
+	int HANDSHAKE_VALID_SECONDS = 60;
 }

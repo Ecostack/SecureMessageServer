@@ -1,10 +1,6 @@
-package de.bio.hazard.securemessage.dto.authentication;
+package de.bio.hazard.securemessage.model.facade;
 
-import java.util.Date;
-
-import de.bio.hazard.securemessage.dto.AbstractDTO;
-
-public class AuthenticationStepOneDTO extends AbstractDTO {
+public class AuthenticationStepOne {
 
 	private String username;
 	private String password;

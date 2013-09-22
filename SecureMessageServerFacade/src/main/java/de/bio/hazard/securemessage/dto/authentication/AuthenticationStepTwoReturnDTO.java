@@ -1,17 +1,16 @@
 package de.bio.hazard.securemessage.dto.authentication;
 
 import de.bio.hazard.securemessage.dto.AbstractDTO;
-import de.bio.hazard.securemessage.model.AuthenticationToken;
 
 public class AuthenticationStepTwoReturnDTO extends AbstractDTO {
-	private AuthenticationToken token;
+	private String tokenId;
 
-	public AuthenticationToken getToken() {
-		return token;
+	public String getTokenId() {
+		return tokenId;
 	}
 
-	public void setToken(AuthenticationToken token) {
-		this.token = token;
+	public void setTokenId(String tokenId) {
+		this.tokenId = tokenId;
 	}
 
 }
