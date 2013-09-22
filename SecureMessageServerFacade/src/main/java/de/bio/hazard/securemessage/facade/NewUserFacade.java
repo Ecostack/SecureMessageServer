@@ -31,7 +31,7 @@ public class NewUserFacade {
 
     public void addNewUser(NewUserWebserviceDTO pNewUserWebserviceDTO) {
 	User lcUser = transformToUser(pNewUserWebserviceDTO);
-	getUserService().addUser(lcUser);
+	userService.addUser(lcUser);
     }
 
     private User transformToUser(NewUserWebserviceDTO pNewUserWebserviceDTO) {
@@ -53,13 +53,5 @@ public class NewUserFacade {
 	    System.err.println(e.toString());
 	}
 	return lcUser;
-    }
-
-    public UserService getUserService() {
-	return userService;
-    }
-
-    public void setUserService(UserService userService) {
-	this.userService = userService;
     }
 }

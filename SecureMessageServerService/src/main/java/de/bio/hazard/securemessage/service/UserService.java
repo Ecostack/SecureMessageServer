@@ -19,4 +19,6 @@ public interface UserService {
 	User getUserByUsername(String pUsername);
 
 	User getUserByEMail(String pEMail);
+
+	User getUserByPhonenumber(String pPhonenumber);
 }

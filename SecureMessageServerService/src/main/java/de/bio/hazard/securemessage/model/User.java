@@ -25,12 +25,14 @@ import javax.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = User.FIND_ALL, query = "from User u"),
 		@NamedQuery(name = User.FIND_BY_USERNAME, query = "from User u where username = ?1"),
+		@NamedQuery(name = User.FIND_BY_PHONENUMBER, query = "from User u where phonenumber = ?1"),
 		@NamedQuery(name = User.FIND_BY_EMAIL, query = "from User u where email = ?1") })
 public class User {
 
 	public static final String FIND_ALL = "User.FIND_ALL";
 	public static final String FIND_BY_USERNAME = "User.FIND_BY_USERNAME";
 	public static final String FIND_BY_EMAIL = "User.FIND_BY_EMAIL";
+	public static final String FIND_BY_PHONENUMBER = "User.FIND_BY_PHONENUMBER";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

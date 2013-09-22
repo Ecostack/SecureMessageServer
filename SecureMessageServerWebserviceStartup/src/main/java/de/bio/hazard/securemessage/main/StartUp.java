@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import de.bio.hazard.securemessage.webservice.AuthenticationWebservice;
 import de.bio.hazard.securemessage.webservice.BasisInfoWebservice;
 import de.bio.hazard.securemessage.webservice.MessageWebservice;
+import de.bio.hazard.securemessage.webservice.UserWebservice;
 
 @Component()
 @Scope(value = "singleton")
@@ -28,6 +29,9 @@ public class StartUp {
 
 		BasisInfoWebservice lcBasisInfoWS = applicationContext
 				.getBean(BasisInfoWebservice.class);
+		
+		UserWebservice lcUserWS = applicationContext
+			.getBean(UserWebservice.class);
 
 		// MessageEndpoint lcMessageWebservice = new MessageEndpoint();
 		Endpoint.publish("http://localhost:8080/messageWebservice",
@@ -36,6 +40,8 @@ public class StartUp {
 				lcAuthenticationWebservice);
 		Endpoint.publish("http://localhost:8080/basisInfoWebservice",
 				lcBasisInfoWS);
+		Endpoint.publish("http://localhost:8080/userWebservice",
+			lcUserWS);
 
 	}
 }

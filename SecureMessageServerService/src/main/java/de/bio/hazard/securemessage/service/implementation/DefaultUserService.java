@@ -114,4 +114,15 @@ public class DefaultUserService implements UserService {
 		User lcUser = getDefaultUserDao().findByEMail(pEMail);
 		return lcUser;
 	}
+	
+	/**
+	 * @param pUsername
+	 * 
+	 * @return {@link User}
+	 */
+	@Override
+	public User getUserByPhonenumber(String pPhonenumber) {
+		User lcUser = getDefaultUserDao().findByUsername(pPhonenumber);
+		return lcUser;
+	}
 }
