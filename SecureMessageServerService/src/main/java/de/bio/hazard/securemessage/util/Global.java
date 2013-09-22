@@ -95,7 +95,8 @@ public class Global {
 		lcUser.setUsername("Admin");
 		lcUser.setEmail("Admin");
 		lcUser.setName("Admin");
-		lcUser.setPassword(BCrypt.hashpw("admin", BCrypt.gensalt(11)));
+		//lcUser.setPassword(BCrypt.hashpw("admin", BCrypt.gensalt(11)));
+		lcUser.setPassword("admin");
 		lcUser.setRole(lcRoleAdmin);
 		lcUser.setLastLoginAt(Calendar.getInstance());
 		lcUser.setPublicAsymmetricKey(new byte[] { 1 });
@@ -105,7 +106,8 @@ public class Global {
 		lcUserTest.setEmail("test");
 		lcUserTest.setName("test");
 		lcUserTest.setUsername("test");
-		lcUserTest.setPassword(BCrypt.hashpw("test", BCrypt.gensalt(11)));
+		//lcUserTest.setPassword(BCrypt.hashpw("test", BCrypt.gensalt(11)));
+		lcUserTest.setPassword("test");
 		lcUserTest.setRole(lcRoleRegistered);
 		lcUserTest.setLastLoginAt(Calendar.getInstance());
 		lcUserTest.setPublicAsymmetricKey(new byte[] { 1 });

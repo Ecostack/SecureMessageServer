@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import de.bio.hazard.securemessage.dao.implementation.DefaultUserDao;
 import de.bio.hazard.securemessage.model.User;
 import de.bio.hazard.securemessage.service.UserService;
+import de.bio.hazard.securemessage.tecframework.encryption.hashing.BCrypt;
+import de.bio.hazard.securemessage.util.Statics;
 
 @Service(value = "userService")
 @Transactional(readOnly = true)
@@ -31,6 +33,7 @@ public class DefaultUserService implements UserService {
 	@Override
 	public void addUser(User pUser) {
 		pUser.setCreationDate(Calendar.getInstance());
+		pUser.setPassword(BCrypt.hashpw(pUser.getPassword(), BCrypt.gensalt(Statics.CONFIG_BCRYPT_ROUNDS)));
 		getDefaultUserDao().create(pUser);
 	}
 
