@@ -23,5 +23,7 @@ public interface DeviceService {
 	String addDeviceAndReturnDeviceId(Device pDevice);
 	
 	Device getDeviceByDeviceId(String pDeviceId);
+	
+	long getCountByDeviceId(String pDeviceId);
 		
 }

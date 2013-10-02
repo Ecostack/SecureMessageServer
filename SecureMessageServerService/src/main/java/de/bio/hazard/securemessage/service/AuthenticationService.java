@@ -12,9 +12,6 @@ import de.bio.hazard.securemessage.model.facade.AuthenticationStepTwoReturn;
 
 public interface AuthenticationService {
 
-	BigInteger getNextRandomNumber();
-
-	String nextSessionId();
 	
 	String getDeviceIdByTokenId(String pTokenId);
 

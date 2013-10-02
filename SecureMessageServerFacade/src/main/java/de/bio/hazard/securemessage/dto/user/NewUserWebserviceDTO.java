@@ -2,11 +2,11 @@ package de.bio.hazard.securemessage.dto.user;
 
 import de.bio.hazard.securemessage.dto.AbstractDTO;
 
-public class NewUserWebserviceDTO extends AbstractDTO{
+public class NewUserWebserviceDTO extends AbstractDTO {
 	private String username;
 	private String password;
 	private String email;
-	private String mobilenumber;
+	private String telephone;
 	private String name;
 	private String prename;
 	private String publicKeyForMessaging;
@@ -35,14 +35,6 @@ public class NewUserWebserviceDTO extends AbstractDTO{
 		this.email = email;
 	}
 
-	public String getMobilenumber() {
-		return mobilenumber;
-	}
-
-	public void setMobilenumber(String mobilenumber) {
-		this.mobilenumber = mobilenumber;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -65,6 +57,14 @@ public class NewUserWebserviceDTO extends AbstractDTO{
 
 	public void setPublicKeyForMessaging(String publicKeyForMessaging) {
 		this.publicKeyForMessaging = publicKeyForMessaging;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 }

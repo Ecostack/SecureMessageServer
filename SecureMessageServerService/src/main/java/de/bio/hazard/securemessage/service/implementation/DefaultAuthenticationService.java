@@ -18,19 +18,23 @@ import de.bio.hazard.securemessage.model.facade.AuthenticationStepTwoReturn;
 import de.bio.hazard.securemessage.service.AuthenticationService;
 import de.bio.hazard.securemessage.service.DeviceService;
 import de.bio.hazard.securemessage.service.UserService;
+import de.bio.hazard.securemessage.tecframework.data.IdGenerator;
 import de.bio.hazard.securemessage.tecframework.encryption.hashing.BCrypt;
 
 @Service
 public class DefaultAuthenticationService implements AuthenticationService {
 	private HashMap<String, AuthenticationToken> authTokens = new HashMap<String, AuthenticationToken>();
 	private HashMap<String, HandshakeToken> handshakeTokens = new HashMap<String, HandshakeToken>();
-	private SecureRandom random = new SecureRandom();
+	
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
 	private DeviceService deviceService;
+	
+	@Autowired
+	private IdGenerator idGenerator;
 
 	@Override
 	public AuthenticationStepOneReturn authenticationStepOne(
@@ -80,7 +84,7 @@ public class DefaultAuthenticationService implements AuthenticationService {
 		AuthenticationStepOneReturn lcReturn = new AuthenticationStepOneReturn();
 
 		lcReturn.setHandshakeId(this.getNewHandshakeToken(pDevice).getTokenid());
-		lcReturn.setRandomHashedValue(this.nextSessionId());
+		lcReturn.setRandomHashedValue(idGenerator.nextId());
 		return lcReturn;
 	}
 
@@ -93,9 +97,9 @@ public class DefaultAuthenticationService implements AuthenticationService {
 
 	public synchronized AuthenticationToken getNewAuthenticationToken(
 			Device pDevice) {
-		String lcTokenId = nextSessionId();
+		String lcTokenId = idGenerator.nextId();
 		while (authTokens.containsKey(lcTokenId)) {
-			lcTokenId = nextSessionId();
+			lcTokenId = idGenerator.nextId();
 		}
 
 		AuthenticationToken lcToken = new AuthenticationToken(lcTokenId);
@@ -108,9 +112,9 @@ public class DefaultAuthenticationService implements AuthenticationService {
 	@Override
 	public HandshakeToken getNewHandshakeToken(Device pDevice) {
 
-		String lcHandshakeId = nextSessionId();
+		String lcHandshakeId = idGenerator.nextId();
 		while (handshakeTokens.containsKey(lcHandshakeId)) {
-			lcHandshakeId = nextSessionId();
+			lcHandshakeId = idGenerator.nextId();
 		}
 
 		HandshakeToken lcToken = new HandshakeToken(lcHandshakeId);
@@ -145,14 +149,7 @@ public class DefaultAuthenticationService implements AuthenticationService {
 		return false;
 	}
 
-	@Override
-	public synchronized BigInteger getNextRandomNumber() {
-		return new BigInteger(512, random);
-	}
-
-	public synchronized String nextSessionId() {
-		return getNextRandomNumber().toString(32);
-	}
+	
 
 	public boolean isRandomHashedValueMatching(String pToEqual,
 			String pHandshakeId) {

@@ -31,4 +31,9 @@ public class DefaultDeviceDao extends AbstractGenericJpaDAO<Device, Long> {
 				Device.class).setParameter(1, pDeviceId).getSingleResult();
 	}
 	
+	public long countByDeviceId(String pDeviceId) {
+		return getEntityManager().createNamedQuery(Device.COUNT_BY_DEVICE_ID,
+				Long.class).setParameter(1, pDeviceId).getSingleResult();
+	}
+	
 }

@@ -56,10 +56,7 @@ public class User {
 	private String email;
 
 	@Column(unique = false, nullable = false)
-	private String phonenumber = "";
-	
-	@Column(unique = false, nullable = false)
-	private String mobilenumber = "";
+	private String telephone = "";
 
 	@Column(unique = false, nullable = false)
 	@Lob
@@ -79,7 +76,7 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Device> devices;
-	
+
 	@Column(unique = false, nullable = false)
 	private boolean deactivated = false;
 
@@ -131,14 +128,6 @@ public class User {
 		this.prename = prename;
 	}
 
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-
 	public List<Message> getMessages() {
 		return messages;
 	}
@@ -185,6 +174,22 @@ public class User {
 
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public boolean isDeactivated() {
+		return deactivated;
+	}
+
+	public void setDeactivated(boolean deactivated) {
+		this.deactivated = deactivated;
 	}
 
 }

@@ -20,15 +20,15 @@ import javax.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = Device.FIND_ALL, query = "from Device d"),
 		@NamedQuery(name = Device.FIND_BY_USER, query = "from Device d where user = ?1"),
-		@NamedQuery(name = Device.FIND_BY_DEVICE_ID, query = "from Device d where deviceId = ?1") })
+		@NamedQuery(name = Device.FIND_BY_DEVICE_ID, query = "from Device d where deviceId = ?1"),
+		@NamedQuery(name = Device.COUNT_BY_DEVICE_ID, query = "select count(d) from Device d where deviceId = ?1")})
 public class Device {
 
 	public static final String FIND_ALL = "Device.FIND_ALL";
-
 	public static final String FIND_BY_USER = "Device.FIND_BY_USER";
-
 	public static final String FIND_BY_DEVICE_ID = "Device.FIND_BY_DEVICE_ID";
-
+	public static final String COUNT_BY_DEVICE_ID = "Device.COUNT_BY_DEVICE_ID";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
@@ -39,6 +39,7 @@ public class Device {
 	private String deviceDescription = "";
 
 	@Column(unique = false, nullable = false)
+	@Basic(fetch=FetchType.LAZY)
 	private byte[] publicAsyncKey;
 
 	@Column(unique = false, nullable = false)

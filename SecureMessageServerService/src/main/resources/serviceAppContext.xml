@@ -29,6 +29,10 @@
 	<bean id="symmetricKeygen"
 		class="de.bio.hazard.securemessage.tecframework.encryption.symmetric.SymmetricKeygen"
 		scope="singleton" />
+		
+		<bean id="idGenerator"
+		class="de.bio.hazard.securemessage.tecframework.data.IdGenerator"
+		scope="singleton" />
 
 	<import resource="db.xml" />
 

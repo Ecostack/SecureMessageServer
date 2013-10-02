@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.bio.hazard.securemessage.dao.implementation.DefaultDeviceDao;
-import de.bio.hazard.securemessage.dao.implementation.DefaultMessageContentDao;
 import de.bio.hazard.securemessage.model.Device;
 import de.bio.hazard.securemessage.model.User;
 import de.bio.hazard.securemessage.service.DeviceService;
+import de.bio.hazard.securemessage.tecframework.data.IdGenerator;
 
 @Service(value = "deviceService")
 @Transactional(readOnly = true)
@@ -19,13 +19,27 @@ public class DefaultDeviceService implements DeviceService {
 	@Autowired
 	private DefaultDeviceDao deviceDao;
 
+	@Autowired
+	private IdGenerator idGenerator;
+
+	@Transactional(readOnly = false)
+	public String findNewDeviceId() {
+		String lcNewId = null;
+		long lcDeviceCount = 1;
+		do {
+			lcNewId = idGenerator.nextId();
+			lcDeviceCount = getCountByDeviceId(lcNewId);
+		} while (lcDeviceCount != 0);
+
+		return lcNewId;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public String addDeviceAndReturnDeviceId(Device pDevice) {
+		pDevice.setDeviceId(findNewDeviceId());
 		addDevice(pDevice);
-		// TODO SebastianS; Zufallswert
-		// XXX NicoH: Sicher, dass du Zufall nutzen möchtest? Auf dem Server sollte eine neue ID aus den bisherigen erzeugt werden können
-		return "123";
+		return pDevice.getDeviceId();
 	}
 
 	@Transactional(readOnly = false)
@@ -60,12 +74,11 @@ public class DefaultDeviceService implements DeviceService {
 	public List<Device> getDevicesByUser(User pUser) {
 		return getDeviceDao().findByUser(pUser);
 	}
-	
+
 	@Override
 	public Device getDeviceByDeviceId(String pDeviceId) {
 		return getDeviceDao().findByDeviceId(pDeviceId);
 	}
-
 
 	public DefaultDeviceDao getDeviceDao() {
 		return deviceDao;
@@ -75,5 +88,9 @@ public class DefaultDeviceService implements DeviceService {
 		this.deviceDao = deviceDao;
 	}
 
+	@Override
+	public long getCountByDeviceId(String pDeviceId) {
+		return getDeviceDao().countByDeviceId(pDeviceId);
+	}
 
 }
