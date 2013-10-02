@@ -15,6 +15,8 @@ import de.bio.hazard.securemessage.dto.user.NewUserWebserviceDTO;
 import de.bio.hazard.securemessage.facade.AuthenticationFacade;
 import de.bio.hazard.securemessage.facade.NewDeviceFacade;
 import de.bio.hazard.securemessage.facade.NewUserFacade;
+import de.bio.hazard.securemessage.facade.exception.DeviceNotFoundException;
+import de.bio.hazard.securemessage.facade.exception.EncryptionException;
 
 @WebService
 @Component
@@ -41,13 +43,13 @@ public class AuthenticationWebservice {
 	}
 
 	public AuthenticationStepOneReturnDTO authenticateStepOne(
-			AuthenticationStepOneDTO pAuthenticationStepOneDTO) {
+			AuthenticationStepOneDTO pAuthenticationStepOneDTO) throws EncryptionException, DeviceNotFoundException {
 		return authenticationFacade
 				.authenticateStepOne(pAuthenticationStepOneDTO);
 	}
 
 	public AuthenticationStepTwoReturnDTO authenticateStepTwo(
-			AuthenticationStepTwoDTO pAuthenticationStepTwoDTO) {
+			AuthenticationStepTwoDTO pAuthenticationStepTwoDTO) throws EncryptionException {
 		return authenticationFacade
 				.authenticateStepTwo(pAuthenticationStepTwoDTO);
 	}
