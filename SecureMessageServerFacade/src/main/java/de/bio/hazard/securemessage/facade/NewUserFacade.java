@@ -36,6 +36,7 @@ public class NewUserFacade {
     private User transformToUser(NewUserWebserviceDTO pNewUserWebserviceDTO) {
 	User lcUser = new User();
 	try {
+		//TODO decrypt-Methode statt alles zusammen
 	    Config lcServerPrivateKey = configService.getConfigByEnumType(ConfigType.SERVER_PRIVATE_KEY);
 	    byte[] lcSymmetricKey = encryptionObjectModifier.asymmetricDecryptToByte(pNewUserWebserviceDTO.getSymEncryptionKey(),lcServerPrivateKey.getValue(), true);
 	    lcUser.setRole(userRoleService.getUserRoleByType(UserRoleType.Registered));

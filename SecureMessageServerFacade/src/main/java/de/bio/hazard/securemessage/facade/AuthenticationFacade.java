@@ -20,6 +20,7 @@ import de.bio.hazard.securemessage.service.ConfigService;
 import de.bio.hazard.securemessage.service.DeviceService;
 import de.bio.hazard.securemessage.service.helper.ConfigType;
 import de.bio.hazard.securemessage.tecframework.encryption.facade.helper.EncryptionObjectModifier;
+import de.bio.hazard.securemessage.tecframework.encryption.symmetric.SymmetricKeygen;
 
 @Component
 public class AuthenticationFacade {
@@ -33,8 +34,12 @@ public class AuthenticationFacade {
 	@Autowired
 	private ConfigService configService;
 
-	@Autowired
-	private EncryptionObjectModifier encryptionObjectModifier;
+	 @Autowired(required = true)
+	    private EncryptionObjectModifier encryptionObjectModifier;
+	 
+	 @Autowired
+	    private SymmetricKeygen symmetricKeygen;
+
 
 	public AuthenticationStepOneReturnDTO authenticateStepOne(
 			AuthenticationStepOneDTO pAuthenticationStepOneDTO)
@@ -149,17 +154,42 @@ public class AuthenticationFacade {
 
 	private AuthenticationStepOneReturnDTO encryptAuthenticationStepOneReturnDTOByPublicKeyOfDevice(
 			AuthenticationStepOneReturnDTO pAuthenticationStepReturnDTO,
-			Device pDevice) {
-		// TODO NicoH; Verschluesselung
-
-		return pAuthenticationStepReturnDTO;
+			Device pDevice) throws EncryptionException {
+		AuthenticationStepOneReturnDTO lcAuthenticationStepReturnDTO = pAuthenticationStepReturnDTO;
+		try{
+		byte[] lcSymmetricKey = symmetricKeygen.getKey(128);
+		byte[] lcPKDevice = pDevice.getPublicAsyncKey();
+		
+		lcAuthenticationStepReturnDTO.setSymEncryptionKey(encryptionObjectModifier.asymmetricEncrypt(lcSymmetricKey, lcPKDevice, false));
+		lcAuthenticationStepReturnDTO.setRandomHashedValue(encryptionObjectModifier.symmetricEncrypt(lcAuthenticationStepReturnDTO.getRandomHashedValue(), lcSymmetricKey));
+		lcAuthenticationStepReturnDTO.setHandshakeId(encryptionObjectModifier.symmetricEncrypt(lcAuthenticationStepReturnDTO.getHandshakeId(), lcSymmetricKey));
+		}
+		catch(Exception e){
+			// TODO SebastianS; Logging
+			e.printStackTrace();
+			throw new EncryptionException();
+		}
+		return lcAuthenticationStepReturnDTO;
 	}
 
 	private AuthenticationStepTwoReturnDTO encryptAuthenticationStepTwoReturnDTOByPublicKeyOfDevice(
 			AuthenticationStepTwoReturnDTO pAuthenticationStepReturnDTO,
-			Device pDevice) {
-		// TODO NicoH; Verschluesselung
-		return pAuthenticationStepReturnDTO;
+			Device pDevice) throws EncryptionException {
+		AuthenticationStepTwoReturnDTO lcAuthenticationStepReturnDTO = pAuthenticationStepReturnDTO;
+		try{
+		byte[] lcSymmetricKey = symmetricKeygen.getKey(128);
+		byte[] lcPKDevice = pDevice.getPublicAsyncKey();
+		
+		lcAuthenticationStepReturnDTO.setSymEncryptionKey(encryptionObjectModifier.asymmetricEncrypt(lcSymmetricKey, lcPKDevice, false));
+		lcAuthenticationStepReturnDTO.setTokenId(encryptionObjectModifier.symmetricEncrypt(lcAuthenticationStepReturnDTO.getTokenId(), lcSymmetricKey));
+		
+		}
+		catch(Exception e){
+			// TODO SebastianS; Logging
+			e.printStackTrace();
+			throw new EncryptionException();
+		}
+		return lcAuthenticationStepReturnDTO;
 	}
 
 	private AuthenticationStepOne transformStepOneDTOtoService(
