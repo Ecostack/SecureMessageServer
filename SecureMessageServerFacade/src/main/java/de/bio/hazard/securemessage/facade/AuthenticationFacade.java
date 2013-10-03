@@ -54,6 +54,7 @@ public class AuthenticationFacade {
 
 		AuthenticationStepOneReturn lcReturn = authenticationService
 				.authenticationStepOne(lcServiceModel);
+		System.err.println("handshakeid stepone server: " + lcReturn.getHandshakeId());
 		AuthenticationStepOneReturnDTO lcReturnDTO = transformStepOneReturnServiceToDTO(lcReturn);
 
 		encryptAuthenticationStepOneReturnDTOByPublicKeyOfDevice(lcReturnDTO,
@@ -69,6 +70,7 @@ public class AuthenticationFacade {
 
 		lcAuthenticationStepTwoDTO = decryptAuthenticationStepTwoDTO(lcAuthenticationStepTwoDTO);
 
+		System.err.println("handshakeid steptwo server: " + lcAuthenticationStepTwoDTO.getHandshakeId());
 		AuthenticationStepTwo lcServiceModel = transformStepTwoDTOtoService(lcAuthenticationStepTwoDTO);
 
 		AuthenticationStepTwoReturn lcReturn = authenticationService

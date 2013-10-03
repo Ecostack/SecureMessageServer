@@ -60,7 +60,7 @@ public class User {
 
 	@Column(unique = false, nullable = false)
 	@Lob
-	private byte[] publicAsymmetricKey;
+	private byte[] publicKeyForMessaging;
 
 	@Column(unique = false, nullable = true)
 	private Calendar lastLoginAt;
@@ -144,14 +144,6 @@ public class User {
 		this.password = password;
 	}
 
-	public byte[] getPublicAsymmetricKey() {
-		return publicAsymmetricKey;
-	}
-
-	public void setPublicAsymmetricKey(byte[] publicAsymmetricKey) {
-		this.publicAsymmetricKey = publicAsymmetricKey;
-	}
-
 	public UserRole getRole() {
 		return role;
 	}
@@ -190,6 +182,14 @@ public class User {
 
 	public void setDeactivated(boolean deactivated) {
 		this.deactivated = deactivated;
+	}
+
+	public byte[] getPublicKeyForMessaging() {
+		return publicKeyForMessaging;
+	}
+
+	public void setPublicKeyForMessaging(byte[] publicKeyForMessaging) {
+		this.publicKeyForMessaging = publicKeyForMessaging;
 	}
 
 }

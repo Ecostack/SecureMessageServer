@@ -25,14 +25,13 @@ import de.bio.hazard.securemessage.tecframework.encryption.hashing.BCrypt;
 public class DefaultAuthenticationService implements AuthenticationService {
 	private HashMap<String, AuthenticationToken> authTokens = new HashMap<String, AuthenticationToken>();
 	private HashMap<String, HandshakeToken> handshakeTokens = new HashMap<String, HandshakeToken>();
-	
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
 	private DeviceService deviceService;
-	
+
 	@Autowired
 	private IdGenerator idGenerator;
 
@@ -83,8 +82,11 @@ public class DefaultAuthenticationService implements AuthenticationService {
 	public AuthenticationStepOneReturn getAuthenticationStepOne(Device pDevice) {
 		AuthenticationStepOneReturn lcReturn = new AuthenticationStepOneReturn();
 
-		lcReturn.setHandshakeId(this.getNewHandshakeToken(pDevice).getTokenid());
-		lcReturn.setRandomHashedValue(idGenerator.nextId());
+		String lcRandomHashValue = idGenerator.nextId();
+
+		lcReturn.setHandshakeId(this.getNewHandshakeToken(pDevice,
+				lcRandomHashValue).getTokenid());
+		lcReturn.setRandomHashedValue(lcRandomHashValue);
 		return lcReturn;
 	}
 
@@ -102,15 +104,18 @@ public class DefaultAuthenticationService implements AuthenticationService {
 			lcTokenId = idGenerator.nextId();
 		}
 
+		
+		System.err.println("authtoken create and put server: " + lcTokenId);
 		AuthenticationToken lcToken = new AuthenticationToken(lcTokenId);
-		lcToken.setTokenid(pDevice.getDeviceId());
+		lcToken.setDeviceId(pDevice.getDeviceId());
 		authTokens.put(lcTokenId, lcToken);
 		return lcToken;
 
 	}
 
 	@Override
-	public HandshakeToken getNewHandshakeToken(Device pDevice) {
+	public HandshakeToken getNewHandshakeToken(Device pDevice,
+			String pRandomHashValue) {
 
 		String lcHandshakeId = idGenerator.nextId();
 		while (handshakeTokens.containsKey(lcHandshakeId)) {
@@ -119,7 +124,10 @@ public class DefaultAuthenticationService implements AuthenticationService {
 
 		HandshakeToken lcToken = new HandshakeToken(lcHandshakeId);
 
-		lcToken.setTokenid(pDevice.getDeviceId());
+		System.err.println("handshake create and put server: " + lcHandshakeId);
+
+		lcToken.setDeviceId(pDevice.getDeviceId());
+		lcToken.setRandomHashValue(pRandomHashValue);
 		handshakeTokens.put(lcHandshakeId, lcToken);
 		return lcToken;
 	}
@@ -140,16 +148,16 @@ public class DefaultAuthenticationService implements AuthenticationService {
 	public boolean isHandshakeTokenValid(String pTokenIdToCheck) {
 		if (!pTokenIdToCheck.isEmpty()) {
 			HandshakeToken lcToken = handshakeTokens.get(pTokenIdToCheck);
-			if (!lcToken.isInvalid()) {
-				return true;
-			} else {
-				handshakeTokens.remove(pTokenIdToCheck);
+			if (lcToken != null) {
+				if (!lcToken.isInvalid()) {
+					return true;
+				} else {
+					handshakeTokens.remove(pTokenIdToCheck);
+				}
 			}
 		}
 		return false;
 	}
-
-	
 
 	public boolean isRandomHashedValueMatching(String pToEqual,
 			String pHandshakeId) {

@@ -1,8 +1,11 @@
 package de.bio.hazard.securemessage.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class AbstractToken {
+import de.bio.hazard.securemessage.util.Statics;
+
+public abstract class AbstractToken {
 
 	private String tokenid = null;
 	private Calendar created = Calendar.getInstance();
@@ -11,11 +14,18 @@ public class AbstractToken {
 
 	public boolean isInvalid() {
 		Calendar lcCal = Calendar.getInstance();
-		if (lcCal.compareTo(invalidAt) == 1) {
+
+		SimpleDateFormat lcSDF = new SimpleDateFormat("hh:mm:ss SSS");
+		System.err.println("current: " + lcSDF.format(lcCal.getTime()));
+		System.err.println("invalidAt: " + lcSDF.format(invalidAt.getTime()));
+
+		if (lcCal.after(invalidAt)) {
 			return true;
 		}
 		return false;
 	}
+
+	
 
 	public AbstractToken(String tokenid) {
 		this();
@@ -23,7 +33,12 @@ public class AbstractToken {
 	}
 
 	public AbstractToken() {
+		getInvalidAt().setTimeInMillis(
+				getInvalidAt().getTimeInMillis()
+						+ (getValidTimeInSeconds() * 1000));
 	}
+	
+	protected abstract int getValidTimeInSeconds();
 
 	public String getTokenid() {
 		return tokenid;

@@ -1,5 +1,7 @@
 package de.bio.hazard.securemessage.facade;
 
+import java.io.IOException;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,15 +34,21 @@ public class NewUserFacade {
 	public void addNewUser(NewUserWebserviceDTO pNewUserWebserviceDTO)
 			throws EncryptionExceptionBiohazard {
 		decryptNewUserWebserviceDTO(pNewUserWebserviceDTO);
-		User lcUser = transformToUserDynamic(pNewUserWebserviceDTO);
+		User lcUser;
+		try {
+			lcUser = transformToUserDynamic(pNewUserWebserviceDTO);
+		} catch (IOException e) {
+			throw new EncryptionExceptionBiohazard();
+		}
 		userService.addUser(lcUser);
 	}
 
 	private User transformToUserDynamic(
-			NewUserWebserviceDTO pNewUserWebserviceDTO) {
+			NewUserWebserviceDTO pNewUserWebserviceDTO) throws IOException {
 		User lcUser = new User();
 
-		BeanUtils.copyProperties(pNewUserWebserviceDTO, lcUser);
+		BeanUtils.copyProperties(pNewUserWebserviceDTO, lcUser, new String[] {"publicKeyForMessaging"});
+		lcUser.setPublicKeyForMessaging(encryptionObjectModifier.decodeBase64ToByte(pNewUserWebserviceDTO.getPublicKeyForMessaging()));
 		return lcUser;
 	}
 
@@ -72,11 +80,12 @@ public class NewUserFacade {
 			pNewUserWebserviceDTO.setPrename(encryptionObjectModifier
 					.symmetricDecrypt(pNewUserWebserviceDTO.getPrename(),
 							lcSymmetricKey));
+			
+			byte[] lcKey = encryptionObjectModifier.symmetricDecryptToByte(
+					pNewUserWebserviceDTO.getPublicKeyForMessaging(),
+					lcSymmetricKey);
 			pNewUserWebserviceDTO
-					.setPublicKeyForMessaging(encryptionObjectModifier.symmetricDecrypt(
-							pNewUserWebserviceDTO.getPublicKeyForMessaging(),
-							lcSymmetricKey));
-
+					.setPublicKeyForMessaging(encryptionObjectModifier.encodeBase64(lcKey));
 		} catch (Exception e) {
 			// TODO handle exception
 			throw new EncryptionExceptionBiohazard();

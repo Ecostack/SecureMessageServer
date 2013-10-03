@@ -99,7 +99,7 @@ public class Global {
 		lcUser.setPassword("admin");
 		lcUser.setRole(lcRoleAdmin);
 		lcUser.setLastLoginAt(Calendar.getInstance());
-		lcUser.setPublicAsymmetricKey(new byte[] { 1 });
+		lcUser.setPublicKeyForMessaging(new byte[] { 1 });
 		getUserService().addUser(lcUser);
 
 		User lcUserTest = new User();
@@ -110,7 +110,7 @@ public class Global {
 		lcUserTest.setPassword("test");
 		lcUserTest.setRole(lcRoleRegistered);
 		lcUserTest.setLastLoginAt(Calendar.getInstance());
-		lcUserTest.setPublicAsymmetricKey(new byte[] { 1 });
+		lcUserTest.setPublicKeyForMessaging(new byte[] { 1 });
 		getUserService().addUser(lcUserTest);
 
 		// #################################################################################################################################

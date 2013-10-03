@@ -57,7 +57,7 @@ public class UserFacade {
 		User lcUser = userService.getUserByUsername(lcUserWebserviceDTO
 				.getUsername());
 		lcUserWebserviceReturnDTO.setPublicKey(encryptionObjectModifier
-				.encodeBase64(lcUser.getPublicAsymmetricKey()));
+				.encodeBase64(lcUser.getPublicKeyForMessaging()));
 		lcUserWebserviceReturnDTO = encryptUserWebserviceReturnDTO(
 				lcUserWebserviceReturnDTO, lcUserWebserviceDTO.getTokenId());
 		return lcUserWebserviceReturnDTO;

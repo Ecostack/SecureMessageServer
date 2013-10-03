@@ -1,19 +1,19 @@
 package de.bio.hazard.securemessage.model;
 
-import java.util.Calendar;
-
 import de.bio.hazard.securemessage.util.Statics;
 
 public class HandshakeToken extends AbstractToken {
 
 	private String randomHashValue = "";
 
-	public HandshakeToken() {
-		getInvalidAt().add(Calendar.SECOND, Statics.HANDSHAKE_VALID_SECONDS);
-	}
-
 	public HandshakeToken(String tokenid) {
+
 		super(tokenid);
+	}
+	
+	@Override
+	protected int getValidTimeInSeconds() {
+		return Statics.HANDSHAKE_TOKEN_VALID_SECONDS;
 	}
 
 	public String getRandomHashValue() {

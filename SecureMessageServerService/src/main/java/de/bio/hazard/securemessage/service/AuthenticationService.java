@@ -27,7 +27,7 @@ public interface AuthenticationService {
 
 	AuthenticationToken getNewAuthenticationToken(Device pDevice);
 
-	HandshakeToken getNewHandshakeToken(Device pDevice);
+	HandshakeToken getNewHandshakeToken(Device pDevice,String pRandomHashValue);
 
 	boolean isAuthTokenValid(String pTokenIdToCheck);
 
