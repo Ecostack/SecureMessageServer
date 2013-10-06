@@ -3,13 +3,13 @@ package de.bio.hazard.securemessage.model;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -36,15 +36,18 @@ public class MessageContentKey {
 	@Basic(optional = false)
 	private long id;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	//TODO SebastianS; Check Cascade; anders war es mir bisher nicht möglich
+	@ManyToOne(fetch=FetchType.LAZY, cascade= {CascadeType.REFRESH})
 	private Message message = null;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	//TODO SebastianS; Check Cascade; anders war es mir bisher nicht möglich
+	@ManyToOne(fetch=FetchType.LAZY, cascade= {CascadeType.REFRESH})
 	private MessageContent messageContent = null;
 
 	@Column(unique = false, nullable = false)
-	@Lob
-	private byte[] synchEncryptionKey;
+	//@Lob
+	//private byte[] synchEncryptionKey;
+	private String synchEncryptionKey;
 
 	public long getId() {
 		return id;
@@ -54,12 +57,20 @@ public class MessageContentKey {
 		this.id = id;
 	}
 
-	public byte[] getSynchEncryptionKey() {
-		return synchEncryptionKey;
+//	public byte[] getSynchEncryptionKey() {
+//		return synchEncryptionKey;
+//	}
+//
+//	public void setSynchEncryptionKey(byte[] synchEncryptionKey) {
+//		this.synchEncryptionKey = synchEncryptionKey;
+//	}
+	
+	public String getSynchEncryptionKey() {
+	    return synchEncryptionKey;
 	}
 
-	public void setSynchEncryptionKey(byte[] synchEncryptionKey) {
-		this.synchEncryptionKey = synchEncryptionKey;
+	public void setSynchEncryptionKey(String synchEncryptionKey) {
+	    this.synchEncryptionKey = synchEncryptionKey;
 	}
 
 	public Message getMessage() {

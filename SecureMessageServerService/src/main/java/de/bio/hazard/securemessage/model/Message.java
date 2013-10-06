@@ -39,8 +39,9 @@ public class Message {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User receiver;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "messages")
-	private List<MessageContent> contents = new ArrayList<MessageContent>();
+	//XXX Nico Messagekorrektur
+//	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "messages")
+//	private List<MessageContent> contents = new ArrayList<MessageContent>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<MessageReceiver> messageReceivers = new ArrayList<MessageReceiver>();
@@ -72,13 +73,13 @@ public class Message {
 		this.receiver = receiver;
 	}
 
-	public List<MessageContent> getContents() {
-		return contents;
-	}
-
-	public void setContents(List<MessageContent> contents) {
-		this.contents = contents;
-	}
+//	public List<MessageContent> getContents() {
+//		return contents;
+//	}
+//
+//	public void setContents(List<MessageContent> contents) {
+//		this.contents = contents;
+//	}
 
 	public List<MessageReceiver> getMessageReceivers() {
 		return messageReceivers;

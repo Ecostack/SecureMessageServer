@@ -2,7 +2,8 @@ package de.bio.hazard.securemessage.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
-import java.util.List;
+
+import javax.xml.soap.MessageFactory;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ import de.bio.hazard.securemessage.service.UserService;
 import de.bio.hazard.securemessage.service.helper.ConfigType;
 import de.bio.hazard.securemessage.tecframework.encryption.asymmetric.AsymmetricKey;
 import de.bio.hazard.securemessage.tecframework.encryption.asymmetric.AsymmetricKeygen;
-import de.bio.hazard.securemessage.tecframework.encryption.hashing.BCrypt;
 
 @Service
 public class Global {
@@ -99,7 +99,8 @@ public class Global {
 		lcUser.setPassword("admin");
 		lcUser.setRole(lcRoleAdmin);
 		lcUser.setLastLoginAt(Calendar.getInstance());
-		lcUser.setPublicKeyForMessaging(new byte[] { 1 });
+		AsymmetricKey lcUserKeyPair = asyncKeygen.getKey(1024);
+		lcUser.setPublicKeyForMessaging(lcUserKeyPair.getPublicKey());
 		getUserService().addUser(lcUser);
 
 		User lcUserTest = new User();
@@ -110,70 +111,110 @@ public class Global {
 		lcUserTest.setPassword("test");
 		lcUserTest.setRole(lcRoleRegistered);
 		lcUserTest.setLastLoginAt(Calendar.getInstance());
-		lcUserTest.setPublicKeyForMessaging(new byte[] { 1 });
+		AsymmetricKey lcUserTestKeyPair = asyncKeygen.getKey(1024);
+		lcUserTest.setPublicKeyForMessaging(lcUserTestKeyPair.getPublicKey());
 		getUserService().addUser(lcUserTest);
+		
+		User lcUserTest2 = new User();
+		lcUserTest2.setEmail("testMessage");
+		lcUserTest2.setName("testMessage");
+		lcUserTest2.setUsername("testMessage");
+		//lcUserTest2.setPassword(BCrypt.hashpw("testMessage", BCrypt.gensalt(11)));
+		lcUserTest2.setPassword("testMessage");
+		lcUserTest2.setRole(lcRoleRegistered);
+		lcUserTest2.setLastLoginAt(Calendar.getInstance());
+		AsymmetricKey lcUserTestMessageKeyPair = asyncKeygen.getKey(1024);
+		lcUserTest2.setPublicKeyForMessaging(lcUserTestMessageKeyPair.getPublicKey());
+		getUserService().addUser(lcUserTest2);
+		
+		log.debug("Global init - User OK");
 
 		// #################################################################################################################################
 
 		Message lcMessage = new Message();
 		lcMessage.setSender(lcUser);
 		lcMessage.setReceiver(lcUserTest);
+		
+		Message lcMessage2 = new Message();
+		lcMessage2.setSender(lcUser);
+		lcMessage2.setReceiver(lcUserTest2);
 
 		messageService.addMessage(lcMessage);
+		messageService.addMessage(lcMessage2);
 
 		MessageContent lcMessageContent = new MessageContent();
 		lcMessageContent.setMessageContentType(MessageContentType.Subject);
-		lcMessageContent.setData("ü".getBytes("UTF-8"));
-		lcMessageContent.setSynchEncryptionKey("ü".getBytes("UTF-16"));
-		lcMessageContent.getMessages().add(lcMessage);
+		lcMessageContent.setData("Hallo Welt".getBytes("UTF-8"));
+		//lcMessageContent.setData("Hallo Welt");
+		//lcMessageContent.setSynchEncryptionKey("1234".getBytes("UTF-16"));
+		//lcMessageContent.getMessages().add(lcMessage);
 
 		MessageContent lcMessageContent2 = new MessageContent();
 		lcMessageContent2.setMessageContentType(MessageContentType.Message);
-		lcMessageContent2.setData("ü".getBytes("cp1252"));
-		lcMessageContent2.setSynchEncryptionKey("ü".getBytes());
-		lcMessageContent2.getMessages().add(lcMessage);
+		lcMessageContent2.setData("Dies ist ein Text (ü)".getBytes("cp1252"));
+		//lcMessageContent2.setData("Dies ist ein Text (ü)");
+		//lcMessageContent2.setSynchEncryptionKey("5678".getBytes());
+		//lcMessageContent2.getMessages().add(lcMessage);
 
 		messageContentService.addMessageContent(lcMessageContent);
-
 		messageContentService.addMessageContent(lcMessageContent2);
-
+		
 		MessageContentKey lcMCK = new MessageContentKey();
 		lcMCK.setMessage(lcMessage);
 		lcMCK.setMessageContent(lcMessageContent);
-		lcMCK.setSynchEncryptionKey(new byte[] { 1, 2, 3 });
-
+		lcMCK.setSynchEncryptionKey("SymmetricEncryptionKey Content1 (encrypted for User "+lcMessage.getReceiver().getName()+")");
 		messageContentKeyService.addMessageContentKey(lcMCK);
+		
+		MessageContentKey lcMCK2 = new MessageContentKey();
+		lcMCK2.setMessage(lcMessage);
+		lcMCK2.setMessageContent(lcMessageContent2);
+		lcMCK2.setSynchEncryptionKey("SymmetricEncryptionKey Content2 (encrypted for User "+lcMessage.getReceiver().getName()+")");
+		messageContentKeyService.addMessageContentKey(lcMCK2);
+		
+		MessageContentKey lcMCK3 = new MessageContentKey();
+		lcMCK3.setMessage(lcMessage2);
+		lcMCK3.setMessageContent(lcMessageContent);
+		lcMCK3.setSynchEncryptionKey("SymmetricEncryptionKey Content1 (encrypted for User "+lcMessage2.getReceiver().getName()+")");
+		messageContentKeyService.addMessageContentKey(lcMCK3);
+		
+		MessageContentKey lcMCK4 = new MessageContentKey();
+		lcMCK4.setMessage(lcMessage2);
+		lcMCK4.setMessageContent(lcMessageContent2);
+		lcMCK4.setSynchEncryptionKey("SymmetricEncryptionKey Content2 (encrypted for User "+lcMessage2.getReceiver().getName()+")");
+		messageContentKeyService.addMessageContentKey(lcMCK4);
+		
+		log.debug("Global init - Message OK");
 
-		for (Message lcMessageItem : messageService.getMessages()) {
-			System.err.println("Message: " + lcMessageItem.getId());
-			for (MessageContent lcContent : lcMessageItem.getContents()) {
-				System.err.println("Message content: " + lcContent.getId());
-				System.err.println("Message content type: "
-						+ lcContent.getMessageContentType());
-			}
-		}
+//		for (Message lcMessageItem : messageService.getMessages()) {
+//			System.err.println("Message: " + lcMessageItem.getId());
+//			for (MessageContent lcContent : lcMessageItem.getContents()) {
+//				System.err.println("Message content: " + lcContent.getId());
+//				System.err.println("Message content type: "
+//						+ lcContent.getMessageContentType());
+//			}
+//		}
+//
+//		List<MessageContent> lcList = messageContentService
+//				.getMessagesContentsByMessage(lcMessage);
+//		for (MessageContent lcMessageContentItem : lcList) {
+//			System.err.println("Messagecontent: "
+//					+ lcMessageContentItem.getId());
+//		}
+//
+//		List<MessageContentKey> lcMCKList = messageContentKeyService
+//				.getMessagesContentKeysByMessage(lcMessage.getId());
+//		for (MessageContentKey lcMCKItem : lcMCKList) {
+//			System.err.println("MessageContentKey: " + lcMCKItem.getId());
+//			System.err.println("MessageContentKey encKey: "
+//					+ lcMCKItem.getSynchEncryptionKey());
+//		}
 
-		List<MessageContent> lcList = messageContentService
-				.getMessagesContentsByMessage(lcMessage);
-		for (MessageContent lcMessageContentItem : lcList) {
-			System.err.println("Messagecontent: "
-					+ lcMessageContentItem.getId());
-		}
-
-		List<MessageContentKey> lcMCKList = messageContentKeyService
-				.getMessagesContentKeysByMessage(lcMessage.getId());
-		for (MessageContentKey lcMCKItem : lcMCKList) {
-			System.err.println("MessageContentKey: " + lcMCKItem.getId());
-			System.err.println("MessageContentKey encKey: "
-					+ lcMCKItem.getSynchEncryptionKey());
-		}
-
-		createConfigValues();
+		createConfigValues(); 
 	}
 
 	private void createConfigValues() {
 		
-		AsymmetricKey lcKeyPair = asyncKeygen.getAsyncKey(2048);
+		AsymmetricKey lcKeyPair = asyncKeygen.getKey(2048);
 		
 		Config lcConfigPublicKey = new Config();
 		lcConfigPublicKey.setRunningNumber(ConfigType.SERVER_PUBLIC_KEY
