@@ -19,8 +19,8 @@ import de.bio.hazard.securemessage.facade.exception.UserNotFoundException;
 @Component
 public class UserWebservice {
 
-	@Autowired
-	private UserFacade userFacade = null;
+    @Autowired
+    private UserFacade userFacade;
 
 	@WebMethod
 	public UserWebserviceReturnDTO getPublicKeyByUsername(

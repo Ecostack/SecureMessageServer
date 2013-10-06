@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,11 +25,12 @@ import de.bio.hazard.securemessage.model.helper.MessageContentType;
 @Access(AccessType.FIELD)
 @NamedQueries({
 		@NamedQuery(name = MessageContent.FIND_ALL, query = "from MessageContent mc"),
-		@NamedQuery(name = MessageContent.FIND_BY_MESSAGE, query = "select distinct mc from MessageContent mc JOIN mc.messages messages WHERE messages IN ( ?1)") })
+		//XXX Nico Messagekorrektur	@NamedQuery(name = MessageContent.FIND_BY_MESSAGE, query = "select distinct mc from MessageContent mc JOIN mc.messages messages WHERE messages IN ( ?1)") 
+		})
 public class MessageContent {
 
 	public static final String FIND_ALL = "MessageContent.FIND_ALL";
-	public static final String FIND_BY_MESSAGE = "MessageContent.FIND_BY_MESSAGE";
+	//XXX Nico Messagekorrektur public static final String FIND_BY_MESSAGE = "MessageContent.FIND_BY_MESSAGE";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,8 +38,9 @@ public class MessageContent {
 	@Basic(optional = false)
 	private long id;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	private List<Message> messages = new ArrayList<Message>();
+	//XXX Nico Messagekorrektur
+	//@ManyToMany(fetch = FetchType.LAZY)
+	//private List<Message> messages = new ArrayList<Message>();
 
 	@Column(unique = false, nullable = false)
 	@Lob
@@ -48,9 +49,10 @@ public class MessageContent {
 	@Column(unique = false, nullable = false)
 	private MessageContentType messageContentType;
 
-	@Column(unique = false, nullable = false)
-	@Lob
-	private byte[] synchEncryptionKey;
+	//XXX Nico Messagekorrektur
+//	@Column(unique = false, nullable = false)
+//	@Lob
+//	private byte[] synchEncryptionKey;
 
 	@Column(unique = false, nullable = true)
 	private String filename = "";
@@ -69,13 +71,14 @@ public class MessageContent {
 		this.id = id;
 	}
 
-	public List<Message> getMessages() {
-		return messages;
-	}
-
-	public void setMessages(List<Message> messages) {
-		this.messages = messages;
-	}
+	//XXX Nico Messagekorrektur
+//	public List<Message> getMessages() {
+//		return messages;
+//	}
+//
+//	public void setMessages(List<Message> messages) {
+//		this.messages = messages;
+//	}
 
 	public byte[] getData() {
 		return data;
@@ -93,13 +96,14 @@ public class MessageContent {
 		this.messageContentType = messageContentType;
 	}
 
-	public byte[] getSynchEncryptionKey() {
-		return synchEncryptionKey;
-	}
-
-	public void setSynchEncryptionKey(byte[] synchEncryptionKey) {
-		this.synchEncryptionKey = synchEncryptionKey;
-	}
+	//XXX Nico Messagekorrektur
+//	public byte[] getSynchEncryptionKey() {
+//		return synchEncryptionKey;
+//	}
+//
+//	public void setSynchEncryptionKey(byte[] synchEncryptionKey) {
+//		this.synchEncryptionKey = synchEncryptionKey;
+//	}
 
 	public String getFilename() {
 		return filename;

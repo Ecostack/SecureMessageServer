@@ -6,27 +6,21 @@ import javax.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.bio.hazard.securemessage.dto.MessageWebserviceDTO;
+import de.bio.hazard.securemessage.dto.message.MessageWebserviceDTO;
 import de.bio.hazard.securemessage.facade.MessageFacade;
-import de.bio.hazard.securemessage.service.implementation.DefaultMessageService;
+import de.bio.hazard.securemessage.tecframework.exception.EncryptionExceptionBiohazard;
 
 @WebService
 @Component
 public class MessageWebservice {
 
-	private DefaultMessageService messageService = null;
+    @Autowired
+    private MessageFacade messageFassade;
 
-	@Autowired
-	public MessageWebservice(DefaultMessageService pMessageService) {
-		messageService = pMessageService;
-	}
-
-	@WebMethod
-	public void addMessage(MessageWebserviceDTO pMessageDTO) {
-		messageService.addMessage(MessageFacade
-				.transferMessageWebserviceDTOtoMessage(pMessageDTO));
-		
-		messageService.listMessagesAndData();
-	}
-
+    @WebMethod
+    public void addMessage(MessageWebserviceDTO pMessageDTO) throws EncryptionExceptionBiohazard {
+	System.err.println("Start add Message");
+	messageFassade.addMessage(pMessageDTO);
+	System.err.println("End add Message");
+    }
 }
