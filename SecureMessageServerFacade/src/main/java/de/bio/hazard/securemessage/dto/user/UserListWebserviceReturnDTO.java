@@ -1,36 +1,22 @@
 package de.bio.hazard.securemessage.dto.user;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 
 public class UserListWebserviceReturnDTO {
+	private ArrayList<UserListItemWebserviceReturnDTO> listItemWebserviceReturnDTOs;
 
-	private String username;
-
-	private byte[] publicKeyForMessaging;
-
-	private Calendar lastLoginAt;
-
-	public String getUsername() {
-		return username;
+	public UserListWebserviceReturnDTO(
+			ArrayList<UserListItemWebserviceReturnDTO> listItemWebserviceReturnDTOs) {
+		super();
+		this.listItemWebserviceReturnDTOs = listItemWebserviceReturnDTOs;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public ArrayList<UserListItemWebserviceReturnDTO> getListItemWebserviceReturnDTOs() {
+		return listItemWebserviceReturnDTOs;
 	}
 
-	public byte[] getPublicKeyForMessaging() {
-		return publicKeyForMessaging;
-	}
-
-	public void setPublicKeyForMessaging(byte[] publicKeyForMessaging) {
-		this.publicKeyForMessaging = publicKeyForMessaging;
-	}
-
-	public Calendar getLastLoginAt() {
-		return lastLoginAt;
-	}
-
-	public void setLastLoginAt(Calendar lastLoginAt) {
-		this.lastLoginAt = lastLoginAt;
+	public void setListItemWebserviceReturnDTOs(
+			ArrayList<UserListItemWebserviceReturnDTO> listItemWebserviceReturnDTOs) {
+		this.listItemWebserviceReturnDTOs = listItemWebserviceReturnDTOs;
 	}
 }

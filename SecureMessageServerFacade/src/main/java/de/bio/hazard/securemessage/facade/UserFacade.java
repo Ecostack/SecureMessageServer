@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.bio.hazard.securemessage.dto.user.UserListWebserviceDTO;
+import de.bio.hazard.securemessage.dto.user.UserListItemWebserviceReturnDTO;
 import de.bio.hazard.securemessage.dto.user.UserListWebserviceReturnDTO;
 import de.bio.hazard.securemessage.dto.user.UserWebserviceDTO;
 import de.bio.hazard.securemessage.dto.user.UserWebserviceReturnDTO;
@@ -42,12 +43,12 @@ public class UserFacade {
     @Autowired(required = true)
     private EncryptionObjectModifier encryptionObjectModifier;
     
-    public ArrayList<UserListWebserviceReturnDTO> getUsers(
+    public UserListWebserviceReturnDTO getUsers(
 			UserListWebserviceDTO pUsersDTO) {
-		ArrayList<UserListWebserviceReturnDTO> lcReturnList = new ArrayList<UserListWebserviceReturnDTO>();
+		ArrayList<UserListItemWebserviceReturnDTO> lcReturnList = new ArrayList<UserListItemWebserviceReturnDTO>();
 		// TODO SebastianS; Muss noch ausprogrammiert werden
-
-		return lcReturnList;
+		UserListWebserviceReturnDTO lcReturn = new UserListWebserviceReturnDTO(lcReturnList);
+		return lcReturn;
 	}
 
     public UserWebserviceReturnDTO getUserByUsername(UserWebserviceDTO pUserWebserviceDTO) throws UserNotFoundException {

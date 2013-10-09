@@ -1,4 +1,4 @@
-package de.bio.hazard.securemessage.dto;
+package de.bio.hazard.securemessage.dto.basisinfo;
 
 public class ServerPublicKeyDTO {
 	private byte[] serverPublicKey;

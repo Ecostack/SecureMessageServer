@@ -1,7 +1,5 @@
 package de.bio.hazard.securemessage.webservice;
 
-import java.util.ArrayList;
-
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
@@ -28,7 +26,7 @@ public class UserWebservice {
 		return userFacade.getUserByUsername(pUserDTO);
 	}
 
-	public ArrayList<UserListWebserviceReturnDTO> getUsers(
+	public UserListWebserviceReturnDTO getUsers(
 			UserListWebserviceDTO pUsersDTO) {
 		return userFacade.getUsers(pUsersDTO);
 	}

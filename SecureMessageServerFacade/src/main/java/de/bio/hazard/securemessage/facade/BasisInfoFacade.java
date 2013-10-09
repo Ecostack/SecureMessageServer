@@ -3,7 +3,7 @@ package de.bio.hazard.securemessage.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.bio.hazard.securemessage.dto.ServerPublicKeyDTO;
+import de.bio.hazard.securemessage.dto.basisinfo.ServerPublicKeyDTO;
 import de.bio.hazard.securemessage.model.Config;
 import de.bio.hazard.securemessage.service.ConfigService;
 import de.bio.hazard.securemessage.service.helper.ConfigType;

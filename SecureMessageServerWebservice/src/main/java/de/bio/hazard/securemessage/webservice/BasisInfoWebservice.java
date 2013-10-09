@@ -5,7 +5,7 @@ import javax.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.bio.hazard.securemessage.dto.ServerPublicKeyDTO;
+import de.bio.hazard.securemessage.dto.basisinfo.ServerPublicKeyDTO;
 import de.bio.hazard.securemessage.facade.BasisInfoFacade;
 
 @WebService
