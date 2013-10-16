@@ -5,8 +5,9 @@
 
 	<parent>
 		<groupId>de.bio-hazard</groupId>
-		<artifactId>SecureMessageServerMavenMain</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<artifactId>SecureMessageServer</artifactId>
+		<version>${app.version}</version>
+		<relativePath>..</relativePath>
 	</parent>
 
 	<artifactId>SecureMessageServerFacade</artifactId>
@@ -17,21 +18,7 @@
 		<dependency>
 			<groupId>de.bio-hazard</groupId>
 			<artifactId>SecureMessageServerService</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
