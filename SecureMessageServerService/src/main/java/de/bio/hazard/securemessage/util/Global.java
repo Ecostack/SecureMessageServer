@@ -151,8 +151,8 @@ public class Global {
 
 		MessageContent lcMessageContent2 = new MessageContent();
 		lcMessageContent2.setMessageContentType(MessageContentType.Message);
-		lcMessageContent2.setData("Dies ist ein Text (ü)".getBytes("cp1252"));
-		//lcMessageContent2.setData("Dies ist ein Text (ü)");
+		lcMessageContent2.setData("Dies ist ein Text (oe)".getBytes("cp1252"));
+		//lcMessageContent2.setData("Dies ist ein Text (ue)");
 		//lcMessageContent2.setSynchEncryptionKey("5678".getBytes());
 		//lcMessageContent2.getMessages().add(lcMessage);
 
