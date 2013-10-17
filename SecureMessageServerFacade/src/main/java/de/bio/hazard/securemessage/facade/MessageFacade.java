@@ -96,7 +96,7 @@ public class MessageFacade {
 
 	    for (MessageContentKeyWebserviceDTO lcMessageContentKeyWDTO : lcMessageContentWDTO.getSymmetricKeys()) {
 		for (Message lcMessage : lcMessages) {
-		    // XXX oder Vergleich über User?
+		    // XXX oder Vergleichber User?
 		    if (lcMessage.getReceiver().getUsername().equals(lcMessageContentKeyWDTO.getUsername())) {
 			MessageContentKey lcMessageContentKey = new MessageContentKey();
 			lcMessageContentKey.setSynchEncryptionKey(lcMessageContentKeyWDTO.getSymmetricEncryptionKey());
