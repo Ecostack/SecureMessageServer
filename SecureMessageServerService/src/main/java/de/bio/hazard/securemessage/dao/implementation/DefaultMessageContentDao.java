@@ -27,10 +27,9 @@ public class DefaultMessageContentDao extends
 				MessageContent.class).getResultList();
 	}
 	
-	//XXX Nico Messagekorrektur
-//	public List<MessageContent> findByMessage(Message pMessage) {
-//		return getEntityManager().createNamedQuery(MessageContent.FIND_BY_MESSAGE,
-//				MessageContent.class).setParameter(1, pMessage).getResultList();
-//	}
+	public List<MessageContent> findByMessage(Message pMessage) {
+		return getEntityManager().createNamedQuery(MessageContent.FIND_BY_MESSAGEID,
+				MessageContent.class).setParameter(1, pMessage.getId()).getResultList();
+	}
 
 }

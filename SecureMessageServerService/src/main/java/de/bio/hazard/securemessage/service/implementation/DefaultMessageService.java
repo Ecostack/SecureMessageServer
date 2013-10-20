@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.bio.hazard.securemessage.dao.implementation.DefaultMessageDao;
 import de.bio.hazard.securemessage.model.Message;
+import de.bio.hazard.securemessage.model.User;
 import de.bio.hazard.securemessage.service.MessageService;
 
 @Service(value = "messageService")
@@ -60,6 +61,11 @@ public class DefaultMessageService implements MessageService {
 
 	public void setMessageDao(DefaultMessageDao messageDao) {
 		this.messageDao = messageDao;
+	}
+
+	@Override
+	public List<Message> getMessagesByReceiver(User pReceiver) {
+	    return getMessageDao().findByReceiver(pReceiver);
 	}
 
 }

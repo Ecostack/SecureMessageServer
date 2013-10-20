@@ -20,5 +20,5 @@ public interface MessageContentKeyService {
 	
 	List<MessageContentKey> getMessagesContentKeysByMessageContent(long pMessageContentId);
 	
-	List<MessageContentKey> getMessagesContentKeysByMessageAndMessageContent(long pMessageId,long pMessageContentId);
+	MessageContentKey getMessagesContentKeysByMessageAndMessageContent(long pMessageId,long pMessageContentId);
 }

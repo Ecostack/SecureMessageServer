@@ -10,6 +10,8 @@ import de.bio.hazard.securemessage.dto.message.MessageContentKeyWebserviceDTO;
 import de.bio.hazard.securemessage.dto.message.MessageContentWebserviceDTO;
 import de.bio.hazard.securemessage.dto.message.MessageReceiverWebserviceDTO;
 import de.bio.hazard.securemessage.dto.message.MessageWebserviceDTO;
+import de.bio.hazard.securemessage.dto.message.RequestMessageWebserviceDTO;
+import de.bio.hazard.securemessage.dto.message.RequestMessageWebserviceReturnDTO;
 import de.bio.hazard.securemessage.model.Config;
 import de.bio.hazard.securemessage.model.Device;
 import de.bio.hazard.securemessage.model.Message;
@@ -26,7 +28,7 @@ import de.bio.hazard.securemessage.service.MessageService;
 import de.bio.hazard.securemessage.service.UserService;
 import de.bio.hazard.securemessage.service.helper.ConfigType;
 import de.bio.hazard.securemessage.tecframework.encryption.facade.helper.EncryptionObjectModifier;
-import de.bio.hazard.securemessage.tecframework.exception.AuthenticationExceptionBiohazard;
+import de.bio.hazard.securemessage.tecframework.encryption.symmetric.SymmetricKeygen;
 import de.bio.hazard.securemessage.tecframework.exception.EncryptionExceptionBiohazard;
 
 @Component
@@ -55,58 +57,50 @@ public class MessageFacade {
 
     @Autowired(required = true)
     private EncryptionObjectModifier encryptionObjectModifier;
+    
+    @Autowired
+    private SymmetricKeygen symmetricKeygen;
 
     public void addMessage(MessageWebserviceDTO pMessageWebserviceDTO) throws EncryptionExceptionBiohazard {
 	// TODO MessageReceiverType beachten
-	
+
 	MessageWebserviceDTO lcMessageWebserviceDTO = decryptMessageWebserviceDTO(pMessageWebserviceDTO);
 	if (lcMessageWebserviceDTO == null) {
 	    throw new IllegalArgumentException("MessageWebserviceDTO is not allowed to be null");
 	}
-	if (authenticationService.isAuthTokenValid(lcMessageWebserviceDTO.getTokenId())) {
-	    Device lcDevice = deviceService.getDeviceByDeviceId(authenticationService.getDeviceIdByTokenId(lcMessageWebserviceDTO.getTokenId()));
-	    User lcSender = lcDevice.getUser();
-	    List<Message> lcMessages = extractMessagesFromMessageWebserviceDTO(lcMessageWebserviceDTO, lcSender);
-	    addMessage(lcMessages);
-	    extractAndAddMessageContent(lcMessageWebserviceDTO, lcMessages);
-	}
-	else {
-	    throw new AuthenticationExceptionBiohazard("Invalid Authentication-Token");
-	}
+	Device lcDevice = authenticationService.getDeviveWhenAuthTokenIsValidWithException(lcMessageWebserviceDTO.getTokenId());
+	User lcSender = lcDevice.getUser();
+	List<Message> lcMessages = extractMessagesFromMessageWebserviceDTO(lcMessageWebserviceDTO, lcSender);
+	addMessage(lcMessages);
+	extractAndAddMessageContent(lcMessageWebserviceDTO, lcMessages);
     }
-    
-    //TODO SebastianS; andere Idee "interne" DTOs auf dem Client zu generieren?
-    /*public void helperGetInnerDTOsToClient(
-	    MessageReceiverWebserviceDTO pReceiver ,
-	    MessageContentWebserviceDTO pContent, 
-	    MessageContentKeyWebserviceDTO pContentKey) {
-	//do nothing, only helper for DTOs
-    }*/
-    
-    private void extractAndAddMessageContent(MessageWebserviceDTO lcMessageWebserviceDTO, List<Message> lcMessages) {
-	for (MessageContentWebserviceDTO lcMessageContentWDTO : lcMessageWebserviceDTO.getContent()) {
-	    MessageContent lcMessageContent = new MessageContent();
-	    lcMessageContent.setData(lcMessageContentWDTO.getData().getBytes());
-	    lcMessageContent.setFilename(lcMessageContentWDTO.getFilename());
-	    
-	    // TODO MessageContentType beachten
-	    lcMessageContent.setMessageContentType(MessageContentType.Message);
-	    
-	    messageContentService.addMessageContent(lcMessageContent);
 
-	    for (MessageContentKeyWebserviceDTO lcMessageContentKeyWDTO : lcMessageContentWDTO.getSymmetricKeys()) {
-		for (Message lcMessage : lcMessages) {
-		    // XXX oder Vergleich über User?
-		    if (lcMessage.getReceiver().getUsername().equals(lcMessageContentKeyWDTO.getUsername())) {
-			MessageContentKey lcMessageContentKey = new MessageContentKey();
-			lcMessageContentKey.setSynchEncryptionKey(lcMessageContentKeyWDTO.getSymmetricEncryptionKey());
-			lcMessageContentKey.setMessageContent(lcMessageContent);
-			lcMessageContentKey.setMessage(lcMessage);
-			messageContentKeyService.addMessageContentKey(lcMessageContentKey);
-		    }
-		}
+    public RequestMessageWebserviceReturnDTO getMessages(RequestMessageWebserviceDTO pRequestMessageDTO) throws EncryptionExceptionBiohazard {
+	RequestMessageWebserviceDTO lcRequestMessageDTO = decryptRequestMessageWebserviceDTO(pRequestMessageDTO);
+	RequestMessageWebserviceReturnDTO lcRequestMessageReturnDTO = new RequestMessageWebserviceReturnDTO();
+	Device lcDevice = authenticationService.getDeviveWhenAuthTokenIsValidWithException(lcRequestMessageDTO.getTokenId());
+	User lcSender = lcDevice.getUser();
+	List<Message> lcUserMessages = messageService.getMessagesByReceiver(lcSender);
+	// TODO andere Receiver übermitteln
+	for (Message lcMessage : lcUserMessages) {
+	    MessageWebserviceDTO lcMessageWebserviceDTO = new MessageWebserviceDTO();
+	    List<MessageContent> lcMessageContents = messageContentService.getMessagesContentsByMessage(lcMessage);
+	    for (MessageContent lcMessageContent : lcMessageContents) {
+		MessageContentWebserviceDTO lcContentWebserviceDTO = new MessageContentWebserviceDTO();
+		lcContentWebserviceDTO.setData(new String(lcMessageContent.getData()));
+		lcContentWebserviceDTO.setFilename(lcMessageContent.getFilename());
+
+		MessageContentKey lcMessageContentKey = messageContentKeyService.getMessagesContentKeysByMessageAndMessageContent(lcMessage.getId(), lcMessageContent.getId());
+		MessageContentKeyWebserviceDTO lcContentKeyWebserviceDTO = new MessageContentKeyWebserviceDTO();
+		lcContentKeyWebserviceDTO.setSymmetricEncryptionKey(lcContentKeyWebserviceDTO.getSymmetricEncryptionKey());
+		lcContentWebserviceDTO.getSymmetricKeys().add(lcContentKeyWebserviceDTO);
+
+		lcMessageWebserviceDTO.getContent().add(lcContentWebserviceDTO);
 	    }
+	    lcRequestMessageReturnDTO.getMessages().add(lcMessageWebserviceDTO);
 	}
+	lcRequestMessageReturnDTO = encryptRequestMessageWebserviceReturnDTO(lcRequestMessageReturnDTO, lcDevice);
+	return lcRequestMessageReturnDTO;
     }
 
     private void addMessage(List<Message> pMessages) {
@@ -127,11 +121,37 @@ public class MessageFacade {
 	return lcResult;
     }
 
+    private void extractAndAddMessageContent(MessageWebserviceDTO lcMessageWebserviceDTO, List<Message> lcMessages) {
+	for (MessageContentWebserviceDTO lcMessageContentWDTO : lcMessageWebserviceDTO.getContent()) {
+	    MessageContent lcMessageContent = new MessageContent();
+	    lcMessageContent.setData(lcMessageContentWDTO.getData().getBytes());
+	    lcMessageContent.setFilename(lcMessageContentWDTO.getFilename());
+
+	    // TODO MessageContentType beachten
+	    lcMessageContent.setMessageContentType(MessageContentType.Message);
+
+	    messageContentService.addMessageContent(lcMessageContent);
+
+	    for (MessageContentKeyWebserviceDTO lcMessageContentKeyWDTO : lcMessageContentWDTO.getSymmetricKeys()) {
+		for (Message lcMessage : lcMessages) {
+		    // XXX oder Vergleich über User?
+		    if (lcMessage.getReceiver().getUsername().equals(lcMessageContentKeyWDTO.getUsername())) {
+			MessageContentKey lcMessageContentKey = new MessageContentKey();
+			lcMessageContentKey.setSynchEncryptionKey(lcMessageContentKeyWDTO.getSymmetricEncryptionKey());
+			lcMessageContentKey.setMessageContent(lcMessageContent);
+			lcMessageContentKey.setMessage(lcMessage);
+			messageContentKeyService.addMessageContentKey(lcMessageContentKey);
+		    }
+		}
+	    }
+	}
+    }
+
     private MessageWebserviceDTO decryptMessageWebserviceDTO(MessageWebserviceDTO pMessageWebserviceDTO) throws EncryptionExceptionBiohazard {
 	MessageWebserviceDTO lcMessageWebserviceDTO = pMessageWebserviceDTO;
 	try {
 	    Config lcServerPrivateKey = configService.getConfigByEnumType(ConfigType.SERVER_PRIVATE_KEY);
-	    byte[] lcSymmetricKey = encryptionObjectModifier.asymmetricDecryptToByte(pMessageWebserviceDTO.getSymEncryptionKey(), lcServerPrivateKey.getValue(), true);
+	    byte[] lcSymmetricKey = encryptionObjectModifier.asymmetricDecryptToByte(lcMessageWebserviceDTO.getSymEncryptionKey(), lcServerPrivateKey.getValue(), true);
 
 	    lcMessageWebserviceDTO.setTokenId(encryptionObjectModifier.symmetricDecrypt(lcMessageWebserviceDTO.getTokenId(), lcSymmetricKey));
 	    for (MessageContentWebserviceDTO mcwDTO : lcMessageWebserviceDTO.getContent()) {
@@ -149,5 +169,45 @@ public class MessageFacade {
 	    throw new EncryptionExceptionBiohazard();
 	}
 	return lcMessageWebserviceDTO;
+    }
+
+    private RequestMessageWebserviceDTO decryptRequestMessageWebserviceDTO(RequestMessageWebserviceDTO pRequestMessageDTO) throws EncryptionExceptionBiohazard {
+	RequestMessageWebserviceDTO lcRequestMessageWebserviceDTO = pRequestMessageDTO;
+	try {
+	    Config lcServerPrivateKey = configService.getConfigByEnumType(ConfigType.SERVER_PRIVATE_KEY);
+	    byte[] lcSymmetricKey = encryptionObjectModifier.asymmetricDecryptToByte(lcRequestMessageWebserviceDTO.getSymEncryptionKey(), lcServerPrivateKey.getValue(), true);
+	    lcRequestMessageWebserviceDTO.setTokenId(encryptionObjectModifier.symmetricDecrypt(lcRequestMessageWebserviceDTO.getTokenId(), lcSymmetricKey));
+	}
+	catch (Exception e) {
+	    // TODO SebastianS; Logging
+	    e.printStackTrace();
+	    throw new EncryptionExceptionBiohazard();
+	}
+	return lcRequestMessageWebserviceDTO;
+    }
+
+    private RequestMessageWebserviceReturnDTO encryptRequestMessageWebserviceReturnDTO(RequestMessageWebserviceReturnDTO pRequestMessageReturnDTO, Device pDevice) throws EncryptionExceptionBiohazard {
+	RequestMessageWebserviceReturnDTO lcRequestMessageWebserviceReturnDTO = pRequestMessageReturnDTO;
+	try {
+	    byte[] lcDevicePublicKey = pDevice.getPublicAsyncKey();
+	    byte[] lcSymmetricKey = symmetricKeygen.getKey(128);
+	    
+	    lcRequestMessageWebserviceReturnDTO.setSymEncryptionKey(encryptionObjectModifier.asymmetricEncrypt(lcSymmetricKey, lcDevicePublicKey, false));
+	    for(MessageWebserviceDTO lcMessage : lcRequestMessageWebserviceReturnDTO.getMessages()) {
+		for(MessageContentWebserviceDTO lcMessageContent : lcMessage.getContent()) {
+		    lcMessageContent.setData(encryptionObjectModifier.symmetricEncrypt(lcMessageContent.getData(), lcSymmetricKey));
+		    lcMessageContent.setFilename(encryptionObjectModifier.symmetricEncrypt(lcMessageContent.getFilename(), lcSymmetricKey));
+		    for(MessageContentKeyWebserviceDTO lcMessageContentKey : lcMessageContent.getSymmetricKeys()) {
+			lcMessageContentKey.setSymmetricEncryptionKey(encryptionObjectModifier.symmetricEncrypt(lcMessageContentKey.getSymmetricEncryptionKey(), lcSymmetricKey));
+		    }
+		}
+	    }
+	}
+	catch (Exception e) {
+	    // TODO SebastianS; Logging
+	    e.printStackTrace();
+	    throw new EncryptionExceptionBiohazard();
+	}
+	return lcRequestMessageWebserviceReturnDTO;
     }
 }

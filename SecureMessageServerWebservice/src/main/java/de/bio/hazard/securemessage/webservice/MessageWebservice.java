@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.bio.hazard.securemessage.dto.message.MessageWebserviceDTO;
+import de.bio.hazard.securemessage.dto.message.RequestMessageWebserviceDTO;
+import de.bio.hazard.securemessage.dto.message.RequestMessageWebserviceReturnDTO;
 import de.bio.hazard.securemessage.facade.MessageFacade;
 import de.bio.hazard.securemessage.tecframework.exception.EncryptionExceptionBiohazard;
 
@@ -22,5 +24,10 @@ public class MessageWebservice {
 	System.err.println("Start add Message");
 	messageFassade.addMessage(pMessageDTO);
 	System.err.println("End add Message");
+    }
+    
+    @WebMethod
+    public RequestMessageWebserviceReturnDTO getMessages(RequestMessageWebserviceDTO pRequestMessageDTO) throws EncryptionExceptionBiohazard{
+	return messageFassade.getMessages(pRequestMessageDTO);
     }
 }

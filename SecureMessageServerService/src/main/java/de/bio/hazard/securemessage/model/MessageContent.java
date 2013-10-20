@@ -25,12 +25,12 @@ import de.bio.hazard.securemessage.model.helper.MessageContentType;
 @Access(AccessType.FIELD)
 @NamedQueries({
 		@NamedQuery(name = MessageContent.FIND_ALL, query = "from MessageContent mc"),
-		//XXX Nico Messagekorrektur	@NamedQuery(name = MessageContent.FIND_BY_MESSAGE, query = "select distinct mc from MessageContent mc JOIN mc.messages messages WHERE messages IN ( ?1)") 
+		@NamedQuery(name = MessageContent.FIND_BY_MESSAGEID, query = "SELECT mc FROM MessageContent mc JOIN MessageContentKey mck WHERE mck.MESSAGE_ID = ?1 AND mck.MESSAGECONTENT_ID =mc.ID") 
 		})
 public class MessageContent {
 
 	public static final String FIND_ALL = "MessageContent.FIND_ALL";
-	//XXX Nico Messagekorrektur public static final String FIND_BY_MESSAGE = "MessageContent.FIND_BY_MESSAGE";
+	public static final String FIND_BY_MESSAGEID = "MessageContent.FIND_BY_MESSAGEID";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

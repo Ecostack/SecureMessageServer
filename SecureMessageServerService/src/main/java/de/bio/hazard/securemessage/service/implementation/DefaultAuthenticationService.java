@@ -20,6 +20,7 @@ import de.bio.hazard.securemessage.service.DeviceService;
 import de.bio.hazard.securemessage.service.UserService;
 import de.bio.hazard.securemessage.tecframework.data.IdGenerator;
 import de.bio.hazard.securemessage.tecframework.encryption.hashing.BCrypt;
+import de.bio.hazard.securemessage.tecframework.exception.AuthenticationExceptionBiohazard;
 
 @Service
 public class DefaultAuthenticationService implements AuthenticationService {
@@ -142,6 +143,21 @@ public class DefaultAuthenticationService implements AuthenticationService {
 			}
 		}
 		return false;
+	}
+	
+	public boolean isAuthTokenValidWithException(String pTokenIdToCheck){
+	    if(isAuthTokenValid(pTokenIdToCheck)) {
+		return true;
+	    }
+	    throw new AuthenticationExceptionBiohazard("Invalid Authentication-Token");
+	}
+	
+	public Device getDeviveWhenAuthTokenIsValidWithException(String pTokenIdToCheck){
+	    if(isAuthTokenValidWithException(pTokenIdToCheck)) {
+		return deviceService.getDeviceByDeviceId(getDeviceIdByTokenId(pTokenIdToCheck));
+	    }
+	    //unereichbarer Code durch Runtime-Exception
+	    return null;
 	}
 
 	@Override
