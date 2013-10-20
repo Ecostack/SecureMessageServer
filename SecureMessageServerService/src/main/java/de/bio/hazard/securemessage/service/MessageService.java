@@ -3,6 +3,7 @@ package de.bio.hazard.securemessage.service;
 import java.util.List;
 
 import de.bio.hazard.securemessage.model.Message;
+import de.bio.hazard.securemessage.model.User;
 
 public interface MessageService {
 
@@ -15,5 +16,7 @@ public interface MessageService {
 	Message getMessageById(long pID);
 
 	List<Message> getMessages();
+	
+	List<Message> getMessagesByReceiver(User pReceiver);
 
 }

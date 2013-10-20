@@ -50,8 +50,7 @@ public class DefaultMessageContentService implements MessageContentService {
 
 	@Override
 	public List<MessageContent> getMessagesContentsByMessage(Message pMessage) {
-	  //XXX Nico Messagekorrektur return getMessageContentDao().findByMessage(pMessage);
-	    return null;
+	    return getMessageContentDao().findByMessage(pMessage);
 	}
 
 	public DefaultMessageContentDao getMessageContentDao() {

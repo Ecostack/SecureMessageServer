@@ -60,10 +60,10 @@ public class DefaultMessageContentKeyService implements
 	}
 
 	@Override
-	public List<MessageContentKey> getMessagesContentKeysByMessageAndMessageContent(
+	public MessageContentKey getMessagesContentKeysByMessageAndMessageContent(
 			long pMessageId, long pMessageContentId) {
 		return getMessageContentKeyDao().findByMessageAndMessageContent(
-				pMessageId, pMessageContentId);
+				pMessageId, pMessageContentId).get(0);
 	}
 
 	public DefaultMessageContentKeyDao getMessageContentKeyDao() {
