@@ -36,11 +36,11 @@ public class MessageContentKey {
 	@Basic(optional = false)
 	private long id;
 
-	//TODO SebastianS; Check Cascade; anders war es mir bisher nicht möglich
+	//TODO SebastianS; Check Cascade; anders war es mir bisher nicht moeglich
 	@ManyToOne(fetch=FetchType.LAZY, cascade= {CascadeType.REFRESH})
 	private Message message = null;
 
-	//TODO SebastianS; Check Cascade; anders war es mir bisher nicht möglich
+	//TODO SebastianS; Check Cascade; anders war es mir bisher nicht moeglich
 	@ManyToOne(fetch=FetchType.LAZY, cascade= {CascadeType.REFRESH})
 	private MessageContent messageContent = null;
 

@@ -29,7 +29,7 @@ import de.bio.hazard.securemessage.model.helper.UserRoleType;
 		@NamedQuery(name = UserRole.FIND_BY_TYPE, query = "from UserRole ur where type = ?1") })
 public class UserRole {
 
-	/** Konstante für die NamedQuery. */
+	/** Konstante fuer die NamedQuery. */
 	public static final String FIND_ALL = "UserRole.findAll";
 	public static final String FIND_ALL_BY_USER = "UserRole.findAllByUser";
 	public static final String FIND_BY_TYPE = "UserRole.findByType";
