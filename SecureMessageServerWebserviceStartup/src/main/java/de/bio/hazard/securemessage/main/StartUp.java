@@ -16,7 +16,7 @@ import de.bio.hazard.securemessage.webservice.UserWebservice;
 @Scope(value = "singleton")
 public class StartUp {
 	
-	private static String IP = "localhost";
+	private static String IP = "0.0.0.0";
 //	private static String IP = "192.168.0.102";
 
 	@SuppressWarnings({ "unused", "resource" })

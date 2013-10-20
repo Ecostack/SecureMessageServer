@@ -6,7 +6,7 @@ public class UserListItemWebserviceReturnDTO {
 
 	private String username;
 
-	private byte[] publicKeyForMessaging;
+	private String publicKeyForMessagingAsBase64;
 
 	private Calendar lastLoginAt;
 
@@ -18,19 +18,20 @@ public class UserListItemWebserviceReturnDTO {
 		this.username = username;
 	}
 
-	public byte[] getPublicKeyForMessaging() {
-		return publicKeyForMessaging;
-	}
-
-	public void setPublicKeyForMessaging(byte[] publicKeyForMessaging) {
-		this.publicKeyForMessaging = publicKeyForMessaging;
-	}
-
 	public Calendar getLastLoginAt() {
 		return lastLoginAt;
 	}
 
 	public void setLastLoginAt(Calendar lastLoginAt) {
 		this.lastLoginAt = lastLoginAt;
+	}
+
+	public String getPublicKeyForMessagingAsBase64() {
+		return publicKeyForMessagingAsBase64;
+	}
+
+	public void setPublicKeyForMessagingAsBase64(
+			String publicKeyForMessagingAsBase64) {
+		this.publicKeyForMessagingAsBase64 = publicKeyForMessagingAsBase64;
 	}
 }

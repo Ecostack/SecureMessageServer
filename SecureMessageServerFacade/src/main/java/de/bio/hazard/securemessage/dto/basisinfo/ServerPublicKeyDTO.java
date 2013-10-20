@@ -1,13 +1,14 @@
 package de.bio.hazard.securemessage.dto.basisinfo;
 
 public class ServerPublicKeyDTO {
-	private byte[] serverPublicKey;
+	private String serverPublicKeyAsBase64;
 
-	public byte[] getServerPublicKey() {
-		return serverPublicKey;
+	public String getServerPublicKeyAsBase64() {
+		return serverPublicKeyAsBase64;
 	}
 
-	public void setServerPublicKey(byte[] serverPublicKey) {
-		this.serverPublicKey = serverPublicKey;
+	public void setServerPublicKeyAsBase64(String serverPublicKeyAsBase64) {
+		this.serverPublicKeyAsBase64 = serverPublicKeyAsBase64;
 	}
+
 }
