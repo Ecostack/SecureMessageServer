@@ -25,7 +25,7 @@ import de.bio.hazard.securemessage.model.helper.MessageContentType;
 @Access(AccessType.FIELD)
 @NamedQueries({
 		@NamedQuery(name = MessageContent.FIND_ALL, query = "from MessageContent mc"),
-		@NamedQuery(name = MessageContent.FIND_BY_MESSAGEID, query = "SELECT mc FROM MessageContent mc JOIN MessageContentKey mck WHERE mck.MESSAGE_ID = ?1 AND mck.MESSAGECONTENT_ID =mc.ID") 
+		@NamedQuery(name = MessageContent.FIND_BY_MESSAGEID, query = "SELECT mc FROM MessageContent mc JOIN mc.messageContentKeys mck JOIN mck.message msg WHERE msg.id = ?1") 
 		})
 public class MessageContent {
 
@@ -60,7 +60,7 @@ public class MessageContent {
 	@Column(unique = false, nullable = false)
 	private int runningNumber = 0;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="messageContent")
 	private List<MessageContentKey> messageContentKeys = new ArrayList<MessageContentKey>();
 
 	public long getId() {

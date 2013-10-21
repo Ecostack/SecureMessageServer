@@ -48,7 +48,7 @@ public class Message {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<MessageReceiver> messageReceivers = new ArrayList<MessageReceiver>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="message")
     private List<MessageContentKey> messageContentKeys = new ArrayList<MessageContentKey>();
 
     public long getId() {
