@@ -23,11 +23,11 @@ public interface UserRoleService {
 	void deleteUserRole(UserRole pUserRole);
 
 	UserRole getUserRoleById(long pID);
-	
+
 	UserRole getUserRoleByType(UserRoleType pUserRoleType);
 
 	List<UserRole> getUserRoles();
-	
+
 	Boolean isAdministrator(User pUser);
 
 }

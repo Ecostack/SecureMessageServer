@@ -6,7 +6,7 @@ import de.bio.hazard.securemessage.model.Message;
 import de.bio.hazard.securemessage.model.MessageReceiver;
 
 public interface MessageReceiverService {
-	
+
 	void addMessageReceiver(MessageReceiver pMessageReceiver);
 
 	void updateMessageReceiver(MessageReceiver pMessageReceiver);
@@ -18,5 +18,5 @@ public interface MessageReceiverService {
 	List<MessageReceiver> getMessageReceivers();
 
 	List<MessageReceiver> getMessageReceiversByMessage(Message pMessage);
-	
+
 }

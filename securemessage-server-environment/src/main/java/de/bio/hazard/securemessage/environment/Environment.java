@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
-@Scope(value="singleton")
+@Scope(value = "singleton")
 public class Environment {
 
 	private static AbstractApplicationContext applicationContext;
@@ -17,12 +17,13 @@ public class Environment {
 			applicationContext = new ClassPathXmlApplicationContext(
 					"applicationContext.xml");
 
-			((Environment) applicationContext.getBean(Environment.class)).setUp();
+			((Environment) applicationContext.getBean(Environment.class))
+					.setUp();
 
 		}
 		return (Environment) applicationContext.getBean("environment");
 	}
-	
+
 	private void setUp() {
 	}
 }

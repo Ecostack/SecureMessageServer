@@ -33,7 +33,7 @@ public class DefaultUserDao extends AbstractGenericJpaDAO<User, Long> {
 		}
 		return null;
 	}
-	
+
 	public User findByPhonenumber(String pPhonenumber) {
 		List<User> lcUserList = findByPhonenumberList(pPhonenumber);
 		if (lcUserList.size() > 0) {
@@ -55,7 +55,7 @@ public class DefaultUserDao extends AbstractGenericJpaDAO<User, Long> {
 				.createNamedQuery(User.FIND_BY_USERNAME, User.class)
 				.setParameter(1, pUsername).getResultList();
 	}
-	
+
 	private List<User> findByPhonenumberList(String pPhonenumber) {
 		return getEntityManager()
 				.createNamedQuery(User.FIND_BY_PHONENUMBER, User.class)

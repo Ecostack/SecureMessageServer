@@ -16,8 +16,9 @@ public class AbstractDTO {
 	public String getSymEncryptionKey() {
 		return symEncryptionKey;
 	}
+
 	public void setSymEncryptionKey(String symEncryptionKey) {
 		this.symEncryptionKey = symEncryptionKey;
 	}
-	
+
 }

@@ -26,10 +26,12 @@ public class DefaultMessageContentDao extends
 		return getEntityManager().createNamedQuery(MessageContent.FIND_ALL,
 				MessageContent.class).getResultList();
 	}
-	
+
 	public List<MessageContent> findByMessage(Message pMessage) {
-		return getEntityManager().createNamedQuery(MessageContent.FIND_BY_MESSAGEID,
-				MessageContent.class).setParameter(1, pMessage.getId()).getResultList();
+		return getEntityManager()
+				.createNamedQuery(MessageContent.FIND_BY_MESSAGEID,
+						MessageContent.class).setParameter(1, pMessage.getId())
+				.getResultList();
 	}
 
 }

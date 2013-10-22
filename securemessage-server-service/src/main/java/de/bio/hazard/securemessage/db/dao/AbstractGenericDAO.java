@@ -10,11 +10,10 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractGenericDAO<Entity, PrimaryKey extends Serializable>
 		implements GenericDAO<Entity, PrimaryKey> {
 
-	/** Der zentrale Logger für die DAO's.  */
-	protected Logger logger = LoggerFactory
-			.getLogger(GenericDAO.class);
+	/** Der zentrale Logger für die DAO's. */
+	protected Logger logger = LoggerFactory.getLogger(GenericDAO.class);
 
-	/** Die Klasse der Entität.    */
+	/** Die Klasse der Entität. */
 	protected final Class<Entity> entityClass;
 
 	/** Die Klasse des primären Key. */

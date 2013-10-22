@@ -16,7 +16,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CONFIG")
 @Access(AccessType.FIELD)
-@NamedQueries({ @NamedQuery(name = Config.FIND_ALL, query = "from Config c"),
+@NamedQueries({
+		@NamedQuery(name = Config.FIND_ALL, query = "from Config c"),
 		@NamedQuery(name = Config.FIND_BY_RUNNING_NUMBER, query = "from Config c where c.runningNumber = ?1") })
 public class Config {
 

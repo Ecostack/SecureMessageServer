@@ -50,9 +50,9 @@ public class DefaultMessageService implements MessageService {
 	}
 
 	public void listMessagesAndData() {
-//		for (Message lcMSG : getMessages()) {
-//			System.err.println("Listing: " + lcMSG.getMessageText());
-//		}
+		// for (Message lcMSG : getMessages()) {
+		// System.err.println("Listing: " + lcMSG.getMessageText());
+		// }
 	}
 
 	public DefaultMessageDao getMessageDao() {
@@ -65,7 +65,7 @@ public class DefaultMessageService implements MessageService {
 
 	@Override
 	public List<Message> getMessagesByReceiver(User pReceiver) {
-	    return getMessageDao().findByReceiver(pReceiver);
+		return getMessageDao().findByReceiver(pReceiver);
 	}
 
 }

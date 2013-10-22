@@ -15,9 +15,10 @@ import de.bio.hazard.securemessage.webservice.UserWebservice;
 @Component()
 @Scope(value = "singleton")
 public class StartUp {
-	
+
 	private static String IP = "0.0.0.0";
-//	private static String IP = "192.168.0.102";
+
+	// private static String IP = "192.168.0.102";
 
 	@SuppressWarnings({ "unused", "resource" })
 	public static void main(String[] pStrings) {
@@ -32,19 +33,18 @@ public class StartUp {
 
 		BasisInfoWebservice lcBasisInfoWS = applicationContext
 				.getBean(BasisInfoWebservice.class);
-		
+
 		UserWebservice lcUserWS = applicationContext
-			.getBean(UserWebservice.class);
+				.getBean(UserWebservice.class);
 
 		// MessageEndpoint lcMessageWebservice = new MessageEndpoint();
-		Endpoint.publish("http://"+IP+":8080/messageWebservice",
+		Endpoint.publish("http://" + IP + ":8080/messageWebservice",
 				lcMessageWebservice);
-		Endpoint.publish("http://"+IP+":8080/authenticationWebservice",
+		Endpoint.publish("http://" + IP + ":8080/authenticationWebservice",
 				lcAuthenticationWebservice);
-		Endpoint.publish("http://"+IP+":8080/basisInfoWebservice",
+		Endpoint.publish("http://" + IP + ":8080/basisInfoWebservice",
 				lcBasisInfoWS);
-		Endpoint.publish("http://"+IP+":8080/userWebservice",
-			lcUserWS);
+		Endpoint.publish("http://" + IP + ":8080/userWebservice", lcUserWS);
 
 	}
 }

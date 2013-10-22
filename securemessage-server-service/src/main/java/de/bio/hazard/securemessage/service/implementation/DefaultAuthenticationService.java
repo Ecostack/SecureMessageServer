@@ -1,7 +1,5 @@
 package de.bio.hazard.securemessage.service.implementation;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,7 +103,6 @@ public class DefaultAuthenticationService implements AuthenticationService {
 			lcTokenId = idGenerator.nextId();
 		}
 
-		
 		System.err.println("authtoken create and put server: " + lcTokenId);
 		AuthenticationToken lcToken = new AuthenticationToken(lcTokenId);
 		lcToken.setDeviceId(pDevice.getDeviceId());
@@ -144,20 +141,23 @@ public class DefaultAuthenticationService implements AuthenticationService {
 		}
 		return false;
 	}
-	
-	public boolean isAuthTokenValidWithException(String pTokenIdToCheck){
-	    if(isAuthTokenValid(pTokenIdToCheck)) {
-		return true;
-	    }
-	    throw new AuthenticationExceptionBiohazard("Invalid Authentication-Token");
+
+	public boolean isAuthTokenValidWithException(String pTokenIdToCheck) {
+		if (isAuthTokenValid(pTokenIdToCheck)) {
+			return true;
+		}
+		throw new AuthenticationExceptionBiohazard(
+				"Invalid Authentication-Token");
 	}
-	
-	public Device getDeviveWhenAuthTokenIsValidWithException(String pTokenIdToCheck){
-	    if(isAuthTokenValidWithException(pTokenIdToCheck)) {
-		return deviceService.getDeviceByDeviceId(getDeviceIdByTokenId(pTokenIdToCheck));
-	    }
-	    //unereichbarer Code durch Runtime-Exception
-	    return null;
+
+	public Device getDeviveWhenAuthTokenIsValidWithException(
+			String pTokenIdToCheck) {
+		if (isAuthTokenValidWithException(pTokenIdToCheck)) {
+			return deviceService
+					.getDeviceByDeviceId(getDeviceIdByTokenId(pTokenIdToCheck));
+		}
+		// unereichbarer Code durch Runtime-Exception
+		return null;
 	}
 
 	@Override

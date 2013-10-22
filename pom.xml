@@ -15,16 +15,11 @@
 	</properties>
 
 	<groupId>de.bio-hazard</groupId>
-	<artifactId>SecureMessageServer</artifactId>
+	<artifactId>securemessage-server</artifactId>
 	<version>${app.version}</version>
 	<packaging>pom</packaging>
 
-	<modules>
-		<module>SecureMessageServerService</module>
-		<module>SecureMessageServerFacade</module>
-		<module>SecureMessageServerWebservice</module>
-		<module>SecureMessageServerWebserviceStartup</module>
-	</modules>
+
 
 	<dependencies>
 		<dependency>
@@ -61,25 +56,25 @@
 
 			<dependency>
 				<groupId>de.bio-hazard</groupId>
-				<artifactId>SecureMessageTecFramework</artifactId>
+				<artifactId>securemessage-tec-framework</artifactId>
 				<version>${tecframework.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>de.bio-hazard</groupId>
-				<artifactId>SecureMessageServerFacade</artifactId>
+				<artifactId>securemessage-server-facade</artifactId>
 				<version>${app.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>de.bio-hazard</groupId>
-				<artifactId>SecureMessageServerService</artifactId>
+				<artifactId>securemessage-server-service</artifactId>
 				<version>${app.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>de.bio-hazard</groupId>
-				<artifactId>SecureMessageServerWebservice</artifactId>
+				<artifactId>securemessage-server-webservice</artifactId>
 				<version>${app.version}</version>
 			</dependency>
 
@@ -144,4 +139,11 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<modules>
+		<module>securemessage-server-service</module>
+		<module>securemessage-server-facade</module>
+		<module>securemessage-server-webservice</module>
+		<module>securemessage-server-webservice-startup</module>
+	</modules>
 </project>

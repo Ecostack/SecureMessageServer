@@ -3,8 +3,6 @@ package de.bio.hazard.securemessage.model;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import de.bio.hazard.securemessage.util.Statics;
-
 public abstract class AbstractToken {
 
 	private String tokenid = null;
@@ -25,8 +23,6 @@ public abstract class AbstractToken {
 		return false;
 	}
 
-	
-
 	public AbstractToken(String tokenid) {
 		this();
 		this.tokenid = tokenid;
@@ -37,7 +33,7 @@ public abstract class AbstractToken {
 				getInvalidAt().getTimeInMillis()
 						+ (getValidTimeInSeconds() * 1000));
 	}
-	
+
 	protected abstract int getValidTimeInSeconds();
 
 	public String getTokenid() {

@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.bio-hazard</groupId>
-		<artifactId>SecureMessageServer</artifactId>
+		<artifactId>securemessage-server</artifactId>
 		<version>${app.version}</version>
 		<relativePath>..</relativePath>
 	</parent>
 
-	<artifactId>SecureMessageServerService</artifactId>
+	<artifactId>securemessage-server-service</artifactId>
 
 	<dependencies>
 		<!-- Hibernate library -->
@@ -51,7 +51,7 @@
 
 		<dependency>
 			<groupId>de.bio-hazard</groupId>
-			<artifactId>SecureMessageTecFramework</artifactId>
+			<artifactId>securemessage-tec-framework</artifactId>
 		</dependency>
 	</dependencies>
 

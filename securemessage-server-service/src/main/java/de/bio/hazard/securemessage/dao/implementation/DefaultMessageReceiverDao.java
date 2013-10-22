@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import de.bio.hazard.securemessage.db.jpa.dao.AbstractGenericJpaDAO;
 import de.bio.hazard.securemessage.model.Message;
-import de.bio.hazard.securemessage.model.MessageContent;
 import de.bio.hazard.securemessage.model.MessageReceiver;
 
 @Component
@@ -23,9 +22,11 @@ public class DefaultMessageReceiverDao extends
 		return getEntityManager().createNamedQuery(MessageReceiver.FIND_ALL,
 				MessageReceiver.class).getResultList();
 	}
-	
+
 	public List<MessageReceiver> findByMessage(Message pMessage) {
-		return getEntityManager().createNamedQuery(MessageReceiver.FIND_BY_MESSAGE,
-				MessageReceiver.class).setParameter(1, pMessage).getResultList();
+		return getEntityManager()
+				.createNamedQuery(MessageReceiver.FIND_BY_MESSAGE,
+						MessageReceiver.class).setParameter(1, pMessage)
+				.getResultList();
 	}
 }

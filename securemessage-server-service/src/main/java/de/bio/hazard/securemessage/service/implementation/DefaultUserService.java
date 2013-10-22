@@ -1,7 +1,6 @@
 package de.bio.hazard.securemessage.service.implementation;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import de.bio.hazard.securemessage.util.Statics;
 @Transactional(readOnly = true)
 @Scope(value = "singleton")
 public class DefaultUserService implements UserService {
-	
 
 	@Autowired
 	private DefaultUserDao userDAO;
@@ -33,7 +31,8 @@ public class DefaultUserService implements UserService {
 	@Override
 	public void addUser(User pUser) {
 		pUser.setCreationDate(Calendar.getInstance());
-		pUser.setPassword(BCrypt.hashpw(pUser.getPassword(), BCrypt.gensalt(Statics.CONFIG_BCRYPT_ROUNDS)));
+		pUser.setPassword(BCrypt.hashpw(pUser.getPassword(),
+				BCrypt.gensalt(Statics.CONFIG_BCRYPT_ROUNDS)));
 		getDefaultUserDao().create(pUser);
 	}
 
@@ -117,7 +116,7 @@ public class DefaultUserService implements UserService {
 		User lcUser = getDefaultUserDao().findByEMail(pEMail);
 		return lcUser;
 	}
-	
+
 	/**
 	 * @param pUsername
 	 * 

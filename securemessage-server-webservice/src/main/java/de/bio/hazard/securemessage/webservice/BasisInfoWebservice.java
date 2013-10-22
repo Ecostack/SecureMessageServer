@@ -10,7 +10,7 @@ import de.bio.hazard.securemessage.facade.BasisInfoFacade;
 
 @WebService
 @Component
-@javax.xml.ws.BindingType(value=javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING)
+@javax.xml.ws.BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING)
 public class BasisInfoWebservice {
 
 	@Autowired

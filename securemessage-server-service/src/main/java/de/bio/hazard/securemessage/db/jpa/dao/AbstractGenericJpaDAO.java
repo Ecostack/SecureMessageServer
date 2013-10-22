@@ -7,7 +7,6 @@ import javax.persistence.PersistenceContext;
 
 import de.bio.hazard.securemessage.db.dao.AbstractGenericDAO;
 import de.bio.hazard.securemessage.db.dao.GenericDAO;
-import de.bio.hazard.securemessage.model.Device;
 
 public abstract class AbstractGenericJpaDAO<Entity, PrimaryKey extends Serializable>
 		extends AbstractGenericDAO<Entity, PrimaryKey> implements
@@ -67,6 +66,5 @@ public abstract class AbstractGenericJpaDAO<Entity, PrimaryKey extends Serializa
 	public void refresh(Entity pEntity) {
 		entityManager.refresh(pEntity);
 	}
-	
 
 }

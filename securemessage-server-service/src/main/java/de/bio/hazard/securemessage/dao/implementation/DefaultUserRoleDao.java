@@ -19,6 +19,7 @@ public class DefaultUserRoleDao extends AbstractGenericJpaDAO<UserRole, Long> {
 
 	/**
 	 * Search all user roles
+	 * 
 	 * @return {@link List}
 	 */
 	@Override
@@ -26,19 +27,22 @@ public class DefaultUserRoleDao extends AbstractGenericJpaDAO<UserRole, Long> {
 		return getEntityManager().createNamedQuery(UserRole.FIND_ALL,
 				UserRole.class).getResultList();
 	}
-	
+
 	public List<UserRole> findAllByUser(User pUser) {
-		return getEntityManager().createNamedQuery(UserRole.FIND_ALL_BY_USER,
-				UserRole.class).setParameter(1, pUser).getResultList();
+		return getEntityManager()
+				.createNamedQuery(UserRole.FIND_ALL_BY_USER, UserRole.class)
+				.setParameter(1, pUser).getResultList();
 	}
-	
+
 	public List<UserRole> findAllByType(UserRoleType pTargetType) {
-		return getEntityManager().createNamedQuery(UserRole.FIND_BY_TYPE,
-				UserRole.class).setParameter(1, pTargetType).getResultList();
+		return getEntityManager()
+				.createNamedQuery(UserRole.FIND_BY_TYPE, UserRole.class)
+				.setParameter(1, pTargetType).getResultList();
 	}
-	
+
 	public UserRole findByType(UserRoleType pTargetType) {
-		return getEntityManager().createNamedQuery(UserRole.FIND_BY_TYPE,
-				UserRole.class).setParameter(1, pTargetType).getSingleResult();
+		return getEntityManager()
+				.createNamedQuery(UserRole.FIND_BY_TYPE, UserRole.class)
+				.setParameter(1, pTargetType).getSingleResult();
 	}
 }

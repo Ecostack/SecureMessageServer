@@ -25,8 +25,7 @@ import de.bio.hazard.securemessage.model.helper.MessageContentType;
 @Access(AccessType.FIELD)
 @NamedQueries({
 		@NamedQuery(name = MessageContent.FIND_ALL, query = "from MessageContent mc"),
-		@NamedQuery(name = MessageContent.FIND_BY_MESSAGEID, query = "SELECT mc FROM MessageContent mc JOIN mc.messageContentKeys mck JOIN mck.message msg WHERE msg.id = ?1") 
-		})
+		@NamedQuery(name = MessageContent.FIND_BY_MESSAGEID, query = "SELECT mc FROM MessageContent mc JOIN mc.messageContentKeys mck JOIN mck.message msg WHERE msg.id = ?1") })
 public class MessageContent {
 
 	public static final String FIND_ALL = "MessageContent.FIND_ALL";
@@ -38,9 +37,9 @@ public class MessageContent {
 	@Basic(optional = false)
 	private long id;
 
-	//XXX Nico Messagekorrektur
-	//@ManyToMany(fetch = FetchType.LAZY)
-	//private List<Message> messages = new ArrayList<Message>();
+	// XXX Nico Messagekorrektur
+	// @ManyToMany(fetch = FetchType.LAZY)
+	// private List<Message> messages = new ArrayList<Message>();
 
 	@Column(unique = false, nullable = false)
 	@Lob
@@ -49,10 +48,10 @@ public class MessageContent {
 	@Column(unique = false, nullable = false)
 	private MessageContentType messageContentType;
 
-	//XXX Nico Messagekorrektur
-//	@Column(unique = false, nullable = false)
-//	@Lob
-//	private byte[] synchEncryptionKey;
+	// XXX Nico Messagekorrektur
+	// @Column(unique = false, nullable = false)
+	// @Lob
+	// private byte[] synchEncryptionKey;
 
 	@Column(unique = false, nullable = true)
 	private String filename = "";
@@ -60,7 +59,7 @@ public class MessageContent {
 	@Column(unique = false, nullable = false)
 	private int runningNumber = 0;
 
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="messageContent")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "messageContent")
 	private List<MessageContentKey> messageContentKeys = new ArrayList<MessageContentKey>();
 
 	public long getId() {
@@ -71,14 +70,14 @@ public class MessageContent {
 		this.id = id;
 	}
 
-	//XXX Nico Messagekorrektur
-//	public List<Message> getMessages() {
-//		return messages;
-//	}
-//
-//	public void setMessages(List<Message> messages) {
-//		this.messages = messages;
-//	}
+	// XXX Nico Messagekorrektur
+	// public List<Message> getMessages() {
+	// return messages;
+	// }
+	//
+	// public void setMessages(List<Message> messages) {
+	// this.messages = messages;
+	// }
 
 	public byte[] getData() {
 		return data;
@@ -96,14 +95,14 @@ public class MessageContent {
 		this.messageContentType = messageContentType;
 	}
 
-	//XXX Nico Messagekorrektur
-//	public byte[] getSynchEncryptionKey() {
-//		return synchEncryptionKey;
-//	}
-//
-//	public void setSynchEncryptionKey(byte[] synchEncryptionKey) {
-//		this.synchEncryptionKey = synchEncryptionKey;
-//	}
+	// XXX Nico Messagekorrektur
+	// public byte[] getSynchEncryptionKey() {
+	// return synchEncryptionKey;
+	// }
+	//
+	// public void setSynchEncryptionKey(byte[] synchEncryptionKey) {
+	// this.synchEncryptionKey = synchEncryptionKey;
+	// }
 
 	public String getFilename() {
 		return filename;

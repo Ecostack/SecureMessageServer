@@ -10,27 +10,29 @@ import de.bio.hazard.securemessage.model.facade.AuthenticationStepTwoReturn;
 
 public interface AuthenticationService {
 
-    String getDeviceIdByTokenId(String pTokenId);
+	String getDeviceIdByTokenId(String pTokenId);
 
-    AuthenticationStepOneReturn authenticationStepOne(AuthenticationStepOne pAuthenticationStepOne);
+	AuthenticationStepOneReturn authenticationStepOne(
+			AuthenticationStepOne pAuthenticationStepOne);
 
-    AuthenticationStepTwoReturn authenticationStepTwo(AuthenticationStepTwo pAuthenticationStepTwo);
+	AuthenticationStepTwoReturn authenticationStepTwo(
+			AuthenticationStepTwo pAuthenticationStepTwo);
 
-    AuthenticationStepOneReturn getAuthenticationStepOne(Device pDevice);
+	AuthenticationStepOneReturn getAuthenticationStepOne(Device pDevice);
 
-    AuthenticationStepTwoReturn getAuthenticationStepTwo(Device pDevice);
+	AuthenticationStepTwoReturn getAuthenticationStepTwo(Device pDevice);
 
-    AuthenticationToken getNewAuthenticationToken(Device pDevice);
+	AuthenticationToken getNewAuthenticationToken(Device pDevice);
 
-    HandshakeToken getNewHandshakeToken(Device pDevice, String pRandomHashValue);
+	HandshakeToken getNewHandshakeToken(Device pDevice, String pRandomHashValue);
 
-    boolean isAuthTokenValid(String pTokenIdToCheck);
+	boolean isAuthTokenValid(String pTokenIdToCheck);
 
-    boolean isAuthTokenValidWithException(String pTokenIdToCheck);
+	boolean isAuthTokenValidWithException(String pTokenIdToCheck);
 
-    Device getDeviveWhenAuthTokenIsValidWithException(String pTokenIdToCheck);
+	Device getDeviveWhenAuthTokenIsValidWithException(String pTokenIdToCheck);
 
-    boolean isHandshakeTokenValid(String pTokenIdToCheck);
+	boolean isHandshakeTokenValid(String pTokenIdToCheck);
 
-    boolean isRandomHashedValueMatching(String pToEqual, String pHandshakeId);
+	boolean isRandomHashedValueMatching(String pToEqual, String pHandshakeId);
 }

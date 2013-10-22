@@ -52,7 +52,6 @@ public class DefaultUserRoleService implements UserRoleService, Serializable {
 		return getUserRoleDAO().findAll();
 	}
 
-	
 	public DefaultUserRoleDao getUserRoleDAO() {
 		return userRoleDAO;
 	}
@@ -65,7 +64,7 @@ public class DefaultUserRoleService implements UserRoleService, Serializable {
 	public Boolean isAdministrator(User pUser) {
 		if (pUser != null) {
 			return pUser.getRole().getType().compareTo(UserRoleType.Admin) == 0;
-		} 
+		}
 		return false;
 	}
 
@@ -74,5 +73,4 @@ public class DefaultUserRoleService implements UserRoleService, Serializable {
 		return getUserRoleDAO().findByType(pUserRoleType);
 	}
 
-	
 }

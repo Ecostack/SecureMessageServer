@@ -23,8 +23,8 @@ import de.bio.hazard.securemessage.model.helper.MessageReceiverType;
 @Table(name = "MESSAGERECEIVER")
 @Access(AccessType.FIELD)
 @NamedQueries({
-	@NamedQuery(name = MessageReceiver.FIND_ALL, query = "from MessageReceiver mr"),
-	@NamedQuery(name = MessageReceiver.FIND_BY_MESSAGE, query = "select distinct mr from MessageReceiver mr JOIN mr.messages messages WHERE messages IN ( ?1)")})
+		@NamedQuery(name = MessageReceiver.FIND_ALL, query = "from MessageReceiver mr"),
+		@NamedQuery(name = MessageReceiver.FIND_BY_MESSAGE, query = "select distinct mr from MessageReceiver mr JOIN mr.messages messages WHERE messages IN ( ?1)") })
 public class MessageReceiver {
 
 	public static final String FIND_ALL = "FIND_ALL";
@@ -35,11 +35,11 @@ public class MessageReceiver {
 	@Column(name = "ID", unique = true, nullable = false)
 	@Basic(optional = false)
 	private long id;
-	
+
 	@ManyToMany
 	private List<Message> messages;
-	
-	@Column(unique = false,nullable = false)
+
+	@Column(unique = false, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private MessageReceiverType messageReceiverType;
 
@@ -66,5 +66,5 @@ public class MessageReceiver {
 	public void setMessageReceiverType(MessageReceiverType messageReceiverType) {
 		this.messageReceiverType = messageReceiverType;
 	}
-	
+
 }

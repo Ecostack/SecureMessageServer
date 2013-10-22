@@ -33,7 +33,8 @@ public class AuthenticationWebservice {
 	private AuthenticationFacade authenticationFacade;
 
 	@WebMethod
-	public void addNewUser(NewUserWebserviceDTO pNewUser) throws EncryptionExceptionBiohazard {
+	public void addNewUser(NewUserWebserviceDTO pNewUser)
+			throws EncryptionExceptionBiohazard {
 		newUserFacade.addNewUser(pNewUser);
 	}
 

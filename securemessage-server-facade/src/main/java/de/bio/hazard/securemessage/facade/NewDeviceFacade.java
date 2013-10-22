@@ -28,7 +28,7 @@ public class NewDeviceFacade {
 
 	@Autowired(required = true)
 	private EncryptionObjectModifier encryptionObjectModifier;
-	
+
 	@Autowired
 	private SymmetricKeygen symmetricKeygen;
 
@@ -36,12 +36,14 @@ public class NewDeviceFacade {
 			NewDeviceWebserviceDTO pNewDeviceWebserviceDTO) {
 		Device lcDevice = transformToDevice(pNewDeviceWebserviceDTO);
 		System.err.println("device pub key server : "
-				+ encryptionObjectModifier.encodeBase64(lcDevice.getPublicAsyncKey()));
-		
+				+ encryptionObjectModifier.encodeBase64(lcDevice
+						.getPublicAsyncKey()));
+
 		String lcDeviceID = getDeviceService().addDeviceAndReturnDeviceId(
 				lcDevice);
 
-		NewDeviceWebserviceReturnDTO lcReturnDTO = transformFromDeviceIdToReturn(lcDeviceID,lcDevice.getPublicAsyncKey());
+		NewDeviceWebserviceReturnDTO lcReturnDTO = transformFromDeviceIdToReturn(
+				lcDeviceID, lcDevice.getPublicAsyncKey());
 		return lcReturnDTO;
 	}
 
@@ -51,13 +53,10 @@ public class NewDeviceFacade {
 
 		try {
 			byte[] lcSymmetricKey = symmetricKeygen.getKey(128);
-			lcReturn
-					.setSymEncryptionKey(encryptionObjectModifier
-							.asymmetricEncrypt(lcSymmetricKey,
-									pDevicePublicKey, false));
-			lcReturn.setDeviceId(encryptionObjectModifier
-					.symmetricEncrypt(pDeviceId,
-							lcSymmetricKey));
+			lcReturn.setSymEncryptionKey(encryptionObjectModifier
+					.asymmetricEncrypt(lcSymmetricKey, pDevicePublicKey, false));
+			lcReturn.setDeviceId(encryptionObjectModifier.symmetricEncrypt(
+					pDeviceId, lcSymmetricKey));
 		} catch (Exception e) {
 
 		}

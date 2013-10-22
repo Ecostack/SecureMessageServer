@@ -10,7 +10,7 @@ public class HandshakeToken extends AbstractToken {
 
 		super(tokenid);
 	}
-	
+
 	@Override
 	protected int getValidTimeInSeconds() {
 		return Statics.HANDSHAKE_TOKEN_VALID_SECONDS;

@@ -6,18 +6,18 @@ public class MessageContentKeyWebserviceDTO {
 	private String symmetricEncryptionKey;
 
 	public String getUsername() {
-	    return username;
+		return username;
 	}
 
 	public void setUsername(String username) {
-	    this.username = username;
+		this.username = username;
 	}
 
 	public String getSymmetricEncryptionKey() {
-	    return symmetricEncryptionKey;
+		return symmetricEncryptionKey;
 	}
 
 	public void setSymmetricEncryptionKey(String symmetricEncryptionKey) {
-	    this.symmetricEncryptionKey = symmetricEncryptionKey;
-	}	
+		this.symmetricEncryptionKey = symmetricEncryptionKey;
+	}
 }

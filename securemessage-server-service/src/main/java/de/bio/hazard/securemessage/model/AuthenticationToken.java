@@ -7,7 +7,7 @@ public class AuthenticationToken extends AbstractToken {
 	public AuthenticationToken(String tokenid) {
 		super(tokenid);
 	}
-	
+
 	@Override
 	protected int getValidTimeInSeconds() {
 		return Statics.AUTH_TOKEN_VALID_SECONDS;

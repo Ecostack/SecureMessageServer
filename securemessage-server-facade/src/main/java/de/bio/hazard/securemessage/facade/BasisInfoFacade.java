@@ -14,7 +14,7 @@ public class BasisInfoFacade {
 
 	@Autowired
 	private ConfigService configService;
-	
+
 	@Autowired
 	private EncryptionObjectModifier encryptionObjectModifier;
 
@@ -23,7 +23,8 @@ public class BasisInfoFacade {
 				.getConfigByEnumType(ConfigType.SERVER_PUBLIC_KEY);
 
 		ServerPublicKeyDTO lcDTO = new ServerPublicKeyDTO();
-		lcDTO.setServerPublicKeyAsBase64(encryptionObjectModifier.encodeBase64(lcConfig.getValue()));
+		lcDTO.setServerPublicKeyAsBase64(encryptionObjectModifier
+				.encodeBase64(lcConfig.getValue()));
 
 		return lcDTO;
 	}

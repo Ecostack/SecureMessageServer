@@ -47,8 +47,11 @@ public class NewUserFacade {
 			NewUserWebserviceDTO pNewUserWebserviceDTO) throws IOException {
 		User lcUser = new User();
 
-		BeanUtils.copyProperties(pNewUserWebserviceDTO, lcUser, new String[] {"publicKeyForMessaging"});
-		lcUser.setPublicKeyForMessaging(encryptionObjectModifier.decodeBase64ToByte(pNewUserWebserviceDTO.getPublicKeyForMessaging()));
+		BeanUtils.copyProperties(pNewUserWebserviceDTO, lcUser,
+				new String[] { "publicKeyForMessaging" });
+		lcUser.setPublicKeyForMessaging(encryptionObjectModifier
+				.decodeBase64ToByte(pNewUserWebserviceDTO
+						.getPublicKeyForMessaging()));
 		return lcUser;
 	}
 
@@ -80,12 +83,13 @@ public class NewUserFacade {
 			pNewUserWebserviceDTO.setPrename(encryptionObjectModifier
 					.symmetricDecrypt(pNewUserWebserviceDTO.getPrename(),
 							lcSymmetricKey));
-			
+
 			byte[] lcKey = encryptionObjectModifier.symmetricDecryptToByte(
 					pNewUserWebserviceDTO.getPublicKeyForMessaging(),
 					lcSymmetricKey);
 			pNewUserWebserviceDTO
-					.setPublicKeyForMessaging(encryptionObjectModifier.encodeBase64(lcKey));
+					.setPublicKeyForMessaging(encryptionObjectModifier
+							.encodeBase64(lcKey));
 		} catch (Exception e) {
 			// TODO handle exception
 			throw new EncryptionExceptionBiohazard();

@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import de.bio.hazard.securemessage.db.jpa.dao.AbstractGenericJpaDAO;
-import de.bio.hazard.securemessage.model.Message;
-import de.bio.hazard.securemessage.model.MessageContent;
 import de.bio.hazard.securemessage.model.MessageContentKey;
 
 @Component
@@ -34,19 +32,21 @@ public class DefaultMessageContentKeyDao extends
 						MessageContentKey.class).setParameter(1, pMessageId)
 				.getResultList();
 	}
-	
+
 	public List<MessageContentKey> findByMessageContent(Long pMessageContentId) {
 		return getEntityManager()
 				.createNamedQuery(MessageContentKey.FIND_BY_MESSAGECONTENT,
-						MessageContentKey.class).setParameter(1, pMessageContentId)
-				.getResultList();
+						MessageContentKey.class)
+				.setParameter(1, pMessageContentId).getResultList();
 	}
-	
-	public List<MessageContentKey> findByMessageAndMessageContent(Long pMessageId, Long pMessageContentId) {
+
+	public List<MessageContentKey> findByMessageAndMessageContent(
+			Long pMessageId, Long pMessageContentId) {
 		return getEntityManager()
-				.createNamedQuery(MessageContentKey.FIND_BY_MESSAGE_AND_MESSAGECONTENT,
-						MessageContentKey.class).setParameter(1, pMessageId).setParameter(2, pMessageContentId)
-				.getResultList();
+				.createNamedQuery(
+						MessageContentKey.FIND_BY_MESSAGE_AND_MESSAGECONTENT,
+						MessageContentKey.class).setParameter(1, pMessageId)
+				.setParameter(2, pMessageContentId).getResultList();
 	}
 
 }

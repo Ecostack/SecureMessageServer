@@ -16,7 +16,7 @@ public interface MessageService {
 	Message getMessageById(long pID);
 
 	List<Message> getMessages();
-	
+
 	List<Message> getMessagesByReceiver(User pReceiver);
 
 }

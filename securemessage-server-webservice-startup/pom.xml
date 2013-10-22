@@ -3,17 +3,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.bio-hazard</groupId>
-		<artifactId>SecureMessageServer</artifactId>
+		<artifactId>securemessage-server</artifactId>
 		<version>${app.version}</version>
 		<relativePath>..</relativePath>
 	</parent>
 
-	<artifactId>SecureMessageServerWebserviceStartup</artifactId>
+	<artifactId>securemessage-server-webservice-startup</artifactId>
 
 	<dependencies>
 		<dependency>
 			<groupId>de.bio-hazard</groupId>
-			<artifactId>SecureMessageServerWebservice</artifactId>
+			<artifactId>securemessage-server-webservice</artifactId>
 		</dependency>
 	</dependencies>
 

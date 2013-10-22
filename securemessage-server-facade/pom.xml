@@ -5,20 +5,27 @@
 
 	<parent>
 		<groupId>de.bio-hazard</groupId>
-		<artifactId>SecureMessageServer</artifactId>
+		<artifactId>securemessage-server</artifactId>
 		<version>${app.version}</version>
 		<relativePath>..</relativePath>
 	</parent>
 
-	<artifactId>SecureMessageServerFacade</artifactId>
+	<artifactId>securemessage-server-facade</artifactId>
 
 
 	<dependencies>
 
 		<dependency>
 			<groupId>de.bio-hazard</groupId>
-			<artifactId>SecureMessageServerService</artifactId>
+			<artifactId>securemessage-server-service</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>de.bio-hazard</groupId>
+			<artifactId>securemessage-tec-framework</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 </project>

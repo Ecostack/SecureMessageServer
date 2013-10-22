@@ -16,18 +16,21 @@ import de.bio.hazard.securemessage.tecframework.exception.EncryptionExceptionBio
 @Component
 public class MessageWebservice {
 
-    @Autowired
-    private MessageFacade messageFassade;
+	@Autowired
+	private MessageFacade messageFassade;
 
-    @WebMethod
-    public void addMessage(MessageWebserviceDTO pMessageDTO) throws EncryptionExceptionBiohazard {
-	System.err.println("Start add Message");
-	messageFassade.addMessage(pMessageDTO);
-	System.err.println("End add Message");
-    }
-    
-    @WebMethod
-    public RequestMessageWebserviceReturnDTO getMessages(RequestMessageWebserviceDTO pRequestMessageDTO) throws EncryptionExceptionBiohazard{
-	return messageFassade.getMessages(pRequestMessageDTO);
-    }
+	@WebMethod
+	public void addMessage(MessageWebserviceDTO pMessageDTO)
+			throws EncryptionExceptionBiohazard {
+		System.err.println("Start add Message");
+		messageFassade.addMessage(pMessageDTO);
+		System.err.println("End add Message");
+	}
+
+	@WebMethod
+	public RequestMessageWebserviceReturnDTO getMessages(
+			RequestMessageWebserviceDTO pRequestMessageDTO)
+			throws EncryptionExceptionBiohazard {
+		return messageFassade.getMessages(pRequestMessageDTO);
+	}
 }

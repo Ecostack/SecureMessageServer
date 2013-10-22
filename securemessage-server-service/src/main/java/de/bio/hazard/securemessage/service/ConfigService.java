@@ -14,10 +14,10 @@ public interface ConfigService {
 	void deleteConfig(Config pConfig);
 
 	Config getConfigById(long pID);
-	
+
 	Config getConfigByRunningNumber(int pRunningNumber);
-	
-	Config getConfigByEnumType(ConfigType pType) ;
+
+	Config getConfigByEnumType(ConfigType pType);
 
 	List<Config> getConfigs();
 }
