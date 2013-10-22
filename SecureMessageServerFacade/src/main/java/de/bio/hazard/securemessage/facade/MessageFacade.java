@@ -92,9 +92,8 @@ public class MessageFacade {
 
 		MessageContentKey lcMessageContentKey = messageContentKeyService.getMessagesContentKeysByMessageAndMessageContent(lcMessage.getId(), lcMessageContent.getId());
 		MessageContentKeyWebserviceDTO lcContentKeyWebserviceDTO = new MessageContentKeyWebserviceDTO();
-		lcContentKeyWebserviceDTO.setSymmetricEncryptionKey(lcContentKeyWebserviceDTO.getSymmetricEncryptionKey());
+		lcContentKeyWebserviceDTO.setSymmetricEncryptionKey(lcMessageContentKey.getSymmetricEncryptionKey());
 		lcContentWebserviceDTO.getSymmetricKeys().add(lcContentKeyWebserviceDTO);
-
 		lcMessageWebserviceDTO.getContent().add(lcContentWebserviceDTO);
 	    }
 	    lcRequestMessageReturnDTO.getMessages().add(lcMessageWebserviceDTO);
@@ -137,7 +136,7 @@ public class MessageFacade {
 		    // XXX oder Vergleich über User?
 		    if (lcMessage.getReceiver().getUsername().equals(lcMessageContentKeyWDTO.getUsername())) {
 			MessageContentKey lcMessageContentKey = new MessageContentKey();
-			lcMessageContentKey.setSynchEncryptionKey(lcMessageContentKeyWDTO.getSymmetricEncryptionKey());
+			lcMessageContentKey.setSymmetricEncryptionKey(lcMessageContentKeyWDTO.getSymmetricEncryptionKey());
 			lcMessageContentKey.setMessageContent(lcMessageContent);
 			lcMessageContentKey.setMessage(lcMessage);
 			messageContentKeyService.addMessageContentKey(lcMessageContentKey);
@@ -190,9 +189,12 @@ public class MessageFacade {
 	RequestMessageWebserviceReturnDTO lcRequestMessageWebserviceReturnDTO = pRequestMessageReturnDTO;
 	try {
 	    byte[] lcDevicePublicKey = pDevice.getPublicAsyncKey();
-	    byte[] lcSymmetricKey = symmetricKeygen.getKey(128);
+	    byte[] lcSymmetricKey = //symmetricKeygen.getKey(128);
+		    //TODO NicoH; DEBUG!!
+		    new byte[] {57, -104, 10, -47, 66, 8, -17, -19, 126, -23, 92, -92, -116, -66, 111, 100};
 	    
 	    lcRequestMessageWebserviceReturnDTO.setSymEncryptionKey(encryptionObjectModifier.asymmetricEncrypt(lcSymmetricKey, lcDevicePublicKey, false));
+	    System.err.println("encryptedKey: "+lcRequestMessageWebserviceReturnDTO.getSymEncryptionKey());
 	    for(MessageWebserviceDTO lcMessage : lcRequestMessageWebserviceReturnDTO.getMessages()) {
 		for(MessageContentWebserviceDTO lcMessageContent : lcMessage.getContent()) {
 		    lcMessageContent.setData(encryptionObjectModifier.symmetricEncrypt(lcMessageContent.getData(), lcSymmetricKey));

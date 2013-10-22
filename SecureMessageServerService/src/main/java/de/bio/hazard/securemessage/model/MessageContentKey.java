@@ -47,7 +47,7 @@ public class MessageContentKey {
 	@Column(unique = false, nullable = false)
 	//@Lob
 	//private byte[] synchEncryptionKey;
-	private String synchEncryptionKey;
+	private String symmetricEncryptionKey;
 
 	public long getId() {
 		return id;
@@ -65,12 +65,12 @@ public class MessageContentKey {
 //		this.synchEncryptionKey = synchEncryptionKey;
 //	}
 	
-	public String getSynchEncryptionKey() {
-	    return synchEncryptionKey;
+	public String getSymmetricEncryptionKey() {
+	    return symmetricEncryptionKey;
 	}
 
-	public void setSynchEncryptionKey(String synchEncryptionKey) {
-	    this.synchEncryptionKey = synchEncryptionKey;
+	public void setSymmetricEncryptionKey(String synchEncryptionKey) {
+	    this.symmetricEncryptionKey = synchEncryptionKey;
 	}
 
 	public Message getMessage() {

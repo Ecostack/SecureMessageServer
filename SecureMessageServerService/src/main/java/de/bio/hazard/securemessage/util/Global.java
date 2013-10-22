@@ -162,25 +162,25 @@ public class Global {
 		MessageContentKey lcMCK = new MessageContentKey();
 		lcMCK.setMessage(lcMessage);
 		lcMCK.setMessageContent(lcMessageContent);
-		lcMCK.setSynchEncryptionKey("SymmetricEncryptionKey Content1 (encrypted for User "+lcMessage.getReceiver().getName()+")");
+		lcMCK.setSymmetricEncryptionKey("SymmetricEncryptionKey Content1 (encrypted for User "+lcMessage.getReceiver().getName()+")");
 		messageContentKeyService.addMessageContentKey(lcMCK);
 		
 		MessageContentKey lcMCK2 = new MessageContentKey();
 		lcMCK2.setMessage(lcMessage);
 		lcMCK2.setMessageContent(lcMessageContent2);
-		lcMCK2.setSynchEncryptionKey("SymmetricEncryptionKey Content2 (encrypted for User "+lcMessage.getReceiver().getName()+")");
+		lcMCK2.setSymmetricEncryptionKey("SymmetricEncryptionKey Content2 (encrypted for User "+lcMessage.getReceiver().getName()+")");
 		messageContentKeyService.addMessageContentKey(lcMCK2);
 		
 		MessageContentKey lcMCK3 = new MessageContentKey();
 		lcMCK3.setMessage(lcMessage2);
 		lcMCK3.setMessageContent(lcMessageContent);
-		lcMCK3.setSynchEncryptionKey("SymmetricEncryptionKey Content1 (encrypted for User "+lcMessage2.getReceiver().getName()+")");
+		lcMCK3.setSymmetricEncryptionKey("SymmetricEncryptionKey Content1 (encrypted for User "+lcMessage2.getReceiver().getName()+")");
 		messageContentKeyService.addMessageContentKey(lcMCK3);
 		
 		MessageContentKey lcMCK4 = new MessageContentKey();
 		lcMCK4.setMessage(lcMessage2);
 		lcMCK4.setMessageContent(lcMessageContent2);
-		lcMCK4.setSynchEncryptionKey("SymmetricEncryptionKey Content2 (encrypted for User "+lcMessage2.getReceiver().getName()+")");
+		lcMCK4.setSymmetricEncryptionKey("SymmetricEncryptionKey Content2 (encrypted for User "+lcMessage2.getReceiver().getName()+")");
 		messageContentKeyService.addMessageContentKey(lcMCK4);
 		
 		log.debug("Global init - Message OK");
